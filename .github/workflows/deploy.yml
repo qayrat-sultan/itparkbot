@@ -30,4 +30,4 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
         script: |
           /root/itparkbot/venv/bin/pip install -r /root/itparkbot/req.txt
-          /root/itparkbot/venv/bin/python flake8
+          /root/itparkbot/venv/bin/flake8
