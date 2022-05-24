@@ -10,6 +10,7 @@ from aiogram.utils.callback_data import CallbackData
 from aiogram.contrib.fsm_storage.mongo import MongoStorage
 
 import kbs
+import texts
 
 BOT_TOKEN = configs.BOT_TOKEN
 
@@ -32,12 +33,22 @@ class SetReport(StatesGroup):
     report = State()
 
 
+class SetState(StatesGroup):
+    lang = State()
+    menu = State()
+    about = State()
+    courses = State()
+    centers = State()
+    contacts = State()
+
+
 @dp.message_handler(commands="start")
 async def cmd_start(message: types.Message, locale):
-    await configs.collusers.insert_one({"id": "1"})
-    await bot.send_message(message.from_user.id, _("Hello, <b>{user}</b>!",
+    print("ASDASDAS")
+    await SetState.lang.set()
+    await bot.send_message(message.from_user.id, _(texts.start_text,
                                                    locale=locale).format(user=message.from_user.full_name),
-                           reply_markup=await kbs.start_keyboard(locale))  # required use bot.send_message!
+                           reply_markup=await kbs.start_inline_kb(locale))  # required use bot.send_message!
 
 
 @dp.message_handler(commands="lang")
@@ -112,15 +123,25 @@ async def report_process(message: types.Message, state: FSMContext):
     await handlers.report_process_handler(message, state, bot)
 
 
-@dp.callback_query_handler(lambda call: call.data.startswith('lang'))
-async def language_set(callback: types.CallbackQuery):
+@dp.callback_query_handler(lambda call: call.data.startswith('lang'), state=SetState.lang)
+async def language_set(callback: types.CallbackQuery, state: FSMContext):
     lang = callback.data.split(":")[1]
+    async with state.proxy() as data:
+        data['name'] = lang
     configs.LANG_STORAGE[callback.from_user.id] = lang
     configs.collusers.update_one({"_id": int(callback.from_user.id)}, {
         "$set": {"lang": lang}})
     await callback.answer(_("Selected", locale=lang))
-    await callback.message.delete()
-    await cmd_start(message=callback, locale=lang)
+    # await callback.message.delete()
+    await callback.message.answer_photo(
+        photo="AgACAgIAAxkBAAP2YozhLp0an0_6-CfrBtMj1iBFDLEAAtu6MRu-UGlIPcdscfWcjy0BAAMCAAN5AAMkBA",
+        caption=texts.about_text,
+        reply_markup=await kbs.start_inline_kb(lang)
+    )
+    await SetState.about.set()
+
+    # await state.finish()
+    # await cmd_start(message=callback, locale=lang)
 
 
 @dp.edited_message_handler()
