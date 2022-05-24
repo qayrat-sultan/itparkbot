@@ -1,14 +1,12 @@
-import admin_commands
-import configs
-import handlers
-
-from aiogram import Bot, Dispatcher, executor, types, utils
+from aiogram import Bot, Dispatcher, executor, types
+from aiogram.contrib.fsm_storage.mongo import MongoStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.utils.callback_data import CallbackData
 
-from aiogram.contrib.fsm_storage.mongo import MongoStorage
-
+import admin_commands
+import configs
+import handlers
 import kbs
 import texts
 
@@ -18,7 +16,6 @@ BOT_TOKEN = configs.BOT_TOKEN
 bot = Bot(BOT_TOKEN, parse_mode=types.ParseMode.HTML)
 storage = MongoStorage(uri=configs.MONGO_URL)
 dp = Dispatcher(bot, storage=storage)
-
 
 # Setup i18n middleware
 i18n = configs.Localization(configs.I18N_DOMAIN,
@@ -35,20 +32,21 @@ class SetReport(StatesGroup):
 
 class SetState(StatesGroup):
     lang = State()
-    menu = State()
-    about = State()
-    courses = State()
-    centers = State()
-    contacts = State()
 
 
-@dp.message_handler(commands="start")
+@dp.message_handler(commands="start", state="*")
 async def cmd_start(message: types.Message, locale):
     print("ASDASDAS")
-    await SetState.lang.set()
-    await bot.send_message(message.from_user.id, _(texts.start_text,
-                                                   locale=locale).format(user=message.from_user.full_name),
-                           reply_markup=await kbs.start_inline_kb(locale))  # required use bot.send_message!
+    # print(await configs.collusers.count_documents({"_id": message.from_user.id}))
+    # print(await configs.collusers.find_one({}))
+    if await configs.collusers.count_documents({"_id": message.from_user.id}) < 1:
+        await SetState.lang.set()
+        await message.answer(_(texts.start_text, locale=locale),
+                             reply_markup=await kbs.start_inline_kb(locale),
+                             parse_mode="HTML")  # required use bot.send_message!
+    else:
+        await message.answer(_(texts.menu_text, locale=locale),
+                             reply_markup=await kbs.menu_inline_kb(locale))
 
 
 @dp.message_handler(commands="lang")
@@ -126,22 +124,48 @@ async def report_process(message: types.Message, state: FSMContext):
 @dp.callback_query_handler(lambda call: call.data.startswith('lang'), state=SetState.lang)
 async def language_set(callback: types.CallbackQuery, state: FSMContext):
     lang = callback.data.split(":")[1]
-    async with state.proxy() as data:
-        data['name'] = lang
+
     configs.LANG_STORAGE[callback.from_user.id] = lang
     configs.collusers.update_one({"_id": int(callback.from_user.id)}, {
         "$set": {"lang": lang}})
     await callback.answer(_("Selected", locale=lang))
     # await callback.message.delete()
-    await callback.message.answer_photo(
-        photo="AgACAgIAAxkBAAP2YozhLp0an0_6-CfrBtMj1iBFDLEAAtu6MRu-UGlIPcdscfWcjy0BAAMCAAN5AAMkBA",
-        caption=texts.about_text,
-        reply_markup=await kbs.start_inline_kb(lang)
-    )
-    await SetState.about.set()
+    await callback.message.edit_text(texts.menu_text)
+    await callback.message.edit_reply_markup(await kbs.menu_inline_kb(lang))
+
+    await state.finish()
+
+    # await callback.message.answer(texts.menu_text, reply_markup=await kbs.menu_inline_kb(lang))
 
     # await state.finish()
     # await cmd_start(message=callback, locale=lang)
+
+
+@dp.callback_query_handler(lambda call: call.data.endswith("back"), state='*')
+async def main_menu(callback: types.CallbackQuery, locale):
+    print("HELLOOOOO")
+    await callback.answer()
+    await callback.message.delete()
+    await callback.message.answer(_(texts.menu_text), reply_markup=await kbs.menu_inline_kb(locale))
+
+
+@dp.callback_query_handler(lambda call: call.data.endswith("register"), state='*')
+async def register_func(callback: types.CallbackQuery, locale):
+    await callback.answer("THIS")
+    await callback.message.delete()
+    await callback.message.answer_photo(
+        "AgACAgIAAxkBAAICEmKNPlr4Z4n3XFFoy9TUFa09iSufAALcujEbvlBpSC8VhjNUbvryAQADAgADeQADJAQ",
+        reply_markup=await kbs.register_inline_kb(locale),
+        caption=_(texts.register_list_text)
+    )
+
+
+@dp.callback_query_handler(lambda call: call.data.endswith("about"), state='*')
+async def menu_func(callback: types.CallbackQuery, locale):
+    print("ASDSDSA", callback)
+    await callback.answer()
+    await callback.message.edit_text(_(texts.about_text))
+    await callback.message.edit_reply_markup(await kbs.about_inline_kb(locale=locale))
 
 
 @dp.edited_message_handler()
@@ -167,6 +191,8 @@ async def some_handler(chat_member: types.ChatMemberUpdated):
 @dp.message_handler(content_types=configs.all_content_types)
 async def some_text(message: types.Message):
     print("DADA", message)
+    if message.photo:
+        print(message.photo)
     print(configs.LANG_STORAGE)
     await handlers.some_text_handler(message, bot)
 

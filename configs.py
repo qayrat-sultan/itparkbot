@@ -26,7 +26,7 @@ GROUP_ID = int(os.getenv("GROUP_ID"))
 
 # Language
 LANG_STORAGE = {}
-LANGS = ["ru", "en", "uz", "uk"]
+LANGS = ["ru", "uz"]
 I18N_DOMAIN = "mybot"
 BASE_DIR = Path(__file__).parent
 LOCALES_DIR = BASE_DIR / "locales"
