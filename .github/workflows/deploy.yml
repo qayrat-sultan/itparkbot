@@ -29,7 +29,6 @@ jobs:
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
         script: |
-          cd /root/itparkbot
-          source venv/bin/activate
+          source /root/itparkbot/venv/bin/activate
           pip install -r req.txt
           python3 -m flake8
