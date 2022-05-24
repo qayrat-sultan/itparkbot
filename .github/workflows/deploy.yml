@@ -30,4 +30,5 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
         script: |
           /root/itparkbot/venv/bin/pip install -r /root/itparkbot/req.txt
+          systemctl restart itparkbot.service
 #          /root/itparkbot/venv/bin/flake8 /root/itparkbot/
