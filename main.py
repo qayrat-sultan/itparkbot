@@ -104,6 +104,17 @@ async def report(message: types.Message):
     await message.answer("Bizga o'z takliflaringizni yuboring!")
 
 
+@dp.message_handler(commands="centers", state="*")
+async def centers_menu(message: types.Message, locale, state: FSMContext):
+    x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
+    await x.delete()
+    await message.answer_photo(
+        center_photo,
+        reply_markup=await kbs.register_inline_kb(locale),
+        caption=_(texts.register_list_text)
+    )
+
+
 @dp.message_handler(state=SetReport.report,
                     content_types=configs.all_content_types)
 async def report_process(message: types.Message, state: FSMContext):
@@ -111,48 +122,29 @@ async def report_process(message: types.Message, state: FSMContext):
 
 
 @dp.message_handler(state=SetRegister.fio, content_types="text")
-async def set_fio_process(message: types.Message, state: FSMContext):
+async def set_fio_process(message: types.Message, locale, state: FSMContext):
+    if message.text == _(texts.back_reply_button):
+        return await centers_menu(message, locale, state)
     async with state.proxy() as data:
         data['fio'] = message.text
     await SetRegister.tel.set()
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.add("📞 Raqamni yuborish")
-    markup.add("⬅️ Ortga")
-    await message.answer("Iltimos, telefon raqamingizni kiriting yoki «Raqamni yuborish» tugmasini bosing. \n\n"
-                         "Misol uchun: +998 90 123-45-67", reply_markup=markup)
-
-
-@dp.edited_message_handler(state=SetRegister.fio)
-async def msg_handler(message: types.Message, locale, state: FSMContext):
-    async with state.proxy() as data:
-        data['fio'] = message.text
-    await SetRegister.tel.set()
+    markup.add(texts.phone_add_button)
+    markup.add(texts.back_reply_button)
+    await message.answer(_(texts.phone_add_text), reply_markup=markup)
 
 
 @dp.message_handler(state=SetRegister.tel, content_types="text")
-async def set_fio_process(message: types.Message, state: FSMContext):
+async def set_fio_process(message: types.Message, locale, state: FSMContext):
     x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
     await x.delete()
+    if message.text == _(texts.back_reply_button):
+        await message.answer(_(texts.fio_answer_text), reply_markup=await kbs.reply_back(locale))
+        return await SetRegister.fio.set()
     async with state.proxy() as data:
         data['tel'] = message.text
     await SetRegister.sex.set()
-    confirm_sex = CallbackData('sex', 'action')
-    markup = types.InlineKeyboardMarkup(
-        inline_keyboard=[
-            [
-                types.InlineKeyboardButton("🙎🏻‍♂️ Erkak",
-                                           callback_data=confirm_sex.new(action="erkak")),
-
-                types.InlineKeyboardButton("🙎🏻‍♀️ Ayol",
-                                           callback_data=confirm_sex.new(action="ayol")),
-            ],
-            [
-                types.InlineKeyboardButton("⬅️ Ortga",
-                                           callback_data=confirm_sex.new(action="back_tel"))
-            ]
-        ],
-    )
-    await message.answer("Iltimos, jinsingizni tanlang", reply_markup=markup)
+    await message.answer(_(texts.sex_answer_text), reply_markup=await kbs.sex_inline(locale))
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith('back_tel'), state="*")
@@ -160,13 +152,8 @@ async def back_to_tel_process(callback: types.CallbackQuery, locale, state: FSMC
     print("BUUUUUUUT")
     await callback.answer()
     await SetRegister.tel.set()
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.add("📞 Raqamni yuborish")
-    markup.add("⬅️ Ortga")
     await callback.message.delete()
-    await callback.message.answer(_("Iltimos, telefon raqamingizni kiriting yoki «Raqamni yuborish» "
-                                    "tugmasini bosing \n\n"
-                                    "Misol uchun: +998 90 123-45-67"), reply_markup=markup)
+    await callback.message.answer(_(texts.phone_add_text), reply_markup=await kbs.reply_back(locale, phone=True))
 
 
 @dp.callback_query_handler(lambda call: call.data.startswith('sex'), state=SetRegister.sex)
@@ -177,16 +164,29 @@ async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMConte
         data['sex'] = callback.data.split(":")[1]
     await SetRegister.age.set()
     await callback.message.delete()
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.add("⬅️ Ortga")
-    await callback.message.answer(_("Iltimos, yoshingizni kiriting"), reply_markup=markup)
+    await callback.message.answer(_(texts.age_answer_text), reply_markup=await kbs.reply_back(locale))
 
 
 @dp.message_handler(state=SetRegister.age, content_types="text")
-async def set_fio_process(message: types.Message, state: FSMContext):
-    x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
+async def set_fio_process(message: types.Message, locale, state: FSMContext):
     async with state.proxy() as data:
-        data['age'] = message.text
+        if message.text == _(texts.back_reply_button):
+            await message.answer(_(texts.sex_answer_text), reply_markup=await kbs.sex_inline(locale))
+            return await SetRegister.sex.set()
+        if message.text.isdigit() and 7 < int(message.text) < 60:
+            data['age'] = message.text
+            await message.answer(_(texts.result_answer_text).format(fio=data.get('fio'),
+                                                                    sex=data.get('sex'),
+                                                                    age=data.get('age'),
+                                                                    center=data.get('register'),
+                                                                    course=data.get('courses'),
+                                                                    phone=data.get('tel')
+                                                                    ),
+                                 reply_markup=types.ReplyKeyboardRemove())
+            print(data)
+        else:
+            await message.answer(_(texts.error_answer_text), reply_markup=await kbs.reply_back(locale))
+            return await SetRegister.age.set()
     confirm_button = CallbackData('confirm', 'action')
     markup = types.InlineKeyboardMarkup(
         inline_keyboard=[
@@ -207,9 +207,10 @@ async def set_fio_process(message: types.Message, state: FSMContext):
 @dp.callback_query_handler(lambda call: call.data.startswith('confirm'), state="*")
 async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMContext):
     await callback.answer()
+    await callback.message.delete()
     async with state.proxy() as data:
         if callback.data.split(":")[1] == "yes":
-            print(data)
+            await callback.message.answer(_(texts.success_message_text))
             await state.finish()
         else:
             await state.finish()
@@ -295,8 +296,8 @@ async def reg_couse_func(callback: types.CallbackQuery, locale, state: FSMContex
     print("@@@##########@@@@@@@@")
     await callback.message.delete()
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.add("⬅️ Ortga")
-    await callback.message.answer("AAAAAAAAAAAAAAAAAAAA", reply_markup=markup)
+    markup.add(texts.back_reply_button)
+    await callback.message.answer(_(texts.fio_answer_text), reply_markup=markup)
     await SetRegister.fio.set()
 
 

@@ -1,6 +1,7 @@
 from aiogram import types
 from aiogram.utils.callback_data import CallbackData
 
+import texts
 from main import _
 
 
@@ -180,3 +181,31 @@ async def menu_inline_kb(locale):
         ],
     )
     return inline_key
+
+
+async def sex_inline(locale):
+    confirm_sex = CallbackData('sex', 'action')
+    inline_key = types.InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                types.InlineKeyboardButton("🙎🏻‍♂️ Erkak",
+                                           callback_data=confirm_sex.new(action="erkak")),
+
+                types.InlineKeyboardButton("🙎🏻‍♀️ Ayol",
+                                           callback_data=confirm_sex.new(action="ayol")),
+            ],
+            [
+                types.InlineKeyboardButton("⬅️ Ortga",
+                                           callback_data=confirm_sex.new(action="back_tel"))
+            ]
+        ],
+    )
+    return inline_key
+
+
+async def reply_back(locale, phone=None):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    if phone:
+        markup.add(texts.phone_add_button)
+    markup.add(texts.back_reply_button)
+    return markup
