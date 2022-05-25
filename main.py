@@ -34,26 +34,30 @@ class SetState(StatesGroup):
     lang = State()
 
 
+class SetRegister(StatesGroup):
+    fio = State()
+    sex = State()
+    age = State()
+    center = State()
+    course = State()
+    tel = State()
+
+
 @dp.message_handler(commands="start", state="*")
-async def cmd_start(message: types.Message, locale):
-    print("ASDASDAS")
+async def cmd_start(message: types.Message, locale, state: FSMContext):
+    async with state.proxy() as data:
+        data.clear()
+    x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
+    await x.delete()
     # print(await configs.collusers.count_documents({"_id": message.from_user.id}))
     # print(await configs.collusers.find_one({}))
     if await configs.collusers.count_documents({"_id": message.from_user.id}) < 1:
-        await SetState.lang.set()
         await message.answer(_(texts.start_text, locale=locale),
                              reply_markup=await kbs.start_inline_kb(locale),
                              parse_mode="HTML")  # required use bot.send_message!
     else:
         await message.answer(_(texts.menu_text, locale=locale),
                              reply_markup=await kbs.menu_inline_kb(locale))
-
-
-@dp.message_handler(commands="lang")
-async def cmd_lang(message: types.Message, locale):
-    await message.answer(
-        _("Your current language: <i>{language}</i>").format(language=locale)
-    )
 
 
 @dp.message_handler(commands="setlang")
@@ -72,21 +76,6 @@ async def cmd_setlang(message: types.Message):
         ],
     )
     await message.answer(_("Select this lang"), reply_markup=inline_key)
-
-
-@dp.message_handler(text=_("One"))
-async def text_one(message: types.Message):
-    await message.answer(_("Really one"))
-
-
-@dp.message_handler(text=_("Two"))
-async def text_two(message: types.Message):
-    await message.answer(_("Really two"))
-
-
-@dp.message_handler(text=_("Three"))
-async def text_three(message: types.Message):
-    await message.answer(_("Really three"))
 
 
 @dp.message_handler(commands='lang')
@@ -121,51 +110,195 @@ async def report_process(message: types.Message, state: FSMContext):
     await handlers.report_process_handler(message, state, bot)
 
 
-@dp.callback_query_handler(lambda call: call.data.startswith('lang'), state=SetState.lang)
-async def language_set(callback: types.CallbackQuery, state: FSMContext):
-    lang = callback.data.split(":")[1]
+@dp.message_handler(state=SetRegister.fio, content_types="text")
+async def set_fio_process(message: types.Message, state: FSMContext):
+    async with state.proxy() as data:
+        data['fio'] = message.text
+    await SetRegister.tel.set()
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    markup.add("📞 Raqamni yuborish")
+    markup.add("⬅️ Ortga")
+    await message.answer("Iltimos, telefon raqamingizni kiriting yoki «Raqamni yuborish» tugmasini bosing. \n\n"
+                         "Misol uchun: +998 90 123-45-67", reply_markup=markup)
 
+
+@dp.edited_message_handler(state=SetRegister.fio)
+async def msg_handler(message: types.Message, locale, state: FSMContext):
+    async with state.proxy() as data:
+        data['fio'] = message.text
+    await SetRegister.tel.set()
+
+
+@dp.message_handler(state=SetRegister.tel, content_types="text")
+async def set_fio_process(message: types.Message, state: FSMContext):
+    x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
+    await x.delete()
+    async with state.proxy() as data:
+        data['tel'] = message.text
+    await SetRegister.sex.set()
+    confirm_sex = CallbackData('sex', 'action')
+    markup = types.InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                types.InlineKeyboardButton("🙎🏻‍♂️ Erkak",
+                                           callback_data=confirm_sex.new(action="erkak")),
+
+                types.InlineKeyboardButton("🙎🏻‍♀️ Ayol",
+                                           callback_data=confirm_sex.new(action="ayol")),
+            ],
+            [
+                types.InlineKeyboardButton("⬅️ Ortga",
+                                           callback_data=confirm_sex.new(action="back_tel"))
+            ]
+        ],
+    )
+    await message.answer("Iltimos, jinsingizni tanlang", reply_markup=markup)
+
+
+@dp.callback_query_handler(lambda call: call.data.endswith('back_tel'), state="*")
+async def back_to_tel_process(callback: types.CallbackQuery, locale, state: FSMContext):
+    print("BUUUUUUUT")
+    await callback.answer()
+    await SetRegister.tel.set()
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    markup.add("📞 Raqamni yuborish")
+    markup.add("⬅️ Ortga")
+    await callback.message.delete()
+    await callback.message.answer(_("Iltimos, telefon raqamingizni kiriting yoki «Raqamni yuborish» "
+                                    "tugmasini bosing \n\n"
+                                    "Misol uchun: +998 90 123-45-67"), reply_markup=markup)
+
+
+@dp.callback_query_handler(lambda call: call.data.startswith('sex'), state=SetRegister.sex)
+async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMContext):
+    print("TUUUT")
+    await callback.answer()
+    async with state.proxy() as data:
+        data['sex'] = callback.data.split(":")[1]
+    await SetRegister.age.set()
+    await callback.message.delete()
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    markup.add("⬅️ Ortga")
+    await callback.message.answer(_("Iltimos, yoshingizni kiriting"), reply_markup=markup)
+
+
+@dp.message_handler(state=SetRegister.age, content_types="text")
+async def set_fio_process(message: types.Message, state: FSMContext):
+    x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
+    async with state.proxy() as data:
+        data['age'] = message.text
+    confirm_button = CallbackData('confirm', 'action')
+    markup = types.InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                types.InlineKeyboardButton("✅️ Tasdiqlash",
+                                           callback_data=confirm_button.new(action="yes")),
+            ],
+            [
+                types.InlineKeyboardButton("❌ Bekor qilish",
+                                           callback_data=confirm_button.new(action="no"))
+            ]
+        ],
+    )
+    await message.answer("Iltimos, yuqoridagi ma’lumotlarizni tekshiring va «Tasdiqlash» tugmasini bosing.",
+                         reply_markup=markup)
+
+
+@dp.callback_query_handler(lambda call: call.data.startswith('confirm'), state="*")
+async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMContext):
+    await callback.answer()
+    async with state.proxy() as data:
+        if callback.data.split(":")[1] == "yes":
+            print(data)
+            await state.finish()
+        else:
+            await state.finish()
+            return await back_menu(callback, locale, state)
+
+
+@dp.callback_query_handler(lambda call: call.data.startswith('lang'), state="*")
+async def language_set(callback: types.CallbackQuery):
+    print("^^^^^^^^^^^^", callback.data)
+    lang = callback.data.split(":")[1]
     configs.LANG_STORAGE[callback.from_user.id] = lang
     configs.collusers.update_one({"_id": int(callback.from_user.id)}, {
         "$set": {"lang": lang}})
     await callback.answer(_("Selected", locale=lang))
     # await callback.message.delete()
-    await callback.message.edit_text(texts.menu_text)
-    await callback.message.edit_reply_markup(await kbs.menu_inline_kb(lang))
-
-    await state.finish()
-
-    # await callback.message.answer(texts.menu_text, reply_markup=await kbs.menu_inline_kb(lang))
-
-    # await state.finish()
-    # await cmd_start(message=callback, locale=lang)
+    await callback.message.edit_text(texts.menu_text, reply_markup=await kbs.menu_inline_kb(lang))
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("back"), state='*')
-async def main_menu(callback: types.CallbackQuery, locale):
+async def back_menu(callback: types.CallbackQuery, locale, state: FSMContext):
     print("HELLOOOOO")
+    print("&&&&&&&&&&&&&", callback.data)
+    async with state.proxy() as data:
+        data.clear()
+        await state.finish()
     await callback.answer()
     await callback.message.delete()
     await callback.message.answer(_(texts.menu_text), reply_markup=await kbs.menu_inline_kb(locale))
 
 
+@dp.callback_query_handler(lambda call: call.data.endswith("menu"), state='*')
+async def main_menu(callback: types.CallbackQuery, locale):
+    print("#$#$#$#$#$#$#$", callback.data)
+    await callback.answer()
+    # await callback.message.delete()
+    await callback.message.edit_text(_(texts.menu_text), reply_markup=await kbs.menu_inline_kb(locale))
+
+
 @dp.callback_query_handler(lambda call: call.data.endswith("register"), state='*')
-async def register_func(callback: types.CallbackQuery, locale):
+async def register_func(callback: types.CallbackQuery, locale, state: FSMContext):
+    print("CCCCCCCCCCCCCCCCCCCCCCCC", callback.data)
+    await SetRegister.center.set()
     await callback.answer("THIS")
     await callback.message.delete()
     await callback.message.answer_photo(
-        "AgACAgIAAxkBAAICEmKNPlr4Z4n3XFFoy9TUFa09iSufAALcujEbvlBpSC8VhjNUbvryAQADAgADeQADJAQ",
+        center_photo,
         reply_markup=await kbs.register_inline_kb(locale),
         caption=_(texts.register_list_text)
     )
 
 
+@dp.callback_query_handler(lambda call: call.data.endswith("courses"), state='*')  # END WITH
+async def register_func(callback: types.CallbackQuery, locale):
+    print("@@@@@@@@@@@@@@@@@@@@@@@@", callback.data)
+    await SetRegister.course.set()
+    await callback.answer("THIS")
+    await callback.message.delete()
+    await callback.message.answer_photo(
+        course_photo,
+        reply_markup=await kbs.courses_inline_kb(locale),
+        caption=_(texts.courses_text)
+    )
+    await SetRegister.course.set()
+
+
+@dp.callback_query_handler(lambda call: call.data.endswith("contacts"), state='*')
+async def register_func(callback: types.CallbackQuery, locale):
+    print("@#@#@#@#@#@#@#@#@#@#", callback.data)
+    await callback.answer("THIS")
+    await callback.message.edit_text(_(texts.contact_text), parse_mode="HTML",
+                                     reply_markup=await kbs.contacts_inline_kb(locale))
+
+
 @dp.callback_query_handler(lambda call: call.data.endswith("about"), state='*')
 async def menu_func(callback: types.CallbackQuery, locale):
-    print("ASDSDSA", callback)
+    print("ASDSDSA", callback.data)
     await callback.answer()
-    await callback.message.edit_text(_(texts.about_text))
-    await callback.message.edit_reply_markup(await kbs.about_inline_kb(locale=locale))
+    await callback.message.edit_text(_(texts.about_text), reply_markup=await kbs.about_inline_kb(locale=locale))
+
+
+@dp.callback_query_handler(lambda call: call.data.endswith("reg"), state="*")
+async def reg_couse_func(callback: types.CallbackQuery, locale, state: FSMContext):
+    print("@@@##########@@@@@@@@")
+    await callback.message.delete()
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    markup.add("⬅️ Ortga")
+    await callback.message.answer("AAAAAAAAAAAAAAAAAAAA", reply_markup=markup)
+    await SetRegister.fio.set()
+
 
 
 @dp.edited_message_handler()
@@ -212,9 +345,50 @@ async def some_error(baba, error):
     print("error", baba, error)
 
 
-@dp.callback_query_handler(lambda callback_query: True)
-async def some_callback(callback: types.CallbackQuery):
-    print(callback)
+course_photo = "AgACAgIAAxkBAAICcmKNujT5CiVGIURN1Gcwm7vj4RW1AALjujEbvlBpSC99THVlwFciAQADAgADeQADJAQ"
+center_photo = "AgACAgIAAxkBAAICcmKNujT5CiVGIURN1Gcwm7vj4RW1AALjujEbvlBpSC99THVlwFciAQADAgADeQADJAQ"
+web_photo = "AgACAgIAAxkBAAID5GKN3oOYqbp54aNQOP6q0sSycFwDAAKMuDEb3phxSFxfJ3YjQ09rAQADAgADeQADJAQ"
+scratch_photo = "AgACAgIAAxkBAAID8mKN3x87x3sZdSbi9ukazEagVuzSAALfujEbvlBpSFCFqiFR90h8AQADAgADeQADJAQ"
+smm_photo = "AgACAgIAAxkBAAID8GKN3wGtjwcyFaIrm-IZX4cs1D2vAALeujEbvlBpSAABsa98vYw71gEAAwIAA3kAAyQE"
+english_photo = "AgACAgIAAxkBAAID7mKN3vceT4GUvK8_qvpIpZf-R98GAAKFuTEbjUFxSGVIjpOZP8nZAQADAgADeQADJAQ"
+graphic_photo = "AgACAgIAAxkBAAID7GKN3uzdcPwtLO_MwxT6LBXR2IYLAALBuzEbVn1wSGtLWHQel1fVAQADAgADeQADJAQ"
+mobile_photo = "AgACAgIAAxkBAAID6mKN3uE0CNb2hwkCUKKDwbHeXhdWAALdujEbvlBpSPZITwvqeM3_AQADAgADeQADJAQ"
+android_photo = "AgACAgIAAxkBAAID6GKN3tXtEIv0gmmKBKKRRFfyZCulAAK6uzEbVn1wSCsrT6ctiisTAQADAgADeQADJAQ"
+backend_photo = "AgACAgIAAxkBAAID5mKN3sckxLRa2arex6LgR2hiIZ--AALAuzEbVn1wSNMQ1qB324gHAQADAgADeQADJAQ"
+robot_photo = "AgACAgIAAxkBAAID9GKN4D8F2BlbBQABkYZKBwNk0rE2dwAC3boxG75QaUj2SE8L6njN_wEAAwIAA3kAAyQE"
+
+photo_dict = {
+    "frontend": (web_photo, texts.web_text),
+    "backend": (backend_photo, texts.backend_text),
+    "android": (android_photo, texts.android_text),
+    "robots": (robot_photo, texts.robots_text),
+    "graphics": (graphic_photo, texts.graphics_text),
+    "english": (english_photo, texts.english_text),
+    "smm": (smm_photo, texts.smm_text),
+    "scratch": (scratch_photo, texts.scratch_text)
+}
+
+
+@dp.callback_query_handler(state="*")
+async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale):
+    await callback.answer()
+    level_data, target_data = callback.data.split(":")
+    async with state.proxy() as data:
+        data[level_data] = target_data
+        print("GAAAAAAAAAAAAAAAAAA", data)
+        if not data.get('courses'):
+            await callback.message.delete()
+            await callback.message.answer_photo(course_photo, reply_markup=await kbs.courses_inline_kb(locale))
+        elif not data.get('register'):
+            await callback.message.delete()
+            await callback.message.answer_photo(course_photo, reply_markup=await kbs.register_inline_kb(locale))
+        else:
+            await callback.message.delete()
+            await callback.message.answer_photo(photo=photo_dict[data['courses']][0],
+                                                caption=_(photo_dict[data['courses']][1]),
+                                                reply_markup=await kbs.reg_inline_kb(locale),
+                                                )
+    print("##################", callback)
 
 
 if __name__ == '__main__':
