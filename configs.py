@@ -1,4 +1,5 @@
 import datetime
+import glob
 import logging
 import os
 
@@ -18,11 +19,9 @@ load_dotenv()
 # Main telegram bot configs
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-
 # Telegram chats
 ADMIN_IDS = tuple(os.getenv("ADMIN_IDS").split(","))
 GROUP_ID = int(os.getenv("GROUP_ID"))
-
 
 # Language
 LANG_STORAGE = {}
@@ -31,18 +30,16 @@ I18N_DOMAIN = "mybot"
 BASE_DIR = Path(__file__).parent
 LOCALES_DIR = BASE_DIR / "locales"
 
-
 # Database
 MONGO_URL = os.getenv("MONGO_URL")
 cluster = motor.motor_tornado.MotorClient(MONGO_URL)
 collusers = cluster.itpark.users
 collreports = cluster.itpark.reports
-
+collmedia = cluster.itpark.media
 
 # Telegam supported types
 all_content_types = ["text", "sticker", "photo",
                      "voice", "document", "video", "video_note"]
-
 
 # Logging
 if not os.getenv("DEBUG", default=False):
@@ -81,8 +78,15 @@ async def on_startup(dp):
     logging.warning("BOT STARTED")
     async for i in users_lang:
         LANG_STORAGE[i.get("_id")] = i.get("lang", "ru")
+
     for i in ADMIN_IDS:
         try:
+            for filename in glob.glob('media/*.jpg'):
+                with open(os.path.join(os.getcwd(), filename), 'rb') as f:  # open in readonly mode
+                    print(filename)
+                    x = await dp.bot.send_photo(5252535217, types.InputFile(filename))
+                    await dp.bot.send_message(5252535217, x.photo[-1])
+                    await collmedia.insert_one({"_id": filename.split("/")[1].replace(".jpg", ""), "file_id": x.photo[-1].file_id})
             await dp.bot.send_message(i, "Bot are start!")
         except (BotKicked, BotBlocked, UserDeactivated):
             pass
