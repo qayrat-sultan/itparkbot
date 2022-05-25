@@ -9,6 +9,7 @@ import configs
 import handlers
 import kbs
 import texts
+from configs import course_photo, MEDIA
 
 BOT_TOKEN = configs.BOT_TOKEN
 
@@ -109,7 +110,7 @@ async def centers_menu(message: types.Message, locale, state: FSMContext):
     x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
     await x.delete()
     await message.answer_photo(
-        center_photo,
+        MEDIA.get('centers'),
         reply_markup=await kbs.register_inline_kb(locale),
         caption=_(texts.register_list_text)
     )
@@ -256,7 +257,7 @@ async def register_func(callback: types.CallbackQuery, locale, state: FSMContext
     await callback.answer("THIS")
     await callback.message.delete()
     await callback.message.answer_photo(
-        center_photo,
+        MEDIA.get('centers'),
         reply_markup=await kbs.register_inline_kb(locale),
         caption=_(texts.register_list_text)
     )
@@ -269,7 +270,7 @@ async def register_func(callback: types.CallbackQuery, locale):
     await callback.answer("THIS")
     await callback.message.delete()
     await callback.message.answer_photo(
-        course_photo,
+        MEDIA.get('courses'),
         reply_markup=await kbs.courses_inline_kb(locale),
         caption=_(texts.courses_text)
     )
@@ -346,33 +347,19 @@ async def some_error(baba, error):
     print("error", baba, error)
 
 
-course_photo = "AgACAgIAAxkBAAICcmKNujT5CiVGIURN1Gcwm7vj4RW1AALjujEbvlBpSC99THVlwFciAQADAgADeQADJAQ"
-center_photo = "AgACAgIAAxkBAAICcmKNujT5CiVGIURN1Gcwm7vj4RW1AALjujEbvlBpSC99THVlwFciAQADAgADeQADJAQ"
-web_photo = "AgACAgIAAxkBAAID5GKN3oOYqbp54aNQOP6q0sSycFwDAAKMuDEb3phxSFxfJ3YjQ09rAQADAgADeQADJAQ"
-scratch_photo = "AgACAgIAAxkBAAID8mKN3x87x3sZdSbi9ukazEagVuzSAALfujEbvlBpSFCFqiFR90h8AQADAgADeQADJAQ"
-smm_photo = "AgACAgIAAxkBAAID8GKN3wGtjwcyFaIrm-IZX4cs1D2vAALeujEbvlBpSAABsa98vYw71gEAAwIAA3kAAyQE"
-english_photo = "AgACAgIAAxkBAAID7mKN3vceT4GUvK8_qvpIpZf-R98GAAKFuTEbjUFxSGVIjpOZP8nZAQADAgADeQADJAQ"
-graphic_photo = "AgACAgIAAxkBAAID7GKN3uzdcPwtLO_MwxT6LBXR2IYLAALBuzEbVn1wSGtLWHQel1fVAQADAgADeQADJAQ"
-mobile_photo = "AgACAgIAAxkBAAID6mKN3uE0CNb2hwkCUKKDwbHeXhdWAALdujEbvlBpSPZITwvqeM3_AQADAgADeQADJAQ"
-android_photo = "AgACAgIAAxkBAAID6GKN3tXtEIv0gmmKBKKRRFfyZCulAAK6uzEbVn1wSCsrT6ctiisTAQADAgADeQADJAQ"
-backend_photo = "AgACAgIAAxkBAAID5mKN3sckxLRa2arex6LgR2hiIZ--AALAuzEbVn1wSNMQ1qB324gHAQADAgADeQADJAQ"
-robot_photo = "AgACAgIAAxkBAAID9GKN4D8F2BlbBQABkYZKBwNk0rE2dwAC3boxG75QaUj2SE8L6njN_wEAAwIAA3kAAyQE"
-
-photo_dict = {
-    "frontend": (web_photo, texts.web_text),
-    "backend": (backend_photo, texts.backend_text),
-    "android": (android_photo, texts.android_text),
-    "robots": (robot_photo, texts.robots_text),
-    "graphics": (graphic_photo, texts.graphics_text),
-    "english": (english_photo, texts.english_text),
-    "smm": (smm_photo, texts.smm_text),
-    "scratch": (scratch_photo, texts.scratch_text)
-}
-
-
 @dp.callback_query_handler(state="*")
 async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale):
     await callback.answer()
+    photo_dict = {
+        "frontend": (MEDIA.get('frontend'), texts.web_text),
+        "backend": (MEDIA.get('backend'), texts.backend_text),
+        "android": (MEDIA.get("android"), texts.android_text),
+        "robots": (MEDIA.get('robots'), texts.robots_text),
+        "graphics": (MEDIA.get('graphic'), texts.graphics_text),
+        "english": (MEDIA.get('english'), texts.english_text),
+        "smm": (MEDIA.get('smm'), texts.smm_text),
+        "scratch": (MEDIA.get('scratch'), texts.scratch_text)
+    }
     level_data, target_data = callback.data.split(":")
     async with state.proxy() as data:
         data[level_data] = target_data

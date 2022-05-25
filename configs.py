@@ -1,3 +1,4 @@
+import asyncio
 import datetime
 import glob
 import logging
@@ -41,6 +42,9 @@ collmedia = cluster.itpark.media
 all_content_types = ["text", "sticker", "photo",
                      "voice", "document", "video", "video_note"]
 
+# MEDIA
+MEDIA = {}
+
 # Logging
 if not os.getenv("DEBUG", default=False):
     formatter = '[%(asctime)s] %(levelname)8s --- %(message)s (%(filename)s:%(lineno)s)'
@@ -79,14 +83,19 @@ async def on_startup(dp):
     async for i in users_lang:
         LANG_STORAGE[i.get("_id")] = i.get("lang", "ru")
 
+    media = collmedia.find({})
+    async for i in media:
+        MEDIA[i.get("_id")] = i.get('file_id')
+    print(MEDIA)
     for i in ADMIN_IDS:
         try:
-            for filename in glob.glob('media/*.jpg'):
-                with open(os.path.join(os.getcwd(), filename), 'rb') as f:  # open in readonly mode
-                    print(filename)
-                    x = await dp.bot.send_photo(5252535217, types.InputFile(filename))
-                    await dp.bot.send_message(5252535217, x.photo[-1])
-                    await collmedia.insert_one({"_id": filename.split("/")[1].replace(".jpg", ""), "file_id": x.photo[-1].file_id})
+            # for filename in glob.glob('media/*.jpg'):
+            #     with open(os.path.join(os.getcwd(), filename), 'rb') as f:  # open in readonly mode
+            #         print(filename)
+            #         x = await dp.bot.send_photo(5252535217, types.InputFile(filename))
+            #         await dp.bot.send_message(5252535217, x.photo[-1])
+            #         await collmedia.update_one({"_id": filename.split("/")[1].replace(".jpg", "")},
+            #                                    {"$set": {"file_id": x.photo[-1].file_id}})
             await dp.bot.send_message(i, "Bot are start!")
         except (BotKicked, BotBlocked, UserDeactivated):
             pass
@@ -103,3 +112,15 @@ async def on_shutdown(dp):
     await dp.storage.close()
     await dp.storage.wait_closed()
     logging.warning("Bye!")
+
+
+center_photo = MEDIA.get('centers')
+course_photo = MEDIA.get('courses')
+web_photo = MEDIA.get('frontend')
+scratch_photo = MEDIA.get('scratch')
+smm_photo = MEDIA.get('smm')
+english_photo = MEDIA.get('english')
+graphic_photo = MEDIA.get('graphic')
+android_photo = MEDIA.get("android")
+backend_photo = MEDIA.get('backend')
+robot_photo = MEDIA.get('rbobots')
