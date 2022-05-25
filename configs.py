@@ -113,14 +113,3 @@ async def on_shutdown(dp):
     await dp.storage.wait_closed()
     logging.warning("Bye!")
 
-
-center_photo = MEDIA.get('centers')
-course_photo = MEDIA.get('courses')
-web_photo = MEDIA.get('frontend')
-scratch_photo = MEDIA.get('scratch')
-smm_photo = MEDIA.get('smm')
-english_photo = MEDIA.get('english')
-graphic_photo = MEDIA.get('graphic')
-android_photo = MEDIA.get("android")
-backend_photo = MEDIA.get('backend')
-robot_photo = MEDIA.get('rbobots')

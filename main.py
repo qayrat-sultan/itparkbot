@@ -9,7 +9,7 @@ import configs
 import handlers
 import kbs
 import texts
-from configs import course_photo, MEDIA
+from configs import MEDIA
 
 BOT_TOKEN = configs.BOT_TOKEN
 
@@ -358,7 +358,8 @@ async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale
         "graphics": (MEDIA.get('graphic'), texts.graphics_text),
         "english": (MEDIA.get('english'), texts.english_text),
         "smm": (MEDIA.get('smm'), texts.smm_text),
-        "scratch": (MEDIA.get('scratch'), texts.scratch_text)
+        "scratch": (MEDIA.get('scratch'), texts.scratch_text),
+        "course": MEDIA.get('courses')
     }
     level_data, target_data = callback.data.split(":")
     async with state.proxy() as data:
@@ -366,10 +367,10 @@ async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale
         print("GAAAAAAAAAAAAAAAAAA", data)
         if not data.get('courses'):
             await callback.message.delete()
-            await callback.message.answer_photo(course_photo, reply_markup=await kbs.courses_inline_kb(locale))
+            await callback.message.answer_photo(photo_dict['course'], reply_markup=await kbs.courses_inline_kb(locale))
         elif not data.get('register'):
             await callback.message.delete()
-            await callback.message.answer_photo(course_photo, reply_markup=await kbs.register_inline_kb(locale))
+            await callback.message.answer_photo(photo_dict['course'], reply_markup=await kbs.register_inline_kb(locale))
         else:
             await callback.message.delete()
             await callback.message.answer_photo(photo=photo_dict[data['courses']][0],
