@@ -1,4 +1,6 @@
-start_text = """Assalomu alaykum! 
+from main import _
+
+start_text = _("""Assalomu alaykum! 
 
 🌐 <b>IT Park Tashkent</b>`ning rasmiy Telegram-botiga xush kelibsiz!
 📚Iltimos, ta’lim tilini tanlang.
@@ -8,37 +10,39 @@ start_text = """Assalomu alaykum!
 Здраствуйте!
 
 🌐 Добро пожаловать на официальный Telegram-бот <b>IT Park Tashkent</b>!
-📚Пожалуйста, выберите язык обучения."""
+📚Пожалуйста, выберите язык обучения.""")
 
-menu_text = """Iltimos, menyu orqali keyingi qadamni tanlang!"""
+menu_text = _("""Iltimos, menyu orqali keyingi qadamni tanlang!""")
 
-about_text = """🏢 IT Park Tashkent 2021-yilda tashkil topgan bo‘lib, uning asosiy maqsadi - O‘zbekistonda IT sohasini rivojlantirish, IT-tadbirkorlik uchun zarur infratuzilmalarni yaratish, IT mutaxassislarni va IT kompaniyalarni qo‘llab-quvvatlash, istiqbolli startup loyihalarni ishga tushirish, shuningdek, dasturchilarni O‘zbekiston va jahon bozoriga tayyorlashdan iboratdir.
+about_text = _("""🏢 IT Park Tashkent 2021-yilda tashkil topgan bo‘lib, uning asosiy maqsadi - O‘zbekistonda IT sohasini rivojlantirish, IT-tadbirkorlik uchun zarur infratuzilmalarni yaratish, IT mutaxassislarni va IT kompaniyalarni qo‘llab-quvvatlash, istiqbolli startup loyihalarni ishga tushirish, shuningdek, dasturchilarni O‘zbekiston va jahon bozoriga tayyorlashdan iboratdir.
 
 Yuqori talabli IT-mutaxassis bo‘lishni xohlaysimi?
 
-⚡️ Unda bizning kurslarimizdan birini tanlang va «Kursga yozilish» tugmasi orqali ro‘yxatdan o‘ting."""
+⚡️ Unda bizning kurslarimizdan birini tanlang va «Kursga yozilish» tugmasi orqali ro‘yxatdan o‘ting.""")
 
-courses_text = """🚀 Yuqori malakali IT-mutaxassis bo‘lishni, dasturlash tillarini o‘rganishni yoki IT-sohasida o‘z malakangizni oshirishni xohlaysizmi? Bunday holda, IT Center PRO`ning o‘quv kurslari, siz uchun eng yaxshi va optimal yechim bo‘la oladi!
+async def courses_text(locale):
+    courses_text = _("""🚀 Yuqori malakali IT-mutaxassis bo‘lishni, dasturlash tillarini o‘rganishni yoki IT-sohasida o‘z malakangizni oshirishni xohlaysizmi? Bunday holda, IT Center PRO`ning o‘quv kurslari, siz uchun eng yaxshi va optimal yechim bo‘la oladi!
+    
+    💥 Bizning tajribali o‘qituvchilarimiz sizga IT-industriyasining barcha yo‘nalishlari bo‘yicha kerakli bo‘lgan bilim va ko‘nikmalarni berishadi va zamonaviy IT-kompaniyalarda munosib ish topishingizga ko‘maklashishadi.
+    
+    ⚡️ O‘zingizni qiziqtirgan yo‘nalish bo‘yicha kurslarni tanlang va ro‘yxatdan o‘ting.👇👇👇""", locale)
 
-💥 Bizning tajribali o‘qituvchilarimiz sizga IT-industriyasining barcha yo‘nalishlari bo‘yicha kerakli bo‘lgan bilim va ko‘nikmalarni berishadi va zamonaviy IT-kompaniyalarda munosib ish topishingizga ko‘maklashishadi.
-
-⚡️ O‘zingizni qiziqtirgan yo‘nalish bo‘yicha kurslarni tanlang va ro‘yxatdan o‘ting.👇👇👇"""
-
+    return courses_text
 contact_text = """❗️Hurmatli do‘stlar, agarda sizda bizning faoliyatimiz bo‘yicha shikoyat, savol yoki takliflaringiz bo‘lsa, iltimos, ularni shu yerda yozib qoldiring.
 
 ☎️ Qo‘shimcha ma`lumot uchun +998 90 178-00-03 yoki @mrsher8 ga murojaat qilishingiz mumkin."""
 
-register_list_text = """📍 Iltimos, o‘zingizga qulay bo‘lgan IT-Markazni tanlang 👇"""
+register_list_text = _("""📍 Iltimos, o‘zingizga qulay bo‘lgan IT-Markazni tanlang 👇""")
 
-robots_text = """📌 Мобильная робототехника
+robots_text = _("""📌 Мобильная робототехника
 
 🤖 Курсы робототехники нацелены на получение практических знаний. Мы не играем в Lego, мы учим программировать и собирать сложные электронные устройства (термостат, автополив, системы Умного дома), а также строить роботов на базе Arduino.
 
 📆 Продолжительность курса: 6 месяцев.
 
-💰 Стоимость курса: 500 000 сум/месяц."""
+💰 Стоимость курса: 500 000 сум/месяц.""")
 
-scratch_text = """📌 Scratch + IT-English
+scratch_text = _("""📌 Scratch + IT-English
 
 🧩 Scratch — это программа, которая начинает путь детей к программированию. Дети используют эту программу, чтобы проверить себя в среде визуального программирования.
 
@@ -46,16 +50,16 @@ scratch_text = """📌 Scratch + IT-English
 
 📆 Продолжительность курса: 4 месяца.
 
-💰 Стоимость курса: 1 000 000 сум/месяц"""
+💰 Стоимость курса: 1 000 000 сум/месяц""")
 
-smm_text = """📌 SMM-менеджер
+smm_text = _("""📌 SMM-менеджер
 
 👨‍💻 На протяжении всего курса вы получите знания и навыки во многих областях, таких как продвижение бренда в социальных сетях, создание контента и таргетинг. Кроме того, у Вас будет возможность повысить квалификацию, работая с реальными проектами.
 📆 Продолжительность курса: 3 месяца.
 
-💰 Стоимость курса: 1 000 000 сум/месяц"""
+💰 Стоимость курса: 1 000 000 сум/месяц""")
 
-english_text = """📌 IT-English
+english_text = _("""📌 IT-English
 
 🇺🇸 Курсы IT-English проходят инновационным образом в соответствии с международно-признанными стандартами. Вы получите инновационную подготовку для успешной сдачи экзаменов CEFR и IELTS.
 
@@ -63,17 +67,17 @@ english_text = """📌 IT-English
 
 📆 Продолжительность каждого уровня: 3 месяца.
 
-💰 Стоимость курса: 460 000 сум/месяц."""
+💰 Стоимость курса: 460 000 сум/месяц.""")
 
-graphics_text = """📌 Графический и веб-дизайн
+graphics_text = _("""📌 Графический и веб-дизайн
 
 🎨 Целью курса является создание сложных изображений и контента с помощью графических программ, повышение творческих способностей учащихся, профессиональное освоение таких программ, как Adobe Photoshop, Adobe Illustrator и Corel Draw.
 
 📆 Продолжительность курса: 4 месяца.
 
-💰 Стоимость курса: 800 000 сум/месяц."""
+💰 Стоимость курса: 800 000 сум/месяц.""")
 
-android_text = """📌 Создание Android приложений
+android_text = _("""📌 Создание Android приложений
 
 📲 Android — самая популярная мобильная платформа в мире.
 
@@ -89,9 +93,9 @@ Android-разработчики нужны в разных сферах: раз
 
 📆 Продолжительность курса: 6 месяцев.
 
-💰 Стоимость курса: 1 000 000 сум/месяц."""
+💰 Стоимость курса: 1 000 000 сум/месяц.""")
 
-backend_text = """📌 Backend программирование
+backend_text = _("""📌 Backend программирование
 
 💻 Backend-разработчик - это специалист, который занимается программно-административной частью веб-приложений, внутренним содержанием системы, серверными технологиями, базой данных, архитектурой и логикой программных продуктов.
 
@@ -99,9 +103,9 @@ backend_text = """📌 Backend программирование
 
 📆 Продолжительность курса: 6 месяцев.
 
-💰 Стоимость курса: 1 000 000 сум/месяц."""
+💰 Стоимость курса: 1 000 000 сум/месяц.""")
 
-web_text = """📌 Веб программирование
+web_text = _("""📌 Веб программирование
 
 📲 Android — самая популярная мобильная платформа в мире.
 
@@ -117,28 +121,28 @@ Android-разработчики нужны в разных сферах. К п�
 
 📆 Продолжительность курса: 6 месяцев.
 
-💰 Стоимость курса: 1 000 000 сум/месяц."""
+💰 Стоимость курса: 1 000 000 сум/месяц.""")
 
-phone_add_text = ("Iltimos, telefon raqamingizni kiriting yoki «Raqamni yuborish» tugmasini bosing. \n\n"
-                  "Misol uchun: +998 90 123-45-67")
+phone_add_text = _("Iltimos, telefon raqamingizni kiriting yoki «Raqamni yuborish» tugmasini bosing. \n\n"
+                   "Misol uchun: +998 90 123-45-67")
 
-phone_error_answer = "Telefon raqam noto‘g‘ri formatda kiritildi❗️ \n\nIltimos, telefon raqamni qayta kiriting."
+phone_error_answer = _("Telefon raqam noto‘g‘ri formatda kiritildi❗️ \n\nIltimos, telefon raqamni qayta kiriting.")
 
-phone_add_button = "📞 Raqamni yuborish"
+phone_add_button = _("📞 Raqamni yuborish")
 
-back_reply_button = "⬅️ Ortga"
+back_reply_button = _("⬅️ Ortga")
 
-fio_answer_text = "Iltimos, to‘liq ismingizni kiriting"
+fio_answer_text = _("Iltimos, to‘liq ismingizni kiriting")
 
-age_answer_text = "Iltimos, yoshingizni kiriting"
+age_answer_text = _("Iltimos, yoshingizni kiriting")
 
-sex_answer_text = "Iltimos, jinsingizni tanlang"
+sex_answer_text = _("Iltimos, jinsingizni tanlang")
 
-error_answer_text = "Kiritgan ma'lumotingiz mos kelmadi"
+error_answer_text = _("Kiritgan ma'lumotingiz mos kelmadi")
 
-error_age_answer = "Yosh chegarasi xato kiritildi"
+error_age_answer = _("Yosh chegarasi xato kiritildi")
 
-result_answer_text = """📃 F. I. SH.: {fio} 
+result_answer_text = _("""📃 F. I. SH.: {fio} 
 👫 Jins: {sex} 
 📅 Yosh: {age}
 🏢 IT Center: {center}
@@ -146,21 +150,20 @@ result_answer_text = """📃 F. I. SH.: {fio}
 📞 Tel: {phone}
 
 Qo‘shimcha savollaringiz mavjudmi? Unday holda bizning Call-markazimiga murojaat qiling.
- Tel: +998 99 309-11-99"""
+ Tel: +998 99 309-11-99""")
 
-
-new_request_text = """Yangi so'rov
+new_request_text = _("""Yangi so'rov
 📃 F. I. SH.: {fio} 
 👫 Jins: {sex} 
 📅 Yosh: {age}
 🏢 IT Center: {center}
 🖥 Kurs: {course}
 📞 Tel: {phone}
-"""
+""")
 
-success_message_text = "Muvaffaqiyatli ro'yxatdan o'tdingiz"
+success_message_text = _("Muvaffaqiyatli ro'yxatdan o'tdingiz")
 
-filial_tashkent = """🏢 <b>IT Park Tashkent</b>
+filial_tashkent = _("""🏢 <b>IT Park Tashkent</b>
 
 📍 Manzil: Maxtumquli ko‘chasi, 1A, IT Park Tashkent binosi.
 
@@ -168,18 +171,17 @@ filial_tashkent = """🏢 <b>IT Park Tashkent</b>
 
 📞 Tel: +998 99 309-11-99
 
-🔗 <a href="https://yandex.uz/maps/-/CCU5nFuESB">IT-Markaz xaritada</a>"""
+🔗 <a href="https://yandex.uz/maps/-/CCU5nFuESB">IT-Markaz xaritada</a>""")
 
-
-filial_mirzo = """🏢 <b>IT Center - IT Center Mirzo-Ulug‘bek</b>
+filial_mirzo = _("""🏢 <b>IT Center - IT Center Mirzo-Ulug‘bek</b>
 
 📍 Manzil:  Qorasu-4, 6A, 121-maktab.
 
 📞 Tel: +998 99 180-11-99
 
-🔗 <a href="https://yandex.uz/maps/-/CCU5nFqgwD">IT-Markaz xaritada</a>"""
+🔗 <a href="https://yandex.uz/maps/-/CCU5nFqgwD">IT-Markaz xaritada</a>""")
 
-filial_chilonzor = """🏢 <b>IT Center - IT Center Chilonzor</b>
+filial_chilonzor = _("""🏢 <b>IT Center - IT Center Chilonzor</b>
 
 📍 Manzil: Chilonzor hokimiyati, Jamoatchilik markazi binosi.
 
@@ -187,17 +189,17 @@ filial_chilonzor = """🏢 <b>IT Center - IT Center Chilonzor</b>
 
 📞 Tel: +998 99 177-11-99
 
-🔗 <a href="https://yandex.uz/maps/-/CCU5nFdO0C">IT-Markaz xaritada</a>"""
+🔗 <a href="https://yandex.uz/maps/-/CCU5nFdO0C">IT-Markaz xaritada</a>""")
 
-filial_sergeli = """🏢 IT Center - IT Center Sergeli
+filial_sergeli = _("""🏢 IT Center - IT Center Sergeli
 
 📍 Manzil: Sergeli 4, 34.
 
 📞 Tel: +998 99 137-11-99
 
-🔗 <a href="https://yandex.uz/maps/-/CCU5nFhIXD">IT-Markaz xaritada</a>"""
+🔗 <a href="https://yandex.uz/maps/-/CCU5nFhIXD">IT-Markaz xaritada</a>""")
 
-filial_yakkasaroy = """🏢 <b>IT Center - IT Center Yakkasaroy</b>
+filial_yakkasaroy = _("""🏢 <b>IT Center - IT Center Yakkasaroy</b>
 
 📍 Manzil: Sho‘ta Rustaveli ko‘chasi, 17, Barkamol avlod binosi.
 
@@ -205,15 +207,12 @@ filial_yakkasaroy = """🏢 <b>IT Center - IT Center Yakkasaroy</b>
 
 📞 Tel: +998 99 107-11-99
 
-🔗 <a href="https://yandex.uz/maps/-/CCU5nFh6SB">IT-Markaz xaritada </a>"""
+🔗 <a href="https://yandex.uz/maps/-/CCU5nFh6SB">IT-Markaz xaritada </a>""")
 
-filial_bektemir = """🏢 <b>IT Center - IT Center Bektemir</b>
+filial_bektemir = _("""🏢 <b>IT Center - IT Center Bektemir</b>
 
 📍 Manzil: Yuqori Chirchiq koʻchasi, 43.
 
 📞 Tel: +998 99 127-11-99
 
-🔗 <a href="https://yandex.uz/maps/-/CCU5nFhs-B">IT-Markaz xaritada</a>"""
-
-
-
+🔗 <a href="https://yandex.uz/maps/-/CCU5nFhs-B">IT-Markaz xaritada</a>""")

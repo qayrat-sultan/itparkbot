@@ -50,8 +50,6 @@ async def cmd_start(message: types.Message, locale, state: FSMContext):
         data.clear()
     x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
     await x.delete()
-    # print(await configs.collusers.count_documents({"_id": message.from_user.id}))
-    # print(await configs.collusers.find_one({}))
     if await configs.collusers.count_documents({"_id": message.from_user.id}) < 1:
         await message.answer(_(texts.start_text, locale=locale),
                              reply_markup=await kbs.start_inline_kb(locale),
@@ -293,7 +291,7 @@ async def register_func(callback: types.CallbackQuery, locale):
     await callback.message.answer_photo(
         MEDIA.get('courses'),
         reply_markup=await kbs.courses_inline_kb(locale),
-        caption=_(texts.courses_text)
+        caption=await texts.courses_text(locale)
     )
     await SetRegister.course.set()
 

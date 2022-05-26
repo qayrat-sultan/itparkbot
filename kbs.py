@@ -190,7 +190,7 @@ async def menu_inline_kb(locale):
             [
                 types.InlineKeyboardButton("ℹ️ Biz haqimizda",
                                            callback_data=confirm_lang.new(action="about")),
-                types.InlineKeyboardButton("🖥 Bizning kurslar",
+                types.InlineKeyboardButton(_("🖥 Bizning kurslar", locale=locale),
                                            callback_data=confirm_lang.new(action="courses")),
             ],
             [
