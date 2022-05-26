@@ -149,6 +149,15 @@ Qo‘shimcha savollaringiz mavjudmi? Unday holda bizning Call-markazimiga muroja
  Tel: +998 99 309-11-99"""
 
 
+new_request_text = """Yangi so'rov
+📃 F. I. SH.: {fio} 
+👫 Jins: {sex} 
+📅 Yosh: {age}
+🏢 IT Center: {center}
+🖥 Kurs: {course}
+📞 Tel: {phone}
+"""
+
 success_message_text = "Muvaffaqiyatli ro'yxatdan o'tdingiz"
 
 filial_tashkent = """🏢 <b>IT Park Tashkent</b>

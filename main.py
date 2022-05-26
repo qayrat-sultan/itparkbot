@@ -177,7 +177,7 @@ async def set_fio_process(message: types.Message, locale, state: FSMContext):
             await message.answer(_(texts.sex_answer_text), reply_markup=await kbs.sex_inline(locale))
             return await SetRegister.sex.set()
         if message.text.isdigit():
-            if 7 < int(message.text) < 60:
+            if not 7 < int(message.text) < 60:
                 await message.answer(_(texts.error_age_answer))
                 return await SetRegister.age.set()
             data['age'] = message.text
@@ -217,6 +217,15 @@ async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMConte
     async with state.proxy() as data:
         if callback.data.split(":")[1] == "yes":
             await callback.message.answer(_(texts.success_message_text))
+            await bot.send_message(configs.GROUP_ID, _(texts.new_request_text).format(fio=data.get('fio'),
+                                                                                        sex=data.get('sex'),
+                                                                                        age=data.get('age'),
+                                                                                        center=kbs.centers_text_dict[
+                                                                                            data.get('register')],
+                                                                                        course=kbs.course_dict[
+                                                                                            data.get('courses')],
+                                                                                        phone=data.get('tel')
+                                                                                        ))
             await state.finish()
         else:
             await state.finish()
@@ -389,7 +398,8 @@ async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale
         print("GAAAAAAAAAAAAAAAAAA", data)
         if not data.get('courses'):
             await callback.message.delete()
-            await callback.message.answer_photo(photo_dict[data.get('register')][0], reply_markup=await kbs.courses_inline_kb(locale),
+            await callback.message.answer_photo(photo_dict[data.get('register')][0],
+                                                reply_markup=await kbs.courses_inline_kb(locale),
                                                 caption=photo_dict[data.get('register')][1])
         elif not data.get('register'):
             await callback.message.delete()
