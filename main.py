@@ -375,12 +375,12 @@ async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale
         "scratch": (MEDIA.get('scratch'), texts.scratch_text),
 
         "course": MEDIA.get('courses'),
-        "yakkasaroy": (MEDIA.get('courses'), texts.filial_yakkasaroy),
-        "tashkent": (MEDIA.get('scratch'), texts.filial_tashkent),
-        "chilonzor": (MEDIA.get('scratch'), texts.filial_chilonzor),
-        "mirzo": (MEDIA.get('scratch'), texts.filial_mirzo),
-        "sergeli": (MEDIA.get('scratch'), texts.filial_sergeli),
-        "bektemir": (MEDIA.get('scratch'), texts.filial_bektemir),
+        "yakkasaroy": (MEDIA.get('yakkasaroy'), texts.filial_yakkasaroy),
+        "tashkent": (MEDIA.get('tashkent'), texts.filial_tashkent),
+        "chilonzor": (MEDIA.get('chilonzor'), texts.filial_chilonzor),
+        "mirzo": (MEDIA.get('mirzo'), texts.filial_mirzo),
+        "sergeli": (MEDIA.get('sergeli'), texts.filial_sergeli),
+        "bektemir": (MEDIA.get('bektemir'), texts.filial_bektemir),
     }
 
     level_data, target_data = callback.data.split(":")
@@ -389,7 +389,7 @@ async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale
         print("GAAAAAAAAAAAAAAAAAA", data)
         if not data.get('courses'):
             await callback.message.delete()
-            await callback.message.answer_photo(photo_dict['course'], reply_markup=await kbs.courses_inline_kb(locale),
+            await callback.message.answer_photo(photo_dict[data.get('register')][0], reply_markup=await kbs.courses_inline_kb(locale),
                                                 caption=photo_dict[data.get('register')][1])
         elif not data.get('register'):
             await callback.message.delete()
