@@ -1,0 +1,722 @@
+# Russian translations for PROJECT.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-05-26 15:16+0500\n"
+"PO-Revision-Date: 2022-05-26 15:17+0500\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: kbs.py:11
+msgid "One"
+msgstr ""
+
+#: kbs.py:12
+msgid "Two"
+msgstr ""
+
+#: kbs.py:13
+msgid "Three"
+msgstr ""
+
+#: kbs.py:40
+msgid "📤 Murojaat qoldirish"
+msgstr ""
+
+#: kbs.py:44 kbs.py:59 kbs.py:76 kbs.py:124 kbs.py:183 kbs.py:208 kbs.py:229
+#: texts.py:185
+msgid "⬅️ Ortga"
+msgstr ""
+
+#: kbs.py:57 kbs.py:72
+msgid "📝 Kursga yozilish"
+msgstr ""
+
+#: kbs.py:85
+msgid "IT Park Tashkent"
+msgstr ""
+
+#: kbs.py:86
+msgid "IT Center Mirzo-Ulug'bek"
+msgstr ""
+
+#: kbs.py:87
+msgid "IT Center Chilonzor"
+msgstr ""
+
+#: kbs.py:88
+msgid "IT Center Sergeli"
+msgstr ""
+
+#: kbs.py:89
+msgid "IT Center Yakkasaroy"
+msgstr ""
+
+#: kbs.py:90
+msgid "IT Center Bektemir"
+msgstr ""
+
+#: kbs.py:100
+msgid "🏢 IT Park Tashkent"
+msgstr ""
+
+#: kbs.py:104
+msgid "🏢 IT Center Mirzo-Ulug'bek"
+msgstr ""
+
+#: kbs.py:108
+msgid "🏢 IT Center Chilonzor"
+msgstr ""
+
+#: kbs.py:112
+msgid "🏢 IT Center Sergeli"
+msgstr ""
+
+#: kbs.py:116
+msgid "🏢 IT Center Yakkasaroy"
+msgstr ""
+
+#: kbs.py:120
+msgid "🏢 IT Center Bektemir"
+msgstr ""
+
+#: kbs.py:134
+msgid "Web dasturlash (Frontend)"
+msgstr ""
+
+#: kbs.py:135
+msgid "Backend dasturlash"
+msgstr ""
+
+#: kbs.py:136
+msgid "Android ilovalarni yaratish"
+msgstr ""
+
+#: kbs.py:137
+msgid "Mobil robototexnika"
+msgstr ""
+
+#: kbs.py:138
+msgid "Grafika va web dizayn"
+msgstr ""
+
+#: kbs.py:139
+msgid "IT-English"
+msgstr ""
+
+#: kbs.py:140
+msgid "SMM-mutaxassis"
+msgstr ""
+
+#: kbs.py:141
+msgid "Scratch + IT English"
+msgstr ""
+
+#: kbs.py:151
+msgid "🖥 Web dasturlash (Frontend)"
+msgstr ""
+
+#: kbs.py:155
+msgid "💻 Backend dasturlash"
+msgstr ""
+
+#: kbs.py:159
+msgid "📲 Android ilovalarni yaratish"
+msgstr ""
+
+#: kbs.py:163
+msgid "🤖 Mobil robototexnika"
+msgstr ""
+
+#: kbs.py:167
+msgid "🏞 Grafika va web dizayn"
+msgstr ""
+
+#: kbs.py:171
+msgid "🇺🇸 IT-English"
+msgstr ""
+
+#: kbs.py:175
+msgid "👩‍💻 SMM-menejer"
+msgstr ""
+
+#: kbs.py:179
+msgid "🧩 Scratch + IT English"
+msgstr ""
+
+#: kbs.py:196
+msgid "ℹ️ Biz haqimizda"
+msgstr ""
+
+#: kbs.py:198
+msgid "🖥 Bizning kurslar"
+msgstr ""
+
+#: kbs.py:202
+msgid "📞 Kontaktlar"
+msgstr ""
+
+#: kbs.py:204
+msgid "🏢 O'quv markazlar"
+msgstr ""
+
+#: kbs.py:222
+msgid "🙎🏻‍♂️ Erkak"
+msgstr ""
+
+#: kbs.py:225
+msgid "🙎🏻‍♀️ Ayol"
+msgstr ""
+
+#: main.py:76
+msgid "Select this lang"
+msgstr ""
+
+#: main.py:83
+msgid "Your current language: <i>{language}</i>"
+msgstr ""
+
+#: main.py:241
+msgid "Selected"
+msgstr ""
+
+#: main.py:322
+msgid "Iltimos, to'liq ismingizni kiriting"
+msgstr ""
+
+#: texts.py:5
+msgid ""
+"Assalomu alaykum! \n"
+"    \n"
+"    🌐 <b>IT Park Tashkent</b>`ning rasmiy Telegram-botiga xush kelibsiz!\n"
+"    📚Iltimos, ta’lim tilini tanlang.\n"
+"    \n"
+"    ➖➖➖➖➖➖➖➖➖➖\n"
+"    \n"
+"    Здраствуйте!\n"
+"    \n"
+"    🌐 Добро пожаловать на официальный Telegram-бот <b>IT Park "
+"Tashkent</b>!\n"
+"    📚Пожалуйста, выберите язык обучения."
+msgstr ""
+
+#: texts.py:20
+msgid "Iltimos, menyu orqali keyingi qadamni tanlang!"
+msgstr ""
+
+#: texts.py:25
+msgid ""
+"🏢 IT Park Tashkent 2021-yilda tashkil topgan bo‘lib, uning asosiy maqsadi"
+" - O‘zbekistonda IT sohasini rivojlantirish, IT-tadbirkorlik uchun zarur "
+"infratuzilmalarni yaratish, IT mutaxassislarni va IT kompaniyalarni qo"
+"‘llab-quvvatlash, istiqbolli startup loyihalarni ishga tushirish, "
+"shuningdek, dasturchilarni O‘zbekiston va jahon bozoriga tayyorlashdan "
+"iboratdir.\n"
+"    \n"
+"    Yuqori talabli IT-mutaxassis bo‘lishni xohlaysimi?\n"
+"    \n"
+"    ⚡️ Unda bizning kurslarimizdan birini tanlang va «Kursga yozilish» "
+"tugmasi orqali ro‘yxatdan o‘ting."
+msgstr ""
+
+#: texts.py:34
+msgid ""
+"🚀 Yuqori malakali IT-mutaxassis bo‘lishni, dasturlash tillarini "
+"o‘rganishni yoki IT-sohasida o‘z malakangizni oshirishni xohlaysizmi? "
+"Bunday holda, IT Center PRO`ning o‘quv kurslari, siz uchun eng yaxshi va "
+"optimal yechim bo‘la oladi!\n"
+"    \n"
+"    💥 Bizning tajribali o‘qituvchilarimiz sizga IT-industriyasining "
+"barcha yo‘nalishlari bo‘yicha kerakli bo‘lgan bilim va ko‘nikmalarni "
+"berishadi va zamonaviy IT-kompaniyalarda munosib ish topishingizga "
+"ko‘maklashishadi.\n"
+"    \n"
+"    ⚡️ O‘zingizni qiziqtirgan yo‘nalish bo‘yicha kurslarni tanlang va "
+"ro‘yxatdan o‘ting.👇👇👇"
+msgstr ""
+
+#: texts.py:44
+msgid ""
+"❗️Hurmatli do‘stlar, agarda sizda bizning faoliyatimiz bo‘yicha shikoyat,"
+" savol yoki takliflaringiz bo‘lsa, iltimos, ularni shu yerda yozib "
+"qoldiring.\n"
+"    \n"
+"    ☎️ Qo‘shimcha ma`lumot uchun +998 90 178-00-03 yoki @mrsher8 ga "
+"murojaat qilishingiz mumkin."
+msgstr ""
+
+#: texts.py:51
+msgid "📍 Iltimos, o‘zingizga qulay bo‘lgan IT-Markazni tanlang 👇"
+msgstr ""
+
+#: texts.py:56
+msgid ""
+"📌 Мобильная робототехника\n"
+"    \n"
+"    🤖 Курсы робототехники нацелены на получение практических знаний. Мы "
+"не играем в Lego, мы учим программировать и собирать сложные электронные "
+"устройства (термостат, автополив, системы Умного дома), а также строить "
+"роботов на базе Arduino.\n"
+"    \n"
+"    📆 Продолжительность курса: 6 месяцев.\n"
+"    \n"
+"    💰 Стоимость курса: 500 000 сум/месяц."
+msgstr ""
+
+#: texts.py:67
+msgid ""
+"📌 Scratch + IT-English\n"
+"    \n"
+"    🧩 Scratch — это программа, которая начинает путь детей к "
+"программированию. Дети используют эту программу, чтобы проверить себя в "
+"среде визуального программирования.\n"
+"    \n"
+"    🖇 Кроме того, курс «Scratch + IT English» разделен на две части, где "
+"студенты изучают английский язык в первой части урока и Scratch во "
+"второй. Программа построена на полноценной практике: после каждого "
+"занятия есть практические занятия, насыщенные интересными идеями.\n"
+"    \n"
+"    📆 Продолжительность курса: 4 месяца.\n"
+"    \n"
+"    💰 Стоимость курса: 1 000 000 сум/месяц"
+msgstr ""
+
+#: texts.py:80
+msgid ""
+"📌 SMM-менеджер\n"
+"    \n"
+"    👨‍💻 На протяжении всего курса вы получите знания и навыки во многих "
+"областях, таких как продвижение бренда в социальных сетях, создание "
+"контента и таргетинг. Кроме того, у Вас будет возможность повысить "
+"квалификацию, работая с реальными проектами.\n"
+"    📆 Продолжительность курса: 3 месяца.\n"
+"    \n"
+"    💰 Стоимость курса: 1 000 000 сум/месяц"
+msgstr ""
+
+#: texts.py:90
+msgid ""
+"📌 IT-English\n"
+"    \n"
+"    🇺🇸 Курсы IT-English проходят инновационным образом в соответствии с "
+"международно-признанными стандартами. Вы получите инновационную "
+"подготовку для успешной сдачи экзаменов CEFR и IELTS.\n"
+"    \n"
+"    👩‍🏫 Более того, многие наши педагоги - высококвалифицированные "
+"специалисты с огромным опытом работы за рубежом.\n"
+"    \n"
+"    📆 Продолжительность каждого уровня: 3 месяца.\n"
+"    \n"
+"    💰 Стоимость курса: 460 000 сум/месяц."
+msgstr ""
+
+#: texts.py:103
+msgid ""
+"📌 Графический и веб-дизайн\n"
+"    \n"
+"    🎨 Целью курса является создание сложных изображений и контента с "
+"помощью графических программ, повышение творческих способностей учащихся,"
+" профессиональное освоение таких программ, как Adobe Photoshop, Adobe "
+"Illustrator и Corel Draw.\n"
+"    \n"
+"    📆 Продолжительность курса: 4 месяца.\n"
+"    \n"
+"    💰 Стоимость курса: 800 000 сум/месяц."
+msgstr ""
+
+#: texts.py:114
+msgid ""
+"📌 Создание Android приложений\n"
+"    \n"
+"    📲 Android — самая популярная мобильная платформа в мире.\n"
+"    \n"
+"    Android-разработчики нужны в разных сферах: разработать "
+"онлайн-банкинг со сложной степенью защиты или приложение для "
+"интернет-магазина, приложения для изучения английского языка или "
+"мобильный сервис по доставке еды и продуктов.\n"
+"    \n"
+"    На курсе «Разработка Android приложений» Вы:\n"
+"    \n"
+"    - Научитесь с нуля создавать мобильные приложения под Android и "
+"программировать на Java и Kotlin.\n"
+"    \n"
+"    - Получите знания и навыки, необходимые для создания проектов уровня "
+"middle-специалиста.\n"
+"    \n"
+"    - Сможете самостоятельно проектировать логику работы мобильных "
+"приложений, настраивать среду приложений и другие ключевые события.\n"
+"    \n"
+"    📆 Продолжительность курса: 6 месяцев.\n"
+"    \n"
+"    💰 Стоимость курса: 1 000 000 сум/месяц."
+msgstr ""
+
+#: texts.py:135
+msgid ""
+"📌 Backend программирование\n"
+"    \n"
+"    💻 Backend-разработчик - это специалист, который занимается "
+"программно-административной частью веб-приложений, внутренним содержанием"
+" системы, серверными технологиями, базой данных, архитектурой и логикой "
+"программных продуктов.\n"
+"    \n"
+"    ⚡️ На курсе Вы изучите язык программирования Python, один из самых "
+"популярных высокоуровневых языков программирования, а также освоите самые"
+" важные Backend-инструменты: Django, базы данных SQL, Git и другое.\n"
+"    \n"
+"    📆 Продолжительность курса: 6 месяцев.\n"
+"    \n"
+"    💰 Стоимость курса: 1 000 000 сум/месяц."
+msgstr ""
+
+#: texts.py:148
+msgid ""
+"📌 Веб программирование\n"
+"    \n"
+"    📲 Android — самая популярная мобильная платформа в мире.\n"
+"    \n"
+"    Android-разработчики нужны в разных сферах. К примеру, разработка "
+"онлайн-банкинга со сложной степенью защиты или приложений для "
+"интернет-магазинов, изучения английского языка или мобильного сервиса по "
+"доставке еды и продуктов.\n"
+"    \n"
+"    На курсе «Разработка Android приложений» Вы:\n"
+"    \n"
+"    - Научитесь с нуля создавать мобильные приложения под Android и "
+"программировать на Java и Kotlin.\n"
+"    \n"
+"    - Получите знания и навыки, необходимые для создания проектов уровня "
+"middle-специалиста.\n"
+"    \n"
+"    - Сможете самостоятельно проектировать логику работы мобильных "
+"приложений, настраивать среду приложений и другие ключевые события.\n"
+"    \n"
+"    📆 Продолжительность курса: 6 месяцев.\n"
+"    \n"
+"    💰 Стоимость курса: 1 000 000 сум/месяц."
+msgstr ""
+
+#: texts.py:169
+msgid ""
+"Iltimos, telefon raqamingizni kiriting yoki «Raqamni yuborish» tugmasini "
+"bosing. \n"
+"\n"
+"Misol uchun: +998 90 123-45-67"
+msgstr ""
+
+#: texts.py:175
+msgid ""
+"Telefon raqam noto‘g‘ri formatda kiritildi❗️ \n"
+"\n"
+"Iltimos, telefon raqamni qayta kiriting."
+msgstr ""
+
+#: texts.py:180
+msgid "📞 Raqamni yuborish"
+msgstr ""
+
+#: texts.py:190
+msgid "Iltimos, to‘liq ismingizni kiriting"
+msgstr ""
+
+#: texts.py:195
+msgid "Iltimos, yoshingizni kiriting"
+msgstr ""
+
+#: texts.py:200
+msgid "Iltimos, jinsingizni tanlang"
+msgstr ""
+
+#: texts.py:205
+msgid "Kiritgan ma'lumotingiz mos kelmadi"
+msgstr ""
+
+#: texts.py:210
+msgid "Yosh chegarasi xato kiritildi"
+msgstr ""
+
+#: texts.py:214
+msgid ""
+"📃 F. I. SH.: {fio} \n"
+"👫 Jins: {sex} \n"
+"📅 Yosh: {age}\n"
+"🏢 IT Center: {center}\n"
+"🖥 Kurs: {course}\n"
+"📞 Tel: {phone}\n"
+"\n"
+"Qo‘shimcha savollaringiz mavjudmi? Unday holda bizning Call-markazimiga "
+"murojaat qiling.\n"
+" Tel: +998 99 309-11-99"
+msgstr ""
+
+#: texts.py:224
+msgid ""
+"Yangi so'rov\n"
+"📃 F. I. SH.: {fio} \n"
+"👫 Jins: {sex} \n"
+"📅 Yosh: {age}\n"
+"🏢 IT Center: {center}\n"
+"🖥 Kurs: {course}\n"
+"📞 Tel: {phone}\n"
+msgstr ""
+
+#: texts.py:235
+msgid "Muvaffaqiyatli ro'yxatdan o'tdingiz"
+msgstr ""
+
+#: texts.py:240
+msgid ""
+"🏢 <b>IT Park Tashkent</b>\n"
+"    \n"
+"    📍 Manzil: Maxtumquli ko‘chasi, 1A, IT Park Tashkent binosi.\n"
+"    \n"
+"    📌 Mo‘ljal: Muhammad al-Xorazmiy nomidagi ixtisoslashtirilgan IT-"
+"maktab.\n"
+"    \n"
+"    📞 Tel: +998 99 309-11-99\n"
+"    \n"
+"    🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFuESB\">IT-Markaz "
+"xaritada</a>"
+msgstr ""
+
+#: texts.py:253
+msgid ""
+"🏢 <b>IT Center - IT Center Mirzo-Ulug‘bek</b>\n"
+"    \n"
+"    📍 Manzil:  Qorasu-4, 6A, 121-maktab.\n"
+"    \n"
+"    📞 Tel: +998 99 180-11-99\n"
+"    \n"
+"    🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFqgwD\">IT-Markaz "
+"xaritada</a>"
+msgstr ""
+
+#: texts.py:264
+msgid ""
+"🏢 <b>IT Center - IT Center Chilonzor</b>\n"
+"    \n"
+"    📍 Manzil: Chilonzor hokimiyati, Jamoatchilik markazi binosi.\n"
+"    \n"
+"    📌 Mo‘ljal: Chilonzor metro.\n"
+"    \n"
+"    📞 Tel: +998 99 177-11-99\n"
+"    \n"
+"    🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFdO0C\">IT-Markaz "
+"xaritada</a>"
+msgstr ""
+
+#: texts.py:278
+msgid ""
+"🏢 IT Center - IT Center Sergeli\n"
+"    \n"
+"    📍 Manzil: Sergeli 4, 34.\n"
+"    \n"
+"    📞 Tel: +998 99 137-11-99\n"
+"    \n"
+"    🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFhIXD\">IT-Markaz "
+"xaritada</a>"
+msgstr ""
+
+#: texts.py:289
+msgid ""
+"🏢 <b>IT Center - IT Center Yakkasaroy</b>\n"
+"    \n"
+"    📍 Manzil: Sho‘ta Rustaveli ko‘chasi, 17, Barkamol avlod binosi.\n"
+"    \n"
+"    📌 Mo‘ljal: Grand Mir mehmonxonasi.\n"
+"    \n"
+"    📞 Tel: +998 99 107-11-99\n"
+"    \n"
+"    🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFh6SB\">IT-Markaz xaritada "
+"</a>"
+msgstr ""
+
+#: texts.py:302
+msgid ""
+"🏢 <b>IT Center - IT Center Bektemir</b>\n"
+"    \n"
+"    📍 Manzil: Yuqori Chirchiq koʻchasi, 43.\n"
+"    \n"
+"    📞 Tel: +998 99 127-11-99\n"
+"    \n"
+"    🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFhs-B\">IT-Markaz "
+"xaritada</a>"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:281
+msgid "January"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:282
+msgid "February"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:283
+msgid "March"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:284
+msgid "April"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:285
+msgid "May"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:286
+msgid "June"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:287
+msgid "July"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:288
+msgid "August"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:289
+msgid "September"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:290
+msgid "October"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:291
+msgid "November"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:292
+msgid "December"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:295
+msgid "Monday"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:296
+msgid "Tuesday"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:297
+msgid "Wednesday"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:298
+msgid "Thursday"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:299
+msgid "Friday"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:300
+msgid "Saturday"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:301
+msgid "Sunday"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:371
+msgid "1 second ago"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:377
+msgid "1 minute ago"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:382
+msgid "1 hour ago"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:385
+#, python-format
+msgid "%(time)s"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:387
+msgid "yesterday"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:387
+#, python-format
+msgid "yesterday at %(time)s"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:389
+#, python-format
+msgid "%(weekday)s"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:389
+#, python-format
+msgid "%(weekday)s at %(time)s"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:392
+#: venv/lib/python3.8/site-packages/tornado/locale.py:445
+#, python-format
+msgid "%(month_name)s %(day)s"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:394
+#, python-format
+msgid "%(month_name)s %(day)s at %(time)s"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:399
+#, python-format
+msgid "%(month_name)s %(day)s, %(year)s"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:401
+#, python-format
+msgid "%(month_name)s %(day)s, %(year)s at %(time)s"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:439
+#, python-format
+msgid "%(weekday)s, %(month_name)s %(day)s"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/locale.py:462
+#, python-format
+msgid "%(commas)s and %(last)s"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/test/locale_test.py:68
+msgctxt "law"
+msgid "right"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/test/locale_test.py:69
+msgctxt "good"
+msgid "right"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/test/locale_test.py:71
+#: venv/lib/python3.8/site-packages/tornado/test/locale_test.py:74
+msgctxt "organization"
+msgid "club"
+msgstr ""
+
+#: venv/lib/python3.8/site-packages/tornado/test/locale_test.py:76
+#: venv/lib/python3.8/site-packages/tornado/test/locale_test.py:77
+msgctxt "stick"
+msgid "club"
+msgstr ""
+
