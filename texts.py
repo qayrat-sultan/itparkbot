@@ -122,6 +122,8 @@ Android-разработчики нужны в разных сферах. К п�
 phone_add_text = ("Iltimos, telefon raqamingizni kiriting yoki «Raqamni yuborish» tugmasini bosing. \n\n"
                   "Misol uchun: +998 90 123-45-67")
 
+phone_error_answer = "Telefon raqam noto‘g‘ri formatda kiritildi❗️ \n\nIltimos, telefon raqamni qayta kiriting."
+
 phone_add_button = "📞 Raqamni yuborish"
 
 back_reply_button = "⬅️ Ortga"
@@ -133,6 +135,8 @@ age_answer_text = "Iltimos, yoshingizni kiriting"
 sex_answer_text = "Iltimos, jinsingizni tanlang"
 
 error_answer_text = "Kiritgan ma'lumotingiz mos kelmadi"
+
+error_age_answer = "Yosh chegarasi xato kiritildi"
 
 result_answer_text = """📃 F. I. SH.: {fio} 
 👫 Jins: {sex} 
@@ -146,3 +150,61 @@ Qo‘shimcha savollaringiz mavjudmi? Unday holda bizning Call-markazimiga muroja
 
 
 success_message_text = "Muvaffaqiyatli ro'yxatdan o'tdingiz"
+
+filial_tashkent = """🏢 <b>IT Park Tashkent</b>
+
+📍 Manzil: Maxtumquli ko‘chasi, 1A, IT Park Tashkent binosi.
+
+📌 Mo‘ljal: Muhammad al-Xorazmiy nomidagi ixtisoslashtirilgan IT-maktab.
+
+📞 Tel: +998 99 309-11-99
+
+🔗 <a href="https://yandex.uz/maps/-/CCU5nFuESB">IT-Markaz xaritada</a>"""
+
+
+filial_mirzo = """🏢 <b>IT Center - IT Center Mirzo-Ulug‘bek</b>
+
+📍 Manzil:  Qorasu-4, 6A, 121-maktab.
+
+📞 Tel: +998 99 180-11-99
+
+🔗 <a href="https://yandex.uz/maps/-/CCU5nFqgwD">IT-Markaz xaritada</a>"""
+
+filial_chilonzor = """🏢 <b>IT Center - IT Center Chilonzor</b>
+
+📍 Manzil: Chilonzor hokimiyati, Jamoatchilik markazi binosi.
+
+📌 Mo‘ljal: Chilonzor metro.
+
+📞 Tel: +998 99 177-11-99
+
+🔗 <a href="https://yandex.uz/maps/-/CCU5nFdO0C">IT-Markaz xaritada</a>"""
+
+filial_sergeli = """🏢 IT Center - IT Center Sergeli
+
+📍 Manzil: Sergeli 4, 34.
+
+📞 Tel: +998 99 137-11-99
+
+🔗 <a href="https://yandex.uz/maps/-/CCU5nFhIXD">IT-Markaz xaritada</a>"""
+
+filial_yakkasaroy = """🏢 <b>IT Center - IT Center Yakkasaroy</b>
+
+📍 Manzil: Sho‘ta Rustaveli ko‘chasi, 17, Barkamol avlod binosi.
+
+📌 Mo‘ljal: Grand Mir mehmonxonasi.
+
+📞 Tel: +998 99 107-11-99
+
+🔗 <a href="https://yandex.uz/maps/-/CCU5nFh6SB">IT-Markaz xaritada </a>"""
+
+filial_bektemir = """🏢 <b>IT Center - IT Center Bektemir</b>
+
+📍 Manzil: Yuqori Chirchiq koʻchasi, 43.
+
+📞 Tel: +998 99 127-11-99
+
+🔗 <a href="https://yandex.uz/maps/-/CCU5nFhs-B">IT-Markaz xaritada</a>"""
+
+
+
