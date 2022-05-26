@@ -89,17 +89,17 @@ async def on_startup(dp):
     print(MEDIA)
     for i in ADMIN_IDS:
         try:
-            for filename in glob.glob('media/*.jpg'):
-                with open(os.path.join(os.getcwd(), filename), 'rb') as f:  # open in readonly mode
-                    print(filename)
-                    x = await dp.bot.send_photo(5252535217, types.InputFile(filename))
-                    # await collmedia.update_one({"_id": filename.split("/")[1].replace(".jpg", "")},
-                    #                            {"$set": {"file_id": x.photo[-1].file_id}})
-                    try:
-                        await collmedia.insert_one({"_id": filename.split("/")[1].replace(".jpg", ""),
-                                                    "file_id": x.photo[-1].file_id})
-                    except:
-                        print("PASS")
+            # for filename in glob.glob('media/*.jpg'):
+            #     with open(os.path.join(os.getcwd(), filename), 'rb') as f:  # open in readonly mode
+            #         print(filename)
+            #         x = await dp.bot.send_photo(5252535217, types.InputFile(filename))
+            #         await collmedia.update_one({"_id": filename.split("/")[1].replace(".jpg", "")},
+            #                                    {"$set": {"file_id": x.photo[-1].file_id}})
+            #         try:
+            #             await collmedia.insert_one({"_id": filename.split("/")[1].replace(".jpg", ""),
+            #                                         "file_id": x.photo[-1].file_id})
+            #         except:
+            #             print("PASS")
             await dp.bot.send_message(i, "Bot are start!")
         except (BotKicked, BotBlocked, UserDeactivated):
             pass
