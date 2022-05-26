@@ -4,7 +4,6 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.utils.callback_data import CallbackData
 
-import admin_commands
 import configs
 import handlers
 import kbs
@@ -51,11 +50,11 @@ async def cmd_start(message: types.Message, locale, state: FSMContext):
     x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
     await x.delete()
     if await configs.collusers.count_documents({"_id": message.from_user.id}) < 1:
-        await message.answer(_(texts.start_text, locale=locale),
+        await message.answer(await texts.start_text(locale),
                              reply_markup=await kbs.start_inline_kb(locale),
                              parse_mode="HTML")  # required use bot.send_message!
     else:
-        await message.answer(_(texts.menu_text, locale=locale),
+        await message.answer(await texts.menu_text(locale=locale),
                              reply_markup=await kbs.menu_inline_kb(locale))
 
 
@@ -89,12 +88,12 @@ async def menu(message: types.Message):
     print("LOW", message)
     await handlers.menu_handler(message)
 
-
+"""
 @dp.message_handler(commands=['post'])
 async def post(message: types.Message):
     data = {'type': 'text', 'text': 'text', 'entities': None}
     users = 390736292,
-    await admin_commands.send_post_all_users(data, users, bot)
+    await admin_commands.send_post_all_users(data, users, bot)"""
 
 
 @dp.message_handler(commands=["report"])
@@ -104,13 +103,13 @@ async def report(message: types.Message):
 
 
 @dp.message_handler(commands="centers", state="*")
-async def centers_menu(message: types.Message, locale, state: FSMContext):
+async def centers_menu(message: types.Message, locale):
     x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
     await x.delete()
     await message.answer_photo(
         MEDIA.get('centers'),
         reply_markup=await kbs.register_inline_kb(locale),
-        caption=_(texts.register_list_text)
+        caption=await texts.register_list_text(locale)
     )
 
 
@@ -122,39 +121,40 @@ async def report_process(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=SetRegister.fio, content_types="text")
 async def set_fio_process(message: types.Message, locale, state: FSMContext):
-    if message.text == _(texts.back_reply_button):
+    if message.text == await texts.back_reply_button(locale):
         return await centers_menu(message, locale, state)
     if not message.text.isalpha():
-        return await message.answer(_(texts.error_answer_text))
+        return await message.answer(await texts.error_answer_text(locale))
     async with state.proxy() as data:
         data['fio'] = message.text
     await SetRegister.tel.set()
-    await message.answer(_(texts.phone_add_text), reply_markup=await kbs.reply_back_phone(locale))
+    await message.answer(await texts.phone_add_text(locale), reply_markup=await kbs.reply_back_phone(locale))
 
 
 @dp.message_handler(state=SetRegister.tel, content_types=["text", "contact"])
 async def set_fio_process(message: types.Message, locale, state: FSMContext):
     x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
     await x.delete()
-    if message.text == _(texts.back_reply_button):
-        await message.answer(_(texts.fio_answer_text), reply_markup=await kbs.reply_back(locale))
+    if message.text == await texts.back_reply_button(locale):
+        await message.answer(await texts.fio_answer_text(locale), reply_markup=await kbs.reply_back(locale))
         return await SetRegister.fio.set()
     async with state.proxy() as data:
         if message.contact:
             data['tel'] = str(message.contact.phone_number)
         else:
-            return await message.answer(_(texts.phone_error_answer))
+            return await message.answer(await texts.phone_error_answer(locale),
+                                        reply_markup=await kbs.reply_back_phone(locale))
     await SetRegister.sex.set()
-    await message.answer(_(texts.sex_answer_text), reply_markup=await kbs.sex_inline(locale))
+    await message.answer(await texts.sex_answer_text(locale), reply_markup=await kbs.sex_inline(locale))
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith('back_tel'), state="*")
-async def back_to_tel_process(callback: types.CallbackQuery, locale, state: FSMContext):
+async def back_to_tel_process(callback: types.CallbackQuery, locale):
     await callback.answer()
     await SetRegister.tel.set()
     await callback.message.delete()
     print("BAKRBAKRBAKRBAKRBAKRBAKR")
-    await callback.message.answer(_(texts.phone_add_text), reply_markup=await kbs.reply_back_phone(locale))
+    await callback.message.answer(await texts.phone_add_text(locale), reply_markup=await kbs.reply_back_phone(locale))
 
 
 @dp.callback_query_handler(lambda call: call.data.startswith('sex'), state=SetRegister.sex)
@@ -165,31 +165,32 @@ async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMConte
         data['sex'] = callback.data.split(":")[1]
     await SetRegister.age.set()
     await callback.message.delete()
-    await callback.message.answer(_(texts.age_answer_text), reply_markup=await kbs.reply_back(locale))
+    await callback.message.answer(await texts.age_answer_text(locale), reply_markup=await kbs.reply_back(locale))
 
 
 @dp.message_handler(state=SetRegister.age, content_types="text")
 async def set_fio_process(message: types.Message, locale, state: FSMContext):
     async with state.proxy() as data:
-        if message.text == _(texts.back_reply_button):
-            await message.answer(_(texts.sex_answer_text), reply_markup=await kbs.sex_inline(locale))
+        if message.text == await texts.back_reply_button(locale):
+            await message.answer(await texts.sex_answer_text(locale), reply_markup=await kbs.sex_inline(locale))
             return await SetRegister.sex.set()
         if message.text.isdigit():
             if not 7 < int(message.text) < 60:
-                await message.answer(_(texts.error_age_answer))
+                await message.answer(await texts.error_age_answer(locale))
                 return await SetRegister.age.set()
             data['age'] = message.text
-            await message.answer(_(texts.result_answer_text).format(fio=data.get('fio'),
-                                                                    sex=data.get('sex'),
-                                                                    age=data.get('age'),
-                                                                    center=kbs.centers_text_dict[data.get('register')],
-                                                                    course=kbs.course_dict[data.get('courses')],
-                                                                    phone=data.get('tel')
-                                                                    ),
+            await message.answer(texts.result_answer_text.  # noqa dubl
+                                 format(fio=data.get('fio'),
+                                        sex=data.get('sex'),
+                                        age=data.get('age'),
+                                        center=await kbs.centers_text_dict_func(data.get('register'), locale),
+                                        course=await kbs.course_dict_func(data.get('courses'), locale),
+                                        phone=data.get('tel')
+                                        ),
                                  reply_markup=types.ReplyKeyboardRemove())
             print(data)
         else:
-            await message.answer(_(texts.error_answer_text), reply_markup=await kbs.reply_back(locale))
+            await message.answer(await texts.error_answer_text(locale), reply_markup=await kbs.reply_back(locale))
             return await SetRegister.age.set()
     confirm_button = CallbackData('confirm', 'action')
     markup = types.InlineKeyboardMarkup(
@@ -214,16 +215,16 @@ async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMConte
     await callback.message.delete()
     async with state.proxy() as data:
         if callback.data.split(":")[1] == "yes":
-            await callback.message.answer(_(texts.success_message_text))
-            await bot.send_message(configs.GROUP_ID, _(texts.new_request_text).format(fio=data.get('fio'),
-                                                                                        sex=data.get('sex'),
-                                                                                        age=data.get('age'),
-                                                                                        center=kbs.centers_text_dict[
-                                                                                            data.get('register')],
-                                                                                        course=kbs.course_dict[
-                                                                                            data.get('courses')],
-                                                                                        phone=data.get('tel')
-                                                                                        ))
+            await callback.message.answer(await texts.success_message_text(locale))
+            await bot.send_message(configs.GROUP_ID,
+                                   texts.new_request_text.  # noqa dubl
+                                   format(fio=data.get('fio'),
+                                          sex=data.get('sex'),
+                                          age=data.get('age'),
+                                          center=await kbs.centers_text_dict_func(data.get('register'), locale),
+                                          course=await kbs.course_dict_func(data.get('courses'), locale),
+                                          phone=data.get('tel')
+                                          ))
             await state.finish()
         else:
             await state.finish()
@@ -231,7 +232,7 @@ async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMConte
 
 
 @dp.callback_query_handler(lambda call: call.data.startswith('lang'), state="*")
-async def language_set(callback: types.CallbackQuery):
+async def language_set(callback: types.CallbackQuery, locale):
     print("^^^^^^^^^^^^", callback.data)
     lang = callback.data.split(":")[1]
     configs.LANG_STORAGE[callback.from_user.id] = lang
@@ -239,13 +240,13 @@ async def language_set(callback: types.CallbackQuery):
         "$set": {"lang": lang}})
     await callback.answer(_("Selected", locale=lang))
     # await callback.message.delete()
-    await callback.message.edit_text(texts.menu_text, reply_markup=await kbs.menu_inline_kb(lang))
+    await callback.message.edit_text(await texts.menu_text(locale), reply_markup=await kbs.menu_inline_kb(lang))
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith('lang'), state="*")
 async def language_set(callback: types.CallbackQuery, locale):
     # await callback.message.delete()
-    await callback.message.edit_text(texts.start_text, reply_markup=await kbs.start_inline_kb(locale))
+    await callback.message.edit_text(await texts.start_text(locale), reply_markup=await kbs.start_inline_kb(locale))
     # await callback.message.answer_photo(MEDIA['about'], reply_markup=await kbs.start_inline_kb(locale))
 
 
@@ -258,7 +259,7 @@ async def back_menu(callback: types.CallbackQuery, locale, state: FSMContext):
         await state.finish()
     await callback.answer()
     await callback.message.delete()
-    await callback.message.answer(_(texts.menu_text), reply_markup=await kbs.menu_inline_kb(locale))
+    await callback.message.answer(await texts.menu_text(locale), reply_markup=await kbs.menu_inline_kb(locale))
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("menu"), state='*')
@@ -266,11 +267,11 @@ async def main_menu(callback: types.CallbackQuery, locale):
     print("#$#$#$#$#$#$#$", callback.data)
     await callback.answer()
     # await callback.message.delete()
-    await callback.message.edit_text(_(texts.menu_text), reply_markup=await kbs.menu_inline_kb(locale))
+    await callback.message.edit_text(await texts.menu_text(locale), reply_markup=await kbs.menu_inline_kb(locale))
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("register"), state='*')
-async def register_func(callback: types.CallbackQuery, locale, state: FSMContext):
+async def register_func(callback: types.CallbackQuery, locale):
     print("CCCCCCCCCCCCCCCCCCCCCCCC", callback.data)
     await SetRegister.center.set()
     await callback.answer("THIS")
@@ -278,7 +279,7 @@ async def register_func(callback: types.CallbackQuery, locale, state: FSMContext
     await callback.message.answer_photo(
         MEDIA.get('centers'),
         reply_markup=await kbs.register_inline_kb(locale),
-        caption=_(texts.register_list_text)
+        caption=await texts.register_list_text(locale)
     )
 
 
@@ -300,7 +301,7 @@ async def register_func(callback: types.CallbackQuery, locale):
 async def register_func(callback: types.CallbackQuery, locale):
     print("@#@#@#@#@#@#@#@#@#@#", callback.data)
     await callback.answer("THIS")
-    await callback.message.edit_text(_(texts.contact_text), parse_mode="HTML",
+    await callback.message.edit_text(await texts.contact_text(locale), parse_mode="HTML",
                                      reply_markup=await kbs.contacts_inline_kb(locale))
 
 
@@ -309,18 +310,17 @@ async def menu_func(callback: types.CallbackQuery, locale):
     print("ASDSDSA", callback.data)
     # await callback.answer()
     await callback.message.delete()
-    # await callback.message.edit_text(_(texts.about_text), reply_markup=await kbs.about_inline_kb(locale=locale))
+    # await callback.message.edit_text(await texts.about_text), reply_markup=await kbs.about_inline_kb(locale=locale))
     await callback.message.answer_photo(MEDIA['about'], reply_markup=await kbs.about_inline_kb(locale),
-                                        caption=texts.about_text)
+                                        caption=await texts.about_text(locale))
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("reg"), state="*")
-async def reg_couse_func(callback: types.CallbackQuery, locale, state: FSMContext):
+async def reg_couse_func(callback: types.CallbackQuery, locale):
     print("@@@##########@@@@@@@@")
     await callback.message.delete()
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.add(texts.back_reply_button)
-    await callback.message.answer(_(texts.fio_answer_text), reply_markup=markup)
+    await callback.message.answer(_("Iltimos, to'liq ismingizni kiriting", locale),
+                                  reply_markup=await kbs.reply_back(locale))
     await SetRegister.fio.set()
 
 
@@ -372,22 +372,22 @@ async def some_error(baba, error):
 async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale):
     await callback.answer()
     photo_dict = {
-        "frontend": (MEDIA.get('frontend'), texts.web_text),
-        "backend": (MEDIA.get('backend'), texts.backend_text),
-        "android": (MEDIA.get("android"), texts.android_text),
-        "robots": (MEDIA.get('robots'), texts.robots_text),
-        "graphics": (MEDIA.get('graphic'), texts.graphics_text),
-        "english": (MEDIA.get('english'), texts.english_text),
-        "smm": (MEDIA.get('smm'), texts.smm_text),
-        "scratch": (MEDIA.get('scratch'), texts.scratch_text),
+        "frontend": (MEDIA.get('frontend'), await texts.web_text(locale)),
+        "backend": (MEDIA.get('backend'), await texts.backend_text(locale)),
+        "android": (MEDIA.get("android"), await texts.android_text(locale)),
+        "robots": (MEDIA.get('robots'), await texts.robots_text(locale)),
+        "graphics": (MEDIA.get('graphic'), await texts.graphics_text(locale)),
+        "english": (MEDIA.get('english'), await texts.english_text(locale)),
+        "smm": (MEDIA.get('smm'), await texts.smm_text(locale)),
+        "scratch": (MEDIA.get('scratch'), await texts.scratch_text(locale)),
 
         "course": MEDIA.get('courses'),
-        "yakkasaroy": (MEDIA.get('yakkasaroy'), texts.filial_yakkasaroy),
-        "tashkent": (MEDIA.get('tashkent'), texts.filial_tashkent),
-        "chilonzor": (MEDIA.get('chilonzor'), texts.filial_chilonzor),
-        "mirzo": (MEDIA.get('mirzo'), texts.filial_mirzo),
-        "sergeli": (MEDIA.get('sergeli'), texts.filial_sergeli),
-        "bektemir": (MEDIA.get('bektemir'), texts.filial_bektemir),
+        "yakkasaroy": (MEDIA.get('yakkasaroy'), await texts.filial_yakkasaroy(locale)),
+        "tashkent": (MEDIA.get('tashkent'), await texts.filial_tashkent(locale)),
+        "chilonzor": (MEDIA.get('chilonzor'), await texts.filial_chilonzor(locale)),
+        "mirzo": (MEDIA.get('mirzo'), await texts.filial_mirzo(locale)),
+        "sergeli": (MEDIA.get('sergeli'), await texts.filial_sergeli(locale)),
+        "bektemir": (MEDIA.get('bektemir'), await texts.filial_bektemir(locale)),
     }
 
     level_data, target_data = callback.data.split(":")
@@ -402,12 +402,12 @@ async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale
         elif not data.get('register'):
             await callback.message.delete()
             await callback.message.answer_photo(photo_dict['course'], reply_markup=await kbs.register_inline_kb(locale),
-                                                caption=texts.register_list_text)
+                                                caption=await texts.register_list_text(locale))
         else:
             print("ASDSDS")
             await callback.message.delete()
             await callback.message.answer_photo(photo=photo_dict[data['courses']][0],
-                                                caption=_(photo_dict[data['courses']][1]),
+                                                caption=photo_dict[data['courses']][1],
                                                 reply_markup=await kbs.reg_inline_kb(locale),
                                                 )
     print("##################", callback)

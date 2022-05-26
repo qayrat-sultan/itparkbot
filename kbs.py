@@ -16,6 +16,7 @@ async def start_keyboard(locale):
     )
     return kb
 
+
 async def start_inline_kb(locale):
     confirm_lang = CallbackData('lang', 'action')
     inline_key = types.InlineKeyboardMarkup(
@@ -36,11 +37,11 @@ async def contacts_inline_kb(locale):
     inline_key = types.InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                types.InlineKeyboardButton("📤 Murojaat qoldirish",
+                types.InlineKeyboardButton(_("📤 Murojaat qoldirish", locale),
                                            callback_data=confirm_lang.new(action="report")),
             ],
             [
-                types.InlineKeyboardButton("⬅️ Ortga",
+                types.InlineKeyboardButton(_("⬅️ Ortga", locale),
                                            callback_data=confirm_lang.new(action="menu")),
             ]
         ],
@@ -53,9 +54,9 @@ async def about_inline_kb(locale):
     inline_key = types.InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                types.InlineKeyboardButton("📝 Kursga yozilish",
+                types.InlineKeyboardButton(_("📝 Kursga yozilish", locale),
                                            callback_data=confirm_lang.new(action="register")),
-                types.InlineKeyboardButton("⬅️ Ortga",
+                types.InlineKeyboardButton(_("⬅️ Ortga", locale),
                                            callback_data=confirm_lang.new(action="back")),
             ]
         ],
@@ -68,11 +69,11 @@ async def reg_inline_kb(locale):
     inline_key = types.InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                types.InlineKeyboardButton("📝 Kursga yozilish",
+                types.InlineKeyboardButton(_("📝 Kursga yozilish", locale),
                                            callback_data=confirm_lang.new(action="reg")),
             ],
             [
-                types.InlineKeyboardButton("⬅️ Ortga",
+                types.InlineKeyboardButton(_("⬅️ Ortga", locale),
                                            callback_data=confirm_lang.new(action="back")),
             ]
         ],
@@ -80,13 +81,15 @@ async def reg_inline_kb(locale):
     return inline_key
 
 
-centers_text_dict = {"tashkend": "IT Park Tashkent",
-                     "mirzo": "IT Center Mirzo-Ulug'bek",
-                     "chilonzor": "IT Center Chilonzor",
-                     "sergeli": "IT Center Sergeli",
-                     "yakkasaroy": "IT Center Yakkasaroy",
-                     "bektemir": "IT Center Bektemir",
-                     }
+async def centers_text_dict_func(key, locale):
+    centers_text_dict = {"tashkend": _("IT Park Tashkent", locale),
+                         "mirzo": _("IT Center Mirzo-Ulug'bek", locale),
+                         "chilonzor": _("IT Center Chilonzor", locale),
+                         "sergeli": _("IT Center Sergeli", locale),
+                         "yakkasaroy": _("IT Center Yakkasaroy", locale),
+                         "bektemir": _("IT Center Bektemir", locale),
+                         }
+    return centers_text_dict[key]
 
 
 async def register_inline_kb(locale):
@@ -94,31 +97,31 @@ async def register_inline_kb(locale):
     inline_key = types.InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                types.InlineKeyboardButton("🏢 IT Park Tashkent",
+                types.InlineKeyboardButton(_("🏢 IT Park Tashkent", locale),
                                            callback_data=confirm_lang.new(action="tashkent"))
             ],
             [
-                types.InlineKeyboardButton("🏢 IT Center Mirzo-Ulug'bek",
+                types.InlineKeyboardButton(_("🏢 IT Center Mirzo-Ulug'bek", locale),
                                            callback_data=confirm_lang.new(action="mirzo")),
             ],
             [
-                types.InlineKeyboardButton("🏢 IT Center Chilonzor",
+                types.InlineKeyboardButton(_("🏢 IT Center Chilonzor", locale),
                                            callback_data=confirm_lang.new(action="chilonzor"))
             ],
             [
-                types.InlineKeyboardButton("🏢 IT Center Sergeli",
+                types.InlineKeyboardButton(_("🏢 IT Center Sergeli", locale),
                                            callback_data=confirm_lang.new(action="sergeli"))
             ],
             [
-                types.InlineKeyboardButton("🏢 IT Center Yakkasaroy",
+                types.InlineKeyboardButton(_("🏢 IT Center Yakkasaroy", locale),
                                            callback_data=confirm_lang.new(action="yakkasaroy"))
             ],
             [
-                types.InlineKeyboardButton("🏢 IT Center Bektemir",
+                types.InlineKeyboardButton(_("🏢 IT Center Bektemir", locale),
                                            callback_data=confirm_lang.new(action="bektemir"))
             ],
             [
-                types.InlineKeyboardButton("⬅️ Ortga",
+                types.InlineKeyboardButton(_("⬅️ Ortga", locale),
                                            callback_data=confirm_lang.new(action="back"))
             ]
         ],
@@ -126,16 +129,18 @@ async def register_inline_kb(locale):
     return inline_key
 
 
-course_dict = {
-    "frontend": "Web dasturlash (Frontend)",
-    "backend": "Backend dasturlash",
-    "android": "Android ilovalarni yaratish",
-    "robots": "Mobil robototexnika",
-    "graphics": "Grafika va web dizayn",
-    "english": "IT-English",
-    "smm": "SMM-mutaxassis",
-    "scratch": "Scratch + IT English",
-}
+async def course_dict_func(key, locale):
+    course_dict = {
+        "frontend": _("Web dasturlash (Frontend)", locale),
+        "backend": _("Backend dasturlash", locale),
+        "android": _("Android ilovalarni yaratish", locale),
+        "robots": _("Mobil robototexnika", locale),
+        "graphics": _("Grafika va web dizayn", locale),
+        "english": _("IT-English", locale),
+        "smm": _("SMM-mutaxassis", locale),
+        "scratch": _("Scratch + IT English", locale),
+    }
+    return course_dict[key]
 
 
 async def courses_inline_kb(locale):
@@ -143,39 +148,39 @@ async def courses_inline_kb(locale):
     inline_key = types.InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                types.InlineKeyboardButton("🖥 Web dasturlash (Frontend)",
+                types.InlineKeyboardButton(_("🖥 Web dasturlash (Frontend)", locale),
                                            callback_data=confirm_lang.new(action="frontend"))
             ],
             [
-                types.InlineKeyboardButton("💻 Backend dasturlash",
+                types.InlineKeyboardButton(_("💻 Backend dasturlash", locale),
                                            callback_data=confirm_lang.new(action="backend")),
             ],
             [
-                types.InlineKeyboardButton("📲 Android ilovalarni yaratish",
+                types.InlineKeyboardButton(_("📲 Android ilovalarni yaratish", locale),
                                            callback_data=confirm_lang.new(action="android"))
             ],
             [
-                types.InlineKeyboardButton("🤖 Mobil robototexnika",
+                types.InlineKeyboardButton(_("🤖 Mobil robototexnika", locale),
                                            callback_data=confirm_lang.new(action="robots"))
             ],
             [
-                types.InlineKeyboardButton("🏞 Grafika va web dizayn",
+                types.InlineKeyboardButton(_("🏞 Grafika va web dizayn", locale),
                                            callback_data=confirm_lang.new(action="graphics"))
             ],
             [
-                types.InlineKeyboardButton("🇺🇸 IT-English",
+                types.InlineKeyboardButton(_("🇺🇸 IT-English", locale),
                                            callback_data=confirm_lang.new(action="english"))
             ],
             [
-                types.InlineKeyboardButton("👩‍💻 SMM-menejer",
+                types.InlineKeyboardButton(_("👩‍💻 SMM-menejer", locale),
                                            callback_data=confirm_lang.new(action="smm"))
             ],
             [
-                types.InlineKeyboardButton("🧩 Scratch + IT English",
+                types.InlineKeyboardButton(_("🧩 Scratch + IT English", locale),
                                            callback_data=confirm_lang.new(action="scratch"))
             ],
             [
-                types.InlineKeyboardButton("⬅️ Ortga",
+                types.InlineKeyboardButton(_("⬅️ Ortga", locale),
                                            callback_data=confirm_lang.new(action="back"))
             ]
         ],
@@ -188,19 +193,19 @@ async def menu_inline_kb(locale):
     inline_key = types.InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                types.InlineKeyboardButton("ℹ️ Biz haqimizda",
+                types.InlineKeyboardButton(_("ℹ️ Biz haqimizda", locale),
                                            callback_data=confirm_lang.new(action="about")),
                 types.InlineKeyboardButton(_("🖥 Bizning kurslar", locale=locale),
                                            callback_data=confirm_lang.new(action="courses")),
             ],
             [
-                types.InlineKeyboardButton("📞 Kontaktlar",
+                types.InlineKeyboardButton(_("📞 Kontaktlar", locale),
                                            callback_data=confirm_lang.new(action="contacts")),
-                types.InlineKeyboardButton("🏢 O'quv markazlar",
+                types.InlineKeyboardButton(_("🏢 O'quv markazlar", locale),
                                            callback_data=confirm_lang.new(action="register")),
             ],
             [
-                types.InlineKeyboardButton("⬅️ Ortga",
+                types.InlineKeyboardButton(_("⬅️ Ortga", locale),
                                            callback_data=confirm_lang.new(action="lang")),
             ]
 
@@ -214,14 +219,14 @@ async def sex_inline(locale):
     inline_key = types.InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                types.InlineKeyboardButton("🙎🏻‍♂️ Erkak",
+                types.InlineKeyboardButton(_("🙎🏻‍♂️ Erkak", locale),
                                            callback_data=confirm_sex.new(action="erkak")),
 
-                types.InlineKeyboardButton("🙎🏻‍♀️ Ayol",
+                types.InlineKeyboardButton(_("🙎🏻‍♀️ Ayol", locale),
                                            callback_data=confirm_sex.new(action="ayol")),
             ],
             [
-                types.InlineKeyboardButton("⬅️ Ortga",
+                types.InlineKeyboardButton(_("⬅️ Ortga", locale),
                                            callback_data=confirm_sex.new(action="back_tel"))
             ]
         ],
@@ -232,7 +237,7 @@ async def sex_inline(locale):
 async def reply_back(locale):
     markup = types.ReplyKeyboardMarkup(
         keyboard=[
-            [types.KeyboardButton(_(texts.back_reply_button, locale=locale))]
+            [types.KeyboardButton(await texts.back_reply_button(locale=locale))]
         ],
         resize_keyboard=True)
     return markup
@@ -241,8 +246,8 @@ async def reply_back(locale):
 async def reply_back_phone(locale):
     markup = types.ReplyKeyboardMarkup(
         keyboard=[
-            [types.KeyboardButton(_(texts.phone_add_button, locale=locale), request_contact=True)],
-            [types.KeyboardButton(_(texts.back_reply_button, locale=locale))]
+            [types.KeyboardButton(await texts.phone_add_button(locale=locale), request_contact=True)],
+            [types.KeyboardButton(await texts.back_reply_button(locale))]
         ],
         resize_keyboard=True)
     return markup
