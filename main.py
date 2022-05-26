@@ -103,7 +103,7 @@ async def report(message: types.Message):
 
 
 @dp.message_handler(commands="centers", state="*")
-async def centers_menu(message: types.Message, locale):
+async def centers_menu(message: types.Message, locale, state: FSMContext):
     x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
     await x.delete()
     await message.answer_photo(
@@ -121,6 +121,7 @@ async def report_process(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=SetRegister.fio, content_types="text")
 async def set_fio_process(message: types.Message, locale, state: FSMContext):
+    print("ITPARKITPARKITPARKITPARKITPARK", await texts.back_reply_button(locale))
     if message.text == await texts.back_reply_button(locale):
         return await centers_menu(message, locale, state)
     if not message.text.isalpha():
