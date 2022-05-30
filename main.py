@@ -123,8 +123,9 @@ async def report_process(message: types.Message, state: FSMContext):
 async def set_fio_process(message: types.Message, locale, state: FSMContext):
     if message.text == await texts.back_reply_button(locale):
         return await centers_menu(message, locale, state)
-    if not message.text.isalpha():
-        return await message.answer(texts.error_answer_text)
+    for i in message.text.split():
+        if not i.isalpha():
+            return await message.answer(texts.error_answer_text)
     async with state.proxy() as data:
         data['fio'] = message.text
     await SetRegister.tel.set()
