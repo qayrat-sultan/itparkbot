@@ -1,6 +1,6 @@
-import asyncio
+import asyncio # noqa
 import datetime
-import glob
+import glob  # noqa
 import logging
 import os
 
@@ -86,7 +86,6 @@ async def on_startup(dp):
     media = collmedia.find({})
     async for i in media:
         MEDIA[i.get("_id")] = i.get('file_id')
-    print(MEDIA)
     for i in ADMIN_IDS:
         try:
             # for filename in glob.glob('media/*.jpg'):
