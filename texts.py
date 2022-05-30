@@ -125,7 +125,9 @@ phone_add_text = _("Iltimos, telefon raqamingizni kiriting yoki «Raqamni yubori
 phone_error_answer = _("Telefon raqam noto‘g‘ri formatda kiritildi❗️ \n\nIltimos, telefon raqamni qayta kiriting.")
 
 
-phone_add_button = _("📞 Raqamni yuborish")
+async def phone_add_button(locale):
+    text = _("📞 Raqamni yuborish", locale=locale)
+    return text
 
 
 async def back_reply_button(locale):

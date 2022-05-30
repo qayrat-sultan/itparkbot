@@ -246,7 +246,7 @@ async def reply_back(locale):
 async def reply_back_phone(locale):
     markup = types.ReplyKeyboardMarkup(
         keyboard=[
-            [types.KeyboardButton(await texts.phone_add_button(locale=locale), request_contact=True)],
+            [types.KeyboardButton(await texts.phone_add_button(locale), request_contact=True)],
             [types.KeyboardButton(await texts.back_reply_button(locale))]
         ],
         resize_keyboard=True)
