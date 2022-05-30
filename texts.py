@@ -150,6 +150,9 @@ error_answer_text = _("Kiritgan ma'lumotingiz mos kelmadi")
 error_age_answer = _("Yosh chegarasi xato kiritildi")
 
 
+accept_form = _("Iltimos, yuqoridagi ma’lumotlarizni tekshiring va «Tasdiqlash» tugmasini bosing.")
+
+
 result_answer_text = _("""📃 F. I. SH.: {fio} 
 👫 Jins: {sex} 
 📅 Yosh: {age}

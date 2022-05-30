@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-05-30 15:56+0500\n"
+"POT-Creation-Date: 2022-05-30 16:35+0500\n"
 "PO-Revision-Date: 2022-05-26 15:17+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -35,7 +35,7 @@ msgstr ""
 msgid "📤 Murojaat qoldirish"
 msgstr "📤 Оставить обращение"
 
-#: kbs.py:44 kbs.py:59 kbs.py:76 kbs.py:124 kbs.py:183 kbs.py:229 texts.py:132
+#: kbs.py:44 kbs.py:59 kbs.py:76 kbs.py:124 kbs.py:183 kbs.py:229 texts.py:134
 msgid "⬅️ Ortga"
 msgstr "⬅️ Назад"
 
@@ -190,6 +190,14 @@ msgstr ""
 #: main.py:84
 msgid "Your current language: <i>{language}</i>"
 msgstr ""
+
+#: main.py:197
+msgid "✅️ Tasdiqlash"
+msgstr "✅ Подтвердить"
+
+#: main.py:201
+msgid "❌ Bekor qilish"
+msgstr "❌ Отмена"
 
 #: main.py:240
 msgid "Selected"
@@ -511,31 +519,38 @@ msgstr ""
 "\n"
 "Пожалуйста, введите номер телефона еще раз."
 
-#: texts.py:128
+#: texts.py:129
 msgid "📞 Raqamni yuborish"
 msgstr "📞 Отправить номер"
 
-#: texts.py:136
+#: texts.py:138
 msgid "Iltimos, to‘liq ismingizni kiriting"
 msgstr "Пожалуйста, введите Ф.И.О."
 
-#: texts.py:139
+#: texts.py:141
 msgid "Iltimos, yoshingizni kiriting"
 msgstr "Пожалуйста, введите свой возраст"
 
-#: texts.py:142
+#: texts.py:144
 msgid "Iltimos, jinsingizni tanlang"
 msgstr "Пожалуйста, укажите свой пол"
 
-#: texts.py:145
+#: texts.py:147
 msgid "Kiritgan ma'lumotingiz mos kelmadi"
 msgstr "Введены некорректные данные"
 
-#: texts.py:148
+#: texts.py:150
 msgid "Yosh chegarasi xato kiritildi"
 msgstr "Введена ошибка возрастного ограничения"
 
-#: texts.py:151
+#: texts.py:153
+msgid ""
+"Iltimos, yuqoridagi ma’lumotlarizni tekshiring va «Tasdiqlash» tugmasini "
+"bosing."
+msgstr ""
+"Пожалуйста, проверьте свои данные выше и нажмите кнопку <b>«Подтвердить»</b>."
+
+#: texts.py:156
 msgid ""
 "📃 F. I. SH.: {fio} \n"
 "👫 Jins: {sex} \n"
@@ -558,7 +573,7 @@ msgstr ""
 "У Вас есть дополнительные вопросы? В таком случае обращайтесь в наш "
 "Call-центр.Тел: +998 99 309-11-99"
 
-#: texts.py:161
+#: texts.py:166
 msgid ""
 "Yangi so'rov\n"
 "📃 F. I. SH.: {fio} \n"
@@ -576,11 +591,11 @@ msgstr ""
 "🖥 Курс: {course}\n"
 "📞 Тел: {phone}\n"
 
-#: texts.py:171
+#: texts.py:176
 msgid "Muvaffaqiyatli ro'yxatdan o'tdingiz"
 msgstr "Успешно зарегистрировались."
 
-#: texts.py:174
+#: texts.py:179
 #, fuzzy
 msgid ""
 "🏢 <b>IT Park Tashkent</b>\n"
@@ -603,7 +618,7 @@ msgstr ""
 "\n"
 "🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFuESB\">IT-Markaz xaritada</a>"
 
-#: texts.py:185
+#: texts.py:190
 #, fuzzy
 msgid ""
 "🏢 <b>IT Center - IT Center Mirzo-Ulug‘bek</b>\n"
@@ -623,7 +638,7 @@ msgstr ""
 "\n"
 "🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFqgwD\">IT-Центр на карте</a>"
 
-#: texts.py:194
+#: texts.py:199
 #, fuzzy
 msgid ""
 "🏢 <b>IT Center - IT Center Chilonzor</b>\n"
@@ -646,7 +661,7 @@ msgstr ""
 "\n"
 "🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFdO0C\">IT-Центр на карте</a>"
 
-#: texts.py:205
+#: texts.py:210
 #, fuzzy
 msgid ""
 "🏢 <b>IT Center - IT Center Sergeli</b>\n"
@@ -667,7 +682,7 @@ msgstr ""
 "\n"
 "🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFhIXD\">IT-Центр на карте</a>"
 
-#: texts.py:214
+#: texts.py:219
 msgid ""
 "🏢 <b>IT Center - IT Center Yakkasaroy</b>\n"
 "    \n"
@@ -680,7 +695,7 @@ msgid ""
 "🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFh6SB\">IT-Markaz xaritada </a>"
 msgstr ""
 
-#: texts.py:225
+#: texts.py:230
 #, fuzzy
 msgid ""
 "🏢 <b>IT Center - IT Center Bektemir</b>\n"

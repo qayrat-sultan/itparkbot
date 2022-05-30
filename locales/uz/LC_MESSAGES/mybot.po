@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-05-30 15:56+0500\n"
+"POT-Creation-Date: 2022-05-30 16:35+0500\n"
 "PO-Revision-Date: 2022-05-26 15:17+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: uz\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "📤 Murojaat qoldirish"
 msgstr ""
 
-#: kbs.py:44 kbs.py:59 kbs.py:76 kbs.py:124 kbs.py:183 kbs.py:229 texts.py:132
+#: kbs.py:44 kbs.py:59 kbs.py:76 kbs.py:124 kbs.py:183 kbs.py:229 texts.py:134
 msgid "⬅️ Ortga"
 msgstr ""
 
@@ -188,6 +188,14 @@ msgstr ""
 
 #: main.py:84
 msgid "Your current language: <i>{language}</i>"
+msgstr ""
+
+#: main.py:197
+msgid "✅️ Tasdiqlash"
+msgstr ""
+
+#: main.py:201
+msgid "❌ Bekor qilish"
 msgstr ""
 
 #: main.py:240
@@ -390,31 +398,37 @@ msgid ""
 "Iltimos, telefon raqamni qayta kiriting."
 msgstr ""
 
-#: texts.py:128
+#: texts.py:129
 msgid "📞 Raqamni yuborish"
 msgstr ""
 
-#: texts.py:136
+#: texts.py:138
 msgid "Iltimos, to‘liq ismingizni kiriting"
 msgstr ""
 
-#: texts.py:139
+#: texts.py:141
 msgid "Iltimos, yoshingizni kiriting"
 msgstr ""
 
-#: texts.py:142
+#: texts.py:144
 msgid "Iltimos, jinsingizni tanlang"
 msgstr ""
 
-#: texts.py:145
+#: texts.py:147
 msgid "Kiritgan ma'lumotingiz mos kelmadi"
 msgstr ""
 
-#: texts.py:148
+#: texts.py:150
 msgid "Yosh chegarasi xato kiritildi"
 msgstr ""
 
-#: texts.py:151
+#: texts.py:153
+msgid ""
+"Iltimos, yuqoridagi ma’lumotlarizni tekshiring va «Tasdiqlash» tugmasini "
+"bosing."
+msgstr ""
+
+#: texts.py:156
 msgid ""
 "📃 F. I. SH.: {fio} \n"
 "👫 Jins: {sex} \n"
@@ -428,7 +442,7 @@ msgid ""
 " Tel: +998 99 309-11-99"
 msgstr ""
 
-#: texts.py:161
+#: texts.py:166
 msgid ""
 "Yangi so'rov\n"
 "📃 F. I. SH.: {fio} \n"
@@ -439,11 +453,11 @@ msgid ""
 "📞 Tel: {phone}\n"
 msgstr ""
 
-#: texts.py:171
+#: texts.py:176
 msgid "Muvaffaqiyatli ro'yxatdan o'tdingiz"
 msgstr ""
 
-#: texts.py:174
+#: texts.py:179
 msgid ""
 "🏢 <b>IT Park Tashkent</b>\n"
 "    \n"
@@ -456,7 +470,7 @@ msgid ""
 "🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFuESB\">IT-Markaz xaritada</a>"
 msgstr ""
 
-#: texts.py:185
+#: texts.py:190
 msgid ""
 "🏢 <b>IT Center - IT Center Mirzo-Ulug‘bek</b>\n"
 "    \n"
@@ -467,7 +481,7 @@ msgid ""
 "🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFqgwD\">IT-Markaz xaritada</a>"
 msgstr ""
 
-#: texts.py:194
+#: texts.py:199
 msgid ""
 "🏢 <b>IT Center - IT Center Chilonzor</b>\n"
 "    \n"
@@ -480,7 +494,7 @@ msgid ""
 "🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFdO0C\">IT-Markaz xaritada</a>"
 msgstr ""
 
-#: texts.py:205
+#: texts.py:210
 msgid ""
 "🏢 <b>IT Center - IT Center Sergeli</b>\n"
 "    \n"
@@ -491,7 +505,7 @@ msgid ""
 "🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFhIXD\">IT-Markaz xaritada</a>"
 msgstr ""
 
-#: texts.py:214
+#: texts.py:219
 msgid ""
 "🏢 <b>IT Center - IT Center Yakkasaroy</b>\n"
 "    \n"
@@ -504,7 +518,7 @@ msgid ""
 "🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFh6SB\">IT-Markaz xaritada </a>"
 msgstr ""
 
-#: texts.py:225
+#: texts.py:230
 msgid ""
 "🏢 <b>IT Center - IT Center Bektemir</b>\n"
 "    \n"

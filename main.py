@@ -194,17 +194,16 @@ async def set_fio_process(message: types.Message, locale, state: FSMContext):
     markup = types.InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                types.InlineKeyboardButton("✅️ Tasdiqlash",
+                types.InlineKeyboardButton(_("✅️ Tasdiqlash", locale=locale),
                                            callback_data=confirm_button.new(action="yes")),
             ],
             [
-                types.InlineKeyboardButton("❌ Bekor qilish",
+                types.InlineKeyboardButton(_("❌ Bekor qilish", locale=locale),
                                            callback_data=confirm_button.new(action="no"))
             ]
         ],
     )
-    await message.answer("Iltimos, yuqoridagi ma’lumotlarizni tekshiring va «Tasdiqlash» tugmasini bosing.",
-                         reply_markup=markup)
+    await message.answer(texts.accept_form, reply_markup=markup)
 
 
 @dp.callback_query_handler(lambda call: call.data.startswith('confirm'), state="*")
