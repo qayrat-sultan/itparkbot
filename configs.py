@@ -32,7 +32,7 @@ BASE_DIR = Path(__file__).parent
 LOCALES_DIR = BASE_DIR / "locales"
 
 # Database
-MONGO_URL = os.getenv("MONGO_URL")
+MONGO_URL = os.getenv("MONGO_URL", default="mongodb://localhost:27017/myapp")
 cluster = motor.motor_tornado.MotorClient(MONGO_URL)
 collusers = cluster.itpark.users
 collreports = cluster.itpark.reports
