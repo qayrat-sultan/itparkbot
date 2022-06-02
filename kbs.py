@@ -24,6 +24,8 @@ async def start_inline_kb(locale):
             [
                 types.InlineKeyboardButton("🇺🇿 O'zbek tili",
                                            callback_data=confirm_lang.new(action="uz")),
+            ],
+            [
                 types.InlineKeyboardButton("🇷🇺 Русский язык",
                                            callback_data=confirm_lang.new(action="ru")),
             ]
@@ -56,6 +58,8 @@ async def about_inline_kb(locale):
             [
                 types.InlineKeyboardButton(_("📝 Kursga yozilish", locale=locale),
                                            callback_data=confirm_lang.new(action="register")),
+            ],
+            [
                 types.InlineKeyboardButton(_("⬅️ Ortga", locale=locale),
                                            callback_data=confirm_lang.new(action="back")),
             ]
@@ -199,10 +203,10 @@ async def menu_inline_kb(locale):
                                            callback_data=confirm_lang.new(action="courses")),
             ],
             [
-                types.InlineKeyboardButton(_("📞 Kontaktlar", locale=locale),
-                                           callback_data=confirm_lang.new(action="contacts")),
                 types.InlineKeyboardButton(_("🏢 O'quv markazlar", locale=locale),
                                            callback_data=confirm_lang.new(action="register")),
+                types.InlineKeyboardButton(_("📞 Kontaktlar", locale=locale),
+                                           callback_data=confirm_lang.new(action="contacts")),
             ],
             [
                 types.InlineKeyboardButton(_("🌐 Tilni alishtirish", locale=locale),

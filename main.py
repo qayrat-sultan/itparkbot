@@ -230,6 +230,7 @@ async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMConte
 
 @dp.callback_query_handler(lambda call: call.data.startswith('lang'), state="*")
 async def language_set(callback: types.CallbackQuery, locale):
+    await callback.answer()
     lang = callback.data.split(":")[1]
     if await configs.collusers.count_documents({"_id": callback.from_user.id}) < 1:
         await configs.collusers.insert_one({"_id": callback.from_user.id, "lang": lang})
@@ -237,13 +238,14 @@ async def language_set(callback: types.CallbackQuery, locale):
         configs.collusers.update_one({"_id": int(callback.from_user.id)}, {
             "$set": {"lang": lang}})
     configs.LANG_STORAGE[callback.from_user.id] = lang
-    await callback.answer(_("Selected", locale=lang))
+
     # await callback.message.delete()
     await callback.message.edit_text(texts.menu_text, reply_markup=await kbs.menu_inline_kb(lang))
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith('lang'), state="*")
 async def language_set(callback: types.CallbackQuery, locale):
+    await callback.answer()
     # await callback.message.delete()
     await callback.message.edit_text(texts.start_text, reply_markup=await kbs.start_inline_kb(locale))
     # await callback.message.answer_photo(MEDIA['about'], reply_markup=await kbs.start_inline_kb(locale))
@@ -251,10 +253,10 @@ async def language_set(callback: types.CallbackQuery, locale):
 
 @dp.callback_query_handler(lambda call: call.data.endswith("back"), state='*')
 async def back_menu(callback: types.CallbackQuery, locale, state: FSMContext):
+    await callback.answer()
     async with state.proxy() as data:
         data.clear()
         await state.finish()
-    await callback.answer()
     await callback.message.delete()
     await callback.message.answer(texts.menu_text, reply_markup=await kbs.menu_inline_kb(locale))
 
@@ -268,8 +270,8 @@ async def main_menu(callback: types.CallbackQuery, locale):
 
 @dp.callback_query_handler(lambda call: call.data.endswith("register"), state='*')
 async def register_func(callback: types.CallbackQuery, locale):
+    await callback.answer()
     await SetRegister.center.set()
-    await callback.answer("THIS")
     await callback.message.delete()
     await callback.message.answer_photo(
         MEDIA.get('centers'),
@@ -280,8 +282,8 @@ async def register_func(callback: types.CallbackQuery, locale):
 
 @dp.callback_query_handler(lambda call: call.data.endswith("courses"), state='*')  # END WITH
 async def register_func(callback: types.CallbackQuery, locale):
+    await callback.answer()
     await SetRegister.course.set()
-    await callback.answer("THIS")
     await callback.message.delete()
     await callback.message.answer_photo(
         MEDIA.get('courses'),
@@ -293,14 +295,14 @@ async def register_func(callback: types.CallbackQuery, locale):
 
 @dp.callback_query_handler(lambda call: call.data.endswith("contacts"), state='*')
 async def register_func(callback: types.CallbackQuery, locale):
-    await callback.answer("THIS")
+    await callback.answer()
     await callback.message.edit_text(texts.contact_text, parse_mode="HTML",
                                      reply_markup=await kbs.contacts_inline_kb(locale))
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("about"), state='*')
 async def menu_func(callback: types.CallbackQuery, locale):
-    # await callback.answer()
+    await callback.answer()
     await callback.message.delete()
     # await callback.message.edit_text(await texts.about_text), reply_markup=await kbs.about_inline_kb(locale=locale))
     await callback.message.answer_photo(MEDIA['about'], reply_markup=await kbs.about_inline_kb(locale),
@@ -309,6 +311,7 @@ async def menu_func(callback: types.CallbackQuery, locale):
 
 @dp.callback_query_handler(lambda call: call.data.endswith("reg"), state="*")
 async def reg_couse_func(callback: types.CallbackQuery, locale):
+    await callback.answer()
     await callback.message.delete()
     await callback.message.answer(_("Iltimos, to'liq ismingizni kiriting", locale=locale),
                                   reply_markup=await kbs.reply_back(locale))
@@ -355,7 +358,7 @@ async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale
 
         "course": MEDIA.get('courses'),
         "yakkasaroy": (MEDIA.get('yakkasaroy'), texts.filial_yakkasaroy),
-        "tashkent": (MEDIA.get('tashkent'), texts.filial_tashkent),
+        "tashkent": (MEDIA.get('centers'), texts.filial_tashkent),
         "chilonzor": (MEDIA.get('chilonzor'), texts.filial_chilonzor),
         "mirzo": (MEDIA.get('mirzo'), texts.filial_mirzo),
         "sergeli": (MEDIA.get('sergeli'), texts.filial_sergeli),
