@@ -238,6 +238,19 @@ async def sex_inline(locale):
     return inline_key
 
 
+async def answer_report_inline(locale, user_id: str):
+    confirm_sex = CallbackData('answer', 'action')
+    inline_key = types.InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                types.InlineKeyboardButton(_("Javob yozish", locale=locale),
+                                           callback_data=confirm_sex.new(action=user_id)),
+            ],
+        ],
+    )
+    return inline_key
+
+
 async def reply_back(locale):
     markup = types.ReplyKeyboardMarkup(
         keyboard=[

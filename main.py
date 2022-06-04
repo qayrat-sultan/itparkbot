@@ -5,9 +5,9 @@ from aiogram.contrib.fsm_storage.mongo import MongoStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.utils.callback_data import CallbackData
+from aiogram.utils.exceptions import BotBlocked, BotKicked, UserDeactivated
 
 import configs
-import handlers
 import kbs
 import texts
 from configs import MEDIA
@@ -85,8 +85,10 @@ async def cmd_lang(message: types.Message, locale):
 
 
 @dp.message_handler(commands=["main"])
-async def menu(message: types.Message):
-    await handlers.menu_handler(message)
+async def menu(message: types.Message, locale, state: FSMContext):
+    await message.answer(texts.menu_text,
+                         reply_markup=await kbs.menu_inline_kb(locale))
+
 
 """
 @dp.message_handler(commands=['post'])
@@ -94,12 +96,6 @@ async def post(message: types.Message):
     data = {'type': 'text', 'text': 'text', 'entities': None}
     users = 390736292,
     await admin_commands.send_post_all_users(data, users, bot)"""
-
-
-@dp.message_handler(commands=["report"])
-async def report(message: types.Message):
-    await SetReport.report.set()
-    await message.answer("Bizga o'z takliflaringizni yuboring!")
 
 
 @dp.message_handler(commands="centers", state="*")
@@ -111,12 +107,6 @@ async def centers_menu(message: types.Message, locale, state: FSMContext):
         reply_markup=await kbs.register_inline_kb(locale),
         caption=texts.register_list_text
     )
-
-
-@dp.message_handler(state=SetReport.report,
-                    content_types=configs.all_content_types)
-async def report_process(message: types.Message, state: FSMContext):
-    await handlers.report_process_handler(message, state, bot)
 
 
 @dp.message_handler(state=SetRegister.fio, content_types="text")
@@ -318,6 +308,66 @@ async def reg_couse_func(callback: types.CallbackQuery, locale):
     await SetRegister.fio.set()
 
 
+@dp.callback_query_handler(lambda call: call.data.startswith("answer"), state="*")
+async def report_callback(callback: types.CallbackQuery, state: FSMContext, locale):
+    await callback.answer()
+    # await callback.message.delete()
+    await callback.message.answer(_("Iltimos, o'z shikoyat/taklif'ingizni jo'nating", locale=locale),
+                                  reply_markup=await kbs.reply_back(locale))
+    async with state.proxy() as data:
+        data['answer'] = callback.data.split(":")[1]
+    await SetReport.report.set()
+
+
+@dp.callback_query_handler(lambda call: call.data.endswith("report"), state="*")
+async def report_callback(callback: types.CallbackQuery, locale):
+    await callback.answer()
+    # await callback.message.delete()
+    await callback.message.answer(_("Iltimos, o'z shikoyat/taklif'ingizni jo'nating", locale=locale),
+                                  reply_markup=await kbs.reply_back(locale))
+    await SetReport.report.set()
+
+
+@dp.message_handler(state=SetReport.report, content_types=['text'])
+async def report_handler(message: types.Message, state: FSMContext, locale):
+    async with state.proxy() as data:
+        print(data)
+        sended_user_id = int(data.get('answer')) if data.get('answer', None) else message.from_user.id
+        # if answer to user message
+        if message.from_user.id != message.chat.id:
+            try:
+                await bot.send_message(chat_id=sended_user_id,
+                                       text=_("Sizning murojaatingizga javob xati keldi",
+                                              locale=configs.LANG_STORAGE[sended_user_id]))
+                await bot.send_message(chat_id=sended_user_id,
+                                       text=message.text,
+                                       entities=message.entities,
+                                       reply_markup=await kbs.answer_report_inline(configs.LANG_STORAGE[sended_user_id],
+                                                                                   str(message.from_user.id)))
+                await message.answer("Yuborildi", reply_markup=types.ReplyKeyboardRemove())
+            except (TypeError, BotBlocked, BotKicked,
+                    UserDeactivated, Exception) as e:
+                logging.warning("Error sending answer to: {} \n{}".format(sended_user_id, e))
+                await message.answer(_("Ushbu foydalanuvchi botdan foydalanmaydi yoki telegram o'chirilgan"))
+            return await state.finish()
+
+        # if back button use
+        if message.text == await texts.back_reply_button(locale):
+            await message.answer(_("Bekor qilindi."), reply_markup=types.ReplyKeyboardRemove())
+            await message.delete()
+            return await state.finish()
+
+        # success sending for group
+        await bot.send_message(chat_id=configs.GROUP_ID,
+                               text=message.text,
+                               entities=message.entities,
+                               reply_markup=await kbs.answer_report_inline(configs.LANG_STORAGE[sended_user_id],
+                                                                           str(message.from_user.id)))
+        await message.answer(_("Yuborildi"), reply_markup=types.ReplyKeyboardRemove())
+        await state.finish()
+    await menu(message, locale=locale, state=state)
+
+
 @dp.edited_message_handler()
 async def msg_handler(message: types.Message):
     logging.error("edited_message_handler", message)
@@ -325,6 +375,7 @@ async def msg_handler(message: types.Message):
 
 @dp.my_chat_member_handler()
 async def some_handler(my_chat_member: types.ChatMemberUpdated):
+    # if start new profile or stop the bot
     logging.error("my_chat_member_handler", my_chat_member)
 
 
@@ -335,7 +386,7 @@ async def some_handler(chat_member: types.ChatMemberUpdated):
 
 @dp.message_handler(content_types=configs.all_content_types)
 async def some_text(message: types.Message):
-    await handlers.some_text_handler(message, bot)
+    await message.answer(_("Botni qayta yoqish uchun /start ni bosing."))
 
 
 @dp.errors_handler()
