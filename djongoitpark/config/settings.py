@@ -19,7 +19,7 @@ print("@@@@@@@@@@@@@", BASE_DIR)
 SECRET_KEY = 'django-insecure-#lenuotbg2n)zeq#6c&(_isao1i_7pr*-m+lx$8=gtx1owrmy1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", default=False)
+DEBUG = os.getenv("DEBUG", default=True)
 
 ALLOWED_HOSTS = ["*"]
 
@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'djongo',
+        'NAME': 'mydownbreak',
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
             'host': MONGO_URL
