@@ -37,6 +37,7 @@ cluster = motor.motor_tornado.MotorClient(MONGO_URL)
 collusers = cluster.itpark.users
 collreports = cluster.itpark.reports
 collmedia = cluster.itpark.media
+collbuttons = cluster.itpark.buttons
 
 # Telegam supported types
 all_content_types = ["text", "sticker", "photo",
