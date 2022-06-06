@@ -19,7 +19,7 @@ print("@@@@@@@@@@@@@", BASE_DIR)
 SECRET_KEY = 'django-insecure-#lenuotbg2n)zeq#6c&(_isao1i_7pr*-m+lx$8=gtx1owrmy1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", default=False)
 
 ALLOWED_HOSTS = ["*"]
 
