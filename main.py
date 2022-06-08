@@ -389,33 +389,51 @@ async def some_text(message: types.Message):
     await message.answer(_("Botni qayta yoqish uchun /start ni bosing."))
 
 
-@dp.errors_handler()
-async def some_error(baba, error):
-    logging.error("error", baba, error)
+#
+# @dp.errors_handler()
+# async def some_error(baba, error):
+#     logging.error("error", baba, error)
 
 
 @dp.callback_query_handler(state="*")
 async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale):
     await callback.answer()
+    print(callback.data, "@@@@@@@@@@@@@@@@@")
+    courses = configs.collcourses.find({})
+    c_dict = {}
+    async for c in courses:
+        print("@@@@@@@@@@@@@@@@@@@@@@@@", c)
+        c_dict[c['slug']] = {'duration': c['duration'],
+                             'price': c['price'],
+                             'image': c['image'],
+                             }
+    centers = configs.collcenters.find({})
+    center_dict = {}
+    async for c in centers:
+        print("@@@@@@@@@@@@@@@@@@@@@@@@", c)
+        center_dict[c['slug']] = {'phone': c['phone'],
+                                  'image': c['image'],
+                                  }
     photo_dict = {
-        "frontend": (MEDIA.get('frontend'), texts.web_text),
-        "backend": (MEDIA.get('backend'), texts.backend_text),
-        "android": (MEDIA.get("android"), texts.android_text),
-        "robots": (MEDIA.get('robots'), texts.robots_text),
-        "graphics": (MEDIA.get('graphic'), texts.graphics_text),
-        "english": (MEDIA.get('english'), texts.english_text),
-        "smm": (MEDIA.get('smm'), texts.smm_text),
-        "scratch": (MEDIA.get('scratch'), texts.scratch_text),
+        "frontend": (c_dict['frontend']['image'], texts.web_text.format(**c_dict['frontend'])),
+        "backend": (c_dict['backend']['image'], texts.backend_text.format(**c_dict['backend'])),
+        "android": (c_dict['android']['image'], texts.android_text.format(**c_dict['android'])),
+        "robots": (c_dict['robots']['image'], texts.robots_text.format(**c_dict['robots'])),
+        "graphics": (c_dict['graphics']['image'], texts.graphics_text.format(**c_dict['graphics'])),
+        "english": (c_dict['english']['image'], texts.english_text.format(**c_dict['english'])),
+        "smm": (c_dict['smm']['image'], texts.smm_text.format(**c_dict['smm'])),
+        "scratch": (c_dict['scratch']['image'], texts.scratch_text.format(**c_dict['scratch'])),
 
-        "course": MEDIA.get('courses'),
-        "yakkasaroy": (MEDIA.get('yakkasaroy'), texts.filial_yakkasaroy),
-        "tashkent": (MEDIA.get('centers'), texts.filial_tashkent),
-        "chilonzor": (MEDIA.get('chilonzor'), texts.filial_chilonzor),
-        "mirzo": (MEDIA.get('mirzo'), texts.filial_mirzo),
-        "sergeli": (MEDIA.get('sergeli'), texts.filial_sergeli),
-        "bektemir": (MEDIA.get('bektemir'), texts.filial_bektemir),
+        "course": center_dict['courses']['image'],
+        "yakkasaroy": (center_dict['yakkasaroy']['image'], texts.filial_yakkasaroy),
+        "tashkent": (center_dict['tashkent']['image'], texts.filial_tashkent),
+        "chilonzor": (center_dict['chilonzor']['image'], texts.filial_chilonzor),
+        "mirzo": (center_dict['mirzo']['image'], texts.filial_mirzo),
+        "sergeli": (center_dict['sergeli']['image'], texts.filial_sergeli),
+        "bektemir": (center_dict['bektemir']['image'], texts.filial_bektemir),
     }
 
+    print(photo_dict['frontend'], "$$$$$$$$$$$$$$$$$$$$$$$$")
     level_data, target_data = callback.data.split(":")
     async with state.proxy() as data:
         data[level_data] = target_data

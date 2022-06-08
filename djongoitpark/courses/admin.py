@@ -1,17 +1,15 @@
 from django.contrib import admin
-from modeltranslation.admin import TranslationAdmin
-
 from .models import Courses, Centers
 
 
-class CoursesAdmin(TranslationAdmin):
+class CoursesAdmin(admin.ModelAdmin):
     pass
 
 
 admin.site.register(Courses, CoursesAdmin)
 
 
-class CentersAdmin(TranslationAdmin):
+class CentersAdmin(admin.ModelAdmin):
     pass
 
 

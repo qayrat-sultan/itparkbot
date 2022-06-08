@@ -13,7 +13,7 @@ from aiogram import types
 from aiogram.utils.exceptions import BotBlocked, BotKicked, UserDeactivated
 from aiogram.contrib.middlewares.i18n import I18nMiddleware
 from dotenv import load_dotenv
-from pymongo import MongoClient
+# from pymongo import MongoClient # noqa
 
 load_dotenv()
 
@@ -37,7 +37,8 @@ cluster = motor.motor_tornado.MotorClient(MONGO_URL)
 collusers = cluster.itpark.users
 collreports = cluster.itpark.reports
 collmedia = cluster.itpark.media
-collbuttons = cluster.itpark.buttons
+collcourses = cluster.itpark.courses_courses
+collcenters = cluster.itpark.courses_centers
 
 # Telegam supported types
 all_content_types = ["text", "sticker", "photo",
