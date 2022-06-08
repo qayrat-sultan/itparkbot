@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 
 class CoursesAdmin(admin.ModelAdmin):
     exclude = ('slug', 'image')
+    readonly_fields = ('image_preview',)
 
     def image_preview(self, obj):
         # ex. the name of column is "image"
@@ -22,6 +23,7 @@ admin.site.register(Courses, CoursesAdmin)
 
 class CentersAdmin(admin.ModelAdmin):
     exclude = ('slug', 'image')
+    readonly_fields = ('image_preview',)
 
     def image_preview(self, obj):
         # ex. the name of column is "image"
@@ -32,6 +34,7 @@ class CentersAdmin(admin.ModelAdmin):
             return '(No image)'
 
     image_preview.short_description = 'Preview'
+
 
 
 admin.site.register(Centers, CoursesAdmin)
