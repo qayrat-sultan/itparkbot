@@ -264,8 +264,9 @@ async def register_func(callback: types.CallbackQuery, locale):
     await callback.answer()
     await SetRegister.center.set()
     await callback.message.delete()
+    centers_photo = await configs.collcenters.find_one({'slug': 'centers'})
     await callback.message.answer_photo(
-        MEDIA.get('centers'),
+        centers_photo['image'],
         reply_markup=await kbs.register_inline_kb(locale),
         caption=texts.register_list_text
     )
