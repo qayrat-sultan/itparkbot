@@ -102,8 +102,9 @@ async def post(message: types.Message):
 async def centers_menu(message: types.Message, locale, state: FSMContext):
     x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
     await x.delete()
+    centers_photo = await configs.collcenters.find_one({"slug": "centers"})
     await message.answer_photo(
-        MEDIA.get('centers'),
+        centers_photo['image'],
         reply_markup=await kbs.register_inline_kb(locale),
         caption=texts.register_list_text
     )
@@ -275,8 +276,9 @@ async def register_func(callback: types.CallbackQuery, locale):
     await callback.answer()
     await SetRegister.course.set()
     await callback.message.delete()
+    course_photo = await configs.collcourses.find_one({'slug': 'courses'})
     await callback.message.answer_photo(
-        MEDIA.get('courses'),
+        course_photo['image'],
         reply_markup=await kbs.courses_inline_kb(locale),
         caption=texts.courses_text
     )
@@ -295,7 +297,8 @@ async def menu_func(callback: types.CallbackQuery, locale):
     await callback.answer()
     await callback.message.delete()
     # await callback.message.edit_text(await texts.about_text), reply_markup=await kbs.about_inline_kb(locale=locale))
-    await callback.message.answer_photo(MEDIA['about'], reply_markup=await kbs.about_inline_kb(locale),
+    about_photo = await configs.collcenters.find_one({'slug': 'about'})
+    await callback.message.answer_photo(about_photo['image'], reply_markup=await kbs.about_inline_kb(locale),
                                         caption=texts.about_text)
 
 
