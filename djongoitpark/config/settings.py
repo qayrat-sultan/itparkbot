@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'courses',
     'rosetta',
+    'tg_users',
 ]
 
 # Telegram configs

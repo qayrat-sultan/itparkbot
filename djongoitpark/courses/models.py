@@ -76,7 +76,7 @@ class Pages(models.Model):
     description_ru = models.TextField(verbose_name='Описание страницы', blank=True, default="Описание")
     slug = models.SlugField(max_length=30, unique=True)
     image = models.CharField(max_length=100, blank=True, null=True)
-    image_file = models.ImageField(upload_to='pages/', verbose_name='Страница тақырыпының суреті', blank=True, null=True)
+    image_file = models.ImageField(upload_to='pages/', verbose_name='Страница тақырыпының суреті')
 
     __original_image = None
 

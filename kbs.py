@@ -1,6 +1,7 @@
 from aiogram import types
 from aiogram.utils.callback_data import CallbackData
 
+import configs
 import texts
 from main import _
 
@@ -147,49 +148,30 @@ async def course_dict_func(key, locale):
     return course_dict[key]
 
 
-async def courses_inline_kb(locale):
+async def courses_inline_kb(locale, callback):
     confirm_lang = CallbackData('courses', 'action')
-    inline_key = types.InlineKeyboardMarkup(
-        inline_keyboard=[
+    courses = configs.collcourses.find({})
+    title = "title_uz" if locale == "uz" else "title_ru"
+    kb_course = []
+    async for i in courses:
+        kb_course.append(
             [
-                types.InlineKeyboardButton(_("🖥 Web dasturlash (Frontend)", locale=locale),
-                                           callback_data=confirm_lang.new(action="frontend"))
-            ],
-            [
-                types.InlineKeyboardButton(_("💻 Backend dasturlash", locale=locale),
-                                           callback_data=confirm_lang.new(action="backend")),
-            ],
-            [
-                types.InlineKeyboardButton(_("📲 Android ilovalarni yaratish", locale=locale),
-                                           callback_data=confirm_lang.new(action="android"))
-            ],
-            [
-                types.InlineKeyboardButton(_("🤖 Mobil robototexnika", locale=locale),
-                                           callback_data=confirm_lang.new(action="robots"))
-            ],
-            [
-                types.InlineKeyboardButton(_("🏞 Grafika va web dizayn", locale=locale),
-                                           callback_data=confirm_lang.new(action="graphics"))
-            ],
-            [
-                types.InlineKeyboardButton(_("🇺🇸 IT-English", locale=locale),
-                                           callback_data=confirm_lang.new(action="english"))
-            ],
-            [
-                types.InlineKeyboardButton(_("👩‍💻 SMM-menejer", locale=locale),
-                                           callback_data=confirm_lang.new(action="smm"))
-            ],
-            [
-                types.InlineKeyboardButton(_("🧩 Scratch + IT English", locale=locale),
-                                           callback_data=confirm_lang.new(action="scratch"))
-            ],
-            [
-                types.InlineKeyboardButton(_("⬅️ Ortga", locale=locale),
-                                           callback_data=confirm_lang.new(action="back"))
+                types.InlineKeyboardButton(i[title], callback_data=confirm_lang.new(action=i['slug']))
             ]
-        ],
+        )
+    kb_course += [[
+        types.InlineKeyboardButton(_("⬅️ Ortga", locale=locale),
+                                   callback_data=confirm_lang.new(action="back"))
+    ]]
+    inline_key = types.InlineKeyboardMarkup(
+        inline_keyboard=kb_course
     )
-    return inline_key
+    # course_photo = await configs.collcourses.find_one({'slug': 'courses'})
+    return await callback.message.answer_photo(
+        "AgACAgIAAxkBAAINFGKl078qm6S7Rsm6geZKyprcJxyUAAKXujEbiJxwSPV_u8uhQok5AQADAgADeQADJAQ",
+        reply_markup=inline_key,
+        caption=texts.courses_text
+    )
 
 
 async def menu_inline_kb(locale):

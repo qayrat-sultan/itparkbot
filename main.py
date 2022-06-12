@@ -51,7 +51,7 @@ async def cmd_start(message: types.Message, locale, state: FSMContext):
         data.clear()
     x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
     await x.delete()
-    if await configs.collusers.count_documents({"_id": message.from_user.id}) < 1:
+    if await configs.collusers.count_documents({"id": message.from_user.id}) < 1:
         await message.answer(texts.start_text,
                              reply_markup=await kbs.start_inline_kb(locale),
                              parse_mode="HTML")  # required use bot.send_message!
@@ -223,10 +223,10 @@ async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMConte
 async def language_set(callback: types.CallbackQuery, locale):
     await callback.answer()
     lang = callback.data.split(":")[1]
-    if await configs.collusers.count_documents({"_id": callback.from_user.id}) < 1:
-        await configs.collusers.insert_one({"_id": callback.from_user.id, "lang": lang})
+    if await configs.collusers.count_documents({"id": callback.from_user.id}) < 1:
+        await configs.collusers.insert_one({"id": callback.from_user.id, "lang": lang})
     else:
-        configs.collusers.update_one({"_id": int(callback.from_user.id)}, {
+        configs.collusers.update_one({"id": int(callback.from_user.id)}, {
             "$set": {"lang": lang}})
     configs.LANG_STORAGE[callback.from_user.id] = lang
 
@@ -277,12 +277,13 @@ async def register_func(callback: types.CallbackQuery, locale):
     await callback.answer()
     await SetRegister.course.set()
     await callback.message.delete()
-    course_photo = await configs.collcourses.find_one({'slug': 'courses'})
-    await callback.message.answer_photo(
-        course_photo['image'],
-        reply_markup=await kbs.courses_inline_kb(locale),
-        caption=texts.courses_text
-    )
+    # course_photo = await configs.collcourses.find_one({'slug': 'courses'})
+    # await callback.message.answer_photo(
+    #     course_photo['image'],
+    #     reply_markup=await kbs.courses_inline_kb(locale),
+    #     caption=texts.courses_text
+    # )
+    await kbs.courses_inline_kb(locale, callback)
     await SetRegister.course.set()
 
 
@@ -390,6 +391,8 @@ async def some_handler(chat_member: types.ChatMemberUpdated):
 
 @dp.message_handler(content_types=configs.all_content_types)
 async def some_text(message: types.Message):
+    if message.photo:
+        await message.answer(message.photo[-1].file_id)
     await message.answer(_("Botni qayta yoqish uchun /start ni bosing."))
 
 
