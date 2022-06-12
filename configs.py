@@ -35,11 +35,12 @@ LOCALES_DIR = BASE_DIR / "locales"
 MONGO_URL = os.getenv("MONGO_URL", default="mongodb://localhost:27017/myapp")
 DATABASE_NAME = os.getenv("DATABASE_NAME", default="itpark")
 cluster = motor.motor_tornado.MotorClient(MONGO_URL)
-collusers = cluster.itpark.users
-collreports = cluster.itpark.reports
-collmedia = cluster.itpark.media
-collcourses = cluster.itpark.courses_courses
-collcenters = cluster.itpark.courses_centers
+db = cluster.get_default_database(DATABASE_NAME)
+collusers = db.users
+collreports = db.reports
+collmedia = db.media
+collcourses = db.courses_courses
+collcenters = db.courses_centers
 
 # Telegam supported types
 all_content_types = ["text", "sticker", "photo",
