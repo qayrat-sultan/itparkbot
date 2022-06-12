@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 
 from .utils import send_photo
 
@@ -24,8 +25,10 @@ class Courses(models.Model):
         return self.title_uz
 
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
-        if self.image_file != self.__original_image:
+        if self.image_file != self.__original_image:  # noqa
             self.image = send_photo(self.image_file)
+        if not self.slug:
+            self.slug = slugify(self.title_uz[:10])
         super().save(force_insert, force_update, *args, **kwargs)
         self.__original_image = self.image_file
 
@@ -54,8 +57,10 @@ class Centers(models.Model):
         return self.title_uz
 
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
-        if self.image_file != self.__original_image:
+        if self.image_file != self.__original_image:  # noqa
             self.image = send_photo(self.image_file)
+        if not self.slug:
+            self.slug = slugify(self.title_uz[:10])
         super().save(force_insert, force_update, *args, **kwargs)
         self.__original_image = self.image_file
 
@@ -83,8 +88,10 @@ class Pages(models.Model):
         return self.title_uz
 
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
-        if self.image_file != self.__original_image:
+        if self.image_file != self.__original_image:  # noqa
             self.image = send_photo(self.image_file)
+        if not self.slug:
+            self.slug = slugify(self.title_uz[:10])
         super().save(force_insert, force_update, *args, **kwargs)
         self.__original_image = self.image_file
 
