@@ -33,6 +33,7 @@ LOCALES_DIR = BASE_DIR / "locales"
 
 # Database
 MONGO_URL = os.getenv("MONGO_URL", default="mongodb://localhost:27017/myapp")
+DATABASE_NAME = os.getenv("DATABASE_NAME", default="itpark")
 cluster = motor.motor_tornado.MotorClient(MONGO_URL)
 collusers = cluster.itpark.users
 collreports = cluster.itpark.reports

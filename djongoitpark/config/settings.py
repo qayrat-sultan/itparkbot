@@ -10,13 +10,13 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-print("@@@@@@@@@@@@@", BASE_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#lenuotbg2n)zeq#6c&(_isao1i_7pr*-m+lx$8=gtx1owrmy1'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+DATABASE_NAME = os.getenv("DATABASE_NAME", default="itpark")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", default=True)
@@ -57,8 +57,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,7 +78,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'itpark',
+        'NAME': DATABASE_NAME,
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
             'host': MONGO_URL
