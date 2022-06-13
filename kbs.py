@@ -111,12 +111,8 @@ async def centers_text_dict_func(key, locale):
     return centers_text_dict[key]
 
 
-async def register_inline_kb(locale, message: types.Message, data: dict = None):
-    if data and data.get('courses'):
-        print("URODINA")
-        return await reg_inline_kb(locale, data, message)
+async def register_inline_kb(locale, message: types.Message):
     confirm_lang = CallbackData('register', 'action')
-    print(data)
     centers = configs.collcenters.find({})  # noqa
     kb_course = []
     async for i in centers:
