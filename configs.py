@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Tuple, Any
 
 from aiogram import types
+from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.utils.exceptions import BotBlocked, BotKicked, UserDeactivated
 from aiogram.contrib.middlewares.i18n import I18nMiddleware
 from dotenv import load_dotenv
@@ -41,6 +42,7 @@ collreports = db.reports
 collmedia = db.media
 collcourses = db.courses_courses
 collcenters = db.courses_centers
+collpages = db.courses_pages
 
 # Telegam supported types
 all_content_types = ["text", "sticker", "photo",
@@ -48,6 +50,15 @@ all_content_types = ["text", "sticker", "photo",
 
 # MEDIA
 MEDIA = {}
+
+
+class SetRegister(StatesGroup):
+    fio = State()
+    sex = State()
+    age = State()
+    center = State()
+    course = State()
+    tel = State()
 
 # Logging
 if not os.getenv("DEBUG", default=False):

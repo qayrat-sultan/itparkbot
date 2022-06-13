@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 
 
 class CoursesAdmin(admin.ModelAdmin): # noqa
-    exclude = ('slug', 'image')
+    # exclude = ('image',)
     readonly_fields = ('image_preview',)
 
     def image_preview(self, obj):
@@ -42,7 +42,7 @@ admin.site.register(Centers, CentersAdmin) # noqa
 
 
 class PagesAdmin(admin.ModelAdmin): # noqa
-    exclude = ('slug', 'image')
+    exclude = ('image',)
     readonly_fields = ('image_preview',)
 
     def image_preview(self, obj):

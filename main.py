@@ -10,7 +10,7 @@ from aiogram.utils.exceptions import BotBlocked, BotKicked, UserDeactivated
 import configs
 import kbs
 import texts
-from configs import MEDIA
+from configs import SetRegister
 
 BOT_TOKEN = configs.BOT_TOKEN
 
@@ -34,15 +34,6 @@ class SetReport(StatesGroup):
 
 class SetState(StatesGroup):
     lang = State()
-
-
-class SetRegister(StatesGroup):
-    fio = State()
-    sex = State()
-    age = State()
-    center = State()
-    course = State()
-    tel = State()
 
 
 @dp.message_handler(commands="start", state="*")
@@ -102,12 +93,7 @@ async def post(message: types.Message):
 async def centers_menu(message: types.Message, locale, state: FSMContext):
     x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
     await x.delete()
-    centers_photo = await configs.collcenters.find_one({"slug": "centers"})
-    await message.answer_photo(
-        centers_photo['image'],
-        reply_markup=await kbs.register_inline_kb(locale),
-        caption=texts.register_list_text
-    )
+    await kbs.register_inline_kb(locale, message=message)
 
 
 @dp.message_handler(state=SetRegister.fio, content_types="text")
@@ -264,12 +250,7 @@ async def register_func(callback: types.CallbackQuery, locale):
     await callback.answer()
     await SetRegister.center.set()
     await callback.message.delete()
-    centers_photo = await configs.collcenters.find_one({'slug': 'centers'})
-    await callback.message.answer_photo(
-        centers_photo['image'],
-        reply_markup=await kbs.register_inline_kb(locale),
-        caption=texts.register_list_text
-    )
+    await kbs.register_inline_kb(locale, callback.message)
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("courses"), state='*')  # END WITH
@@ -283,15 +264,14 @@ async def register_func(callback: types.CallbackQuery, locale):
     #     reply_markup=await kbs.courses_inline_kb(locale),
     #     caption=texts.courses_text
     # )
-    await kbs.courses_inline_kb(locale, callback)
+    await kbs.courses_inline_kb(locale, callback.message)
     await SetRegister.course.set()
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("contacts"), state='*')
 async def register_func(callback: types.CallbackQuery, locale):
     await callback.answer()
-    await callback.message.edit_text(texts.contact_text, parse_mode="HTML",
-                                     reply_markup=await kbs.contacts_inline_kb(locale))
+    await kbs.contacts_inline_kb(locale, callback.message)
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("about"), state='*')
@@ -299,15 +279,16 @@ async def menu_func(callback: types.CallbackQuery, locale):
     await callback.answer()
     await callback.message.delete()
     # await callback.message.edit_text(await texts.about_text), reply_markup=await kbs.about_inline_kb(locale=locale))
-    about_photo = await configs.collcenters.find_one({'slug': 'about'})
-    await callback.message.answer_photo(about_photo['image'], reply_markup=await kbs.about_inline_kb(locale),
-                                        caption=texts.about_text)
+    await kbs.about_inline_kb(locale, callback.message)
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("reg"), state="*")
-async def reg_couse_func(callback: types.CallbackQuery, locale):
+async def reg_course_func(callback: types.CallbackQuery, locale, state: FSMContext):
     await callback.answer()
     await callback.message.delete()
+    async with state.proxy() as data:
+        if data.get('register') is None:
+            return await kbs.register_inline_kb(locale, callback.message)
     await callback.message.answer(_("Iltimos, to'liq ismingizni kiriting", locale=locale),
                                   reply_markup=await kbs.reply_back(locale))
     await SetRegister.fio.set()
@@ -336,7 +317,6 @@ async def report_callback(callback: types.CallbackQuery, locale):
 @dp.message_handler(state=SetReport.report, content_types=['text'])
 async def report_handler(message: types.Message, state: FSMContext, locale):
     async with state.proxy() as data:
-        print(data)
         sended_user_id = int(data.get('answer')) if data.get('answer', None) else message.from_user.id
         # if answer to user message
         if message.from_user.id != message.chat.id:
@@ -405,61 +385,21 @@ async def some_text(message: types.Message):
 @dp.callback_query_handler(state="*")
 async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale):
     await callback.answer()
-    print(callback.data, "@@@@@@@@@@@@@@@@@")
-    courses = configs.collcourses.find({})
-    c_dict = {}
-    async for c in courses:
-        print("@@@@@@@@@@@@@@@@@@@@@@@@", c)
-        c_dict[c['slug']] = {'duration': c['duration'],
-                             'price': c['price'],
-                             'image': c['image'],
-                             }
-    centers = configs.collcenters.find({})
-    center_dict = {}
-    async for c in centers:
-        print("@@@@@@@@@@@@@@@@@@@@@@@@", c)
-        center_dict[c['slug']] = {'phone': c['phone'],
-                                  'image': c['image'],
-                                  }
-    photo_dict = {
-        "frontend": (c_dict['frontend']['image'], texts.web_text.format(**c_dict['frontend'])),
-        "backend": (c_dict['backend']['image'], texts.backend_text.format(**c_dict['backend'])),
-        "android": (c_dict['android']['image'], texts.android_text.format(**c_dict['android'])),
-        "robots": (c_dict['robots']['image'], texts.robots_text.format(**c_dict['robots'])),
-        "graphics": (c_dict['graphics']['image'], texts.graphics_text.format(**c_dict['graphics'])),
-        "english": (c_dict['english']['image'], texts.english_text.format(**c_dict['english'])),
-        "smm": (c_dict['smm']['image'], texts.smm_text.format(**c_dict['smm'])),
-        "scratch": (c_dict['scratch']['image'], texts.scratch_text.format(**c_dict['scratch'])),
-
-        "course": center_dict['courses']['image'],
-        "yakkasaroy": (center_dict['yakkasaroy']['image'], texts.filial_yakkasaroy),
-        "tashkent": (center_dict['tashkent']['image'], texts.filial_tashkent),
-        "chilonzor": (center_dict['chilonzor']['image'], texts.filial_chilonzor),
-        "mirzo": (center_dict['mirzo']['image'], texts.filial_mirzo),
-        "sergeli": (center_dict['sergeli']['image'], texts.filial_sergeli),
-        "bektemir": (center_dict['bektemir']['image'], texts.filial_bektemir),
-    }
-
-    print(photo_dict['frontend'], "$$$$$$$$$$$$$$$$$$$$$$$$")
+    print("@@@@@", await state.get_state(), callback.data)
     level_data, target_data = callback.data.split(":")
     async with state.proxy() as data:
         data[level_data] = target_data
         await callback.message.delete()
         if not data.get('courses') and not data.get('register'):
-            return
-        if not data.get('courses'):
-            await callback.message.answer_photo(photo_dict[data.get('register')][0],
-                                                reply_markup=await kbs.courses_inline_kb(locale),
-                                                caption=photo_dict[data.get('register')][1])
+            return await menu(callback.message, locale=locale, state=state)
+        elif not data.get('courses'):
+            print("!!!!!!!!!!!!!!")
+            await kbs.courses_inline_kb(locale, callback.message)
         elif not data.get('register'):
-            await callback.message.answer_photo(photo_dict['course'], reply_markup=await kbs.register_inline_kb(locale),
-                                                caption=texts.register_list_text)
+            print("###############")
+            await kbs.register_inline_kb(locale, callback.message, data)
         else:
-            await callback.message.answer_photo(photo=photo_dict[data['courses']][0],
-                                                caption=photo_dict[data['courses']][1],
-                                                reply_markup=await kbs.reg_inline_kb(locale),
-                                                )
-
+            return await kbs.reg_inline_kb(locale, data, callback.message)
 
 if __name__ == '__main__':
     executor.start_polling(dp,
