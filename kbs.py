@@ -1,4 +1,5 @@
 from aiogram import types
+from aiogram.dispatcher import FSMContext
 from aiogram.utils.callback_data import CallbackData
 
 import configs
@@ -78,14 +79,8 @@ async def about_inline_kb(locale, message: types.Message):
                                       caption=description)
 
 
-async def reg_inline_kb(locale, data, message: types.Message):
-    if data.get('courses') and data.get('register'):
-        await message.answer(_("Iltimos, to'liq ismingizni kiriting", locale=locale),
-                             reply_markup=await reply_back(locale))
-        return await configs.SetRegister.fio.set()
+async def reg_inline_kb(locale, message: types.Message):
     confirm_lang = CallbackData('reg', 'action')
-    print("IM A DISCO DANCER", data)
-    # TODO: after registration, user should be redirected to the main menu
     inline_key = types.InlineKeyboardMarkup(
         inline_keyboard=[
             [

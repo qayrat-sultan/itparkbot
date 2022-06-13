@@ -58,7 +58,9 @@ class SetRegister(StatesGroup):
     age = State()
     center = State()
     course = State()
+    confirm = State()
     tel = State()
+
 
 # Logging
 if not os.getenv("DEBUG", default=False):

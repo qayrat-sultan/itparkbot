@@ -268,6 +268,13 @@ async def register_func(callback: types.CallbackQuery, locale):
     await SetRegister.course.set()
 
 
+@dp.callback_query_handler(state='*')
+async def register_func(callback: types.CallbackQuery, locale, state: FSMContext):
+    print(await state.get_state())
+    await callback.answer()
+    # await kbs.contacts_inline_kb(locale, callback.message)
+
+
 @dp.callback_query_handler(lambda call: call.data.endswith("contacts"), state='*')
 async def register_func(callback: types.CallbackQuery, locale):
     await callback.answer()
@@ -282,16 +289,16 @@ async def menu_func(callback: types.CallbackQuery, locale):
     await kbs.about_inline_kb(locale, callback.message)
 
 
-@dp.callback_query_handler(lambda call: call.data.endswith("reg"), state="*")
+@dp.callback_query_handler(lambda call: call.data.endswith("reg"), state=configs.SetRegister.confirm)
 async def reg_course_func(callback: types.CallbackQuery, locale, state: FSMContext):
     await callback.answer()
     await callback.message.delete()
     async with state.proxy() as data:
-        if data.get('register') is None:
-            return await kbs.register_inline_kb(locale, callback.message)
-    await callback.message.answer(_("Iltimos, to'liq ismingizni kiriting", locale=locale),
-                                  reply_markup=await kbs.reply_back(locale))
-    await SetRegister.fio.set()
+        data['confirm'] = True
+        if data.get('courses') and data.get('register'):
+            await callback.message.answer(_("Iltimos, to'liq ismingizni kiriting", locale=locale),
+                                          reply_markup=await kbs.reply_back(locale))
+            await SetRegister.fio.set()
 
 
 @dp.callback_query_handler(lambda call: call.data.startswith("answer"), state="*")
@@ -380,6 +387,25 @@ async def some_text(message: types.Message):
 # @dp.errors_handler()
 # async def some_error(baba, error):
 #     logging.error("error", baba, error)
+
+@dp.callback_query_handler(lambda call: call.data.startswith("courses"), state="*")
+async def courses_func(callback: types.CallbackQuery, locale, state: FSMContext):
+    await callback.answer()
+    print("URAAAA")
+    await kbs.reg_inline_kb(locale, callback.message)
+
+
+@dp.callback_query_handler(lambda call: call.data.startswith("register"), state="*")
+async def centers_func(callback: types.CallbackQuery, locale, state: FSMContext):
+    await callback.answer()
+    await callback.message.delete()
+
+
+@dp.callback_query_handler(state="*")
+async def manamana(callback: types.CallbackQuery):
+    await callback.answer()
+    # await callback.message.delete()
+    print(callback.data)
 
 
 @dp.callback_query_handler(state="*")
