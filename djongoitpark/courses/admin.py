@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 
 
 class CoursesAdmin(admin.ModelAdmin): # noqa
-    # exclude = ('image',)
+    exclude = ('image',)
     readonly_fields = ('image_preview',)
 
     def image_preview(self, obj):
