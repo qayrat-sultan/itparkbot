@@ -163,8 +163,8 @@ async def set_fio_process(message: types.Message, locale, state: FSMContext):
                                  format(fio=data.get('fio'),
                                         sex=data.get('sex'),
                                         age=data.get('age'),
-                                        center=await kbs.centers_text_dict_func(data.get('register'), locale),
-                                        course=await kbs.course_dict_func(data.get('courses'), locale),
+                                        center=data.get('register'),
+                                        course=data.get('courses'),
                                         phone=data.get('tel')
                                         ),
                                  reply_markup=types.ReplyKeyboardRemove())
@@ -200,14 +200,15 @@ async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMConte
                                    format(fio=data.get('fio'),
                                           sex=data.get('sex'),
                                           age=data.get('age'),
-                                          center=await kbs.centers_text_dict_func(data.get('register'), locale),
-                                          course=await kbs.course_dict_func(data.get('courses'), locale),
+                                          center=data.get('register'),
+                                          course=data.get('courses'),
                                           phone=data.get('tel')
                                           ))
             await state.finish()
         else:
             await state.finish()
-            return await back_menu(callback, locale, state)
+            await callback.message.answer(_("Ro'yxatdan o'tish bekor qilindi!"))
+            return await menu(callback.message, locale, state)
 
 
 @dp.callback_query_handler(lambda call: call.data.startswith('lang'), state="*")
@@ -237,26 +238,33 @@ async def language_set(callback: types.CallbackQuery, locale):
 
 @dp.callback_query_handler(lambda call: call.data.endswith("back"), state='*')
 async def back_menu(callback: types.CallbackQuery, locale, state: FSMContext):
-    print("13")
+    print("13", await state.get_state(), type(await state.get_state()))
     await callback.answer()
-    async with state.proxy() as data:
-        data.clear()
-        await state.finish()
+    get_state = await state.get_state()
     await callback.message.delete()
-    await callback.message.answer(texts.menu_text, reply_markup=await kbs.menu_inline_kb(locale))
+    if get_state == "SetRegister:center":
+        await callback.message.answer(texts.menu_text, reply_markup=await kbs.menu_inline_kb(locale))
+    else:
+        await callback.message.answer(texts.start_text, reply_markup=await kbs.start_inline_kb(locale))
+
+    # async with state.proxy() as data:
+    #     data.clear()
+    #     await state.finish()
+    # await callback.message.delete()
+    # await callback.message.answer(texts.menu_text, reply_markup=await kbs.menu_inline_kb(locale))
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("menu"), state='*')
-async def main_menu(callback: types.CallbackQuery, locale):
-    print("14")
+async def main_menu(callback: types.CallbackQuery, locale, state: FSMContext):
+    print("14", await state.get_state())
     await callback.answer()
     # await callback.message.delete()
     await callback.message.edit_text(texts.menu_text, reply_markup=await kbs.menu_inline_kb(locale))
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("register"), state='*')
-async def register_func(callback: types.CallbackQuery, locale):
-    print("15")
+async def register_func(callback: types.CallbackQuery, locale, state: FSMContext):
+    print("15", await state.get_state())
     await callback.answer()
     await SetRegister.center.set()
     await callback.message.delete()
@@ -274,13 +282,8 @@ async def register_func(callback: types.CallbackQuery, locale, state: FSMContext
     #     reply_markup=await kbs.courses_inline_kb(locale),
     #     caption=texts.courses_text
     # )
-    # await kbs.courses_inline_kb(locale, callback.message)
-    print(await state.get_data())
-    if await state.get_data() == {}:
-        await kbs.courses_inline_kb(locale, callback.message)
-        await SetRegister.confirm.set()
-    else:
-        print("YA JDU OTVETA")
+    await kbs.courses_inline_kb(locale, callback.message)
+    await SetRegister.confirm.set()
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("contacts"), state='*')
@@ -312,7 +315,7 @@ async def reg_course_func(callback: types.CallbackQuery, locale, state: FSMConte
         await SetRegister.center.set()
         print("@@@@@@@@2")
     else:
-        await callback.message.answer("TEXTXTXTXTXTXT")
+        await kbs.reg_inline_kb(locale, callback.message)
         await SetRegister.fio.set()
         print("@@@@@@@@1")
     #     await SetRegister.confirm.set()
@@ -324,20 +327,15 @@ async def reg_course_func(callback: types.CallbackQuery, locale, state: FSMConte
 async def fio_set(callback: types.CallbackQuery, state: FSMContext):
     await callback.answer()
     await callback.message.delete()
+    async with state.proxy() as data:
+        data['register'] = callback.data.split(":")[1]
     await callback.message.answer(texts.fio_answer_text)
-    await fio_message_handler(callback.message, state)
-
-
-@dp.message_handler(state=SetRegister.fio)
-async def fio_message_handler(message: types.Message, state: FSMContext):
-    print("21")
 
 
 @dp.callback_query_handler(lambda call: call.data.startswith("answer"), state="*")
 async def report_callback(callback: types.CallbackQuery, state: FSMContext, locale):
-    print("21")
+    print("21", "ANSWER")
     await callback.answer()
-    # await callback.message.delete()
     await callback.message.answer(_("Iltimos, o'z shikoyat/taklif'ingizni jo'nating", locale=locale),
                                   reply_markup=await kbs.reply_back(locale))
     async with state.proxy() as data:
@@ -422,47 +420,29 @@ async def some_text(message: types.Message):
 # @dp.errors_handler()
 # async def some_error(baba, error):
 #     logging.error("error", baba, error)
-#
-# @dp.callback_query_handler(lambda call: call.data.startswith("courses"), state="*")
-# async def courses_func(callback: types.CallbackQuery, locale, state: FSMContext):
-#     print("24", await state.get_state())
-#     await callback.answer()
-#     print("URAAAA")
-#     await kbs.reg_inline_kb(locale, callback.message)
 
-
-# @dp.callback_query_handler(lambda call: call.data.startswith("register"), state="*")
-# async def centers_func(callback: types.CallbackQuery, locale, state: FSMContext):
-#     print("25")
-#     await callback.answer()
-#     await callback.message.delete()
 
 @dp.callback_query_handler(state=SetRegister.course)
 async def mninini(callback: types.CallbackQuery, locale, state: FSMContext):
     await callback.answer()
     await callback.message.delete()
-    await kbs.courses_inline_kb(locale, callback.message)
-    await SetRegister.confirm.set()
+    await kbs.reg_inline_kb(locale, callback.message)
+    await SetRegister.fio.set()
 
 
 @dp.callback_query_handler(state=SetRegister.center)
 async def manamana(callback: types.CallbackQuery, locale, state: FSMContext):
-    print("26")
+    print("26", callback.data)
     await callback.answer()
     # await callback.message.delete()
-    print(callback.data)
     await callback.message.delete()
     async with state.proxy() as data:
         key, value = callback.data.split(":")
         data['register'] = value
-        print(len(data), "@@@@@@@@@@@", data)
         if not data.get('courses', None):
-            await kbs.courses_inline_kb(locale, callback.message)
-            await SetRegister.course.set()
-        elif data.get('register', None):
             print("27", "####")
-            await callback.message.answer("XXXXXXXXXXXXXX")
-            await SetRegister.fio.set()
+            await kbs.courses_inline_kb(locale, callback.message)
+            await SetRegister.confirm.set()
             print("@@@@@@@@2")
         else:
             await SetRegister.fio.set()
@@ -473,22 +453,8 @@ async def manamana(callback: types.CallbackQuery, locale, state: FSMContext):
 @dp.callback_query_handler(state="*")
 async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale):
     print("27", await state.get_state())
+    print("POKA TUT")
     await callback.answer()
-#     print("@@@@@", await state.get_state(), callback.data)
-#     level_data, target_data = callback.data.split(":")
-#     async with state.proxy() as data:
-#         data[level_data] = target_data
-#         await callback.message.delete()
-#         if not data.get('courses') and not data.get('register'):
-#             return await menu(callback.message, locale=locale, state=state)
-#         elif not data.get('courses'):
-#             print("!!!!!!!!!!!!!!")
-#             await kbs.courses_inline_kb(locale, callback.message)
-#         elif not data.get('register'):
-#             print("###############")
-#             await kbs.register_inline_kb(locale, callback.message, data)
-#         else:
-#             return await kbs.reg_inline_kb(locale, data, callback.message)
 
 if __name__ == '__main__':
     executor.start_polling(dp,

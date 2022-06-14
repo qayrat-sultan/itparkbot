@@ -22,7 +22,7 @@ admin.site.register(Courses, CoursesAdmin)
 
 
 class CentersAdmin(admin.ModelAdmin): # noqa
-    exclude = ('slug', 'image')
+    exclude = ('image',)
     readonly_fields = ('image_preview',)
 
     def image_preview(self, obj):
