@@ -13,7 +13,7 @@ class Courses(models.Model):
     price = models.CharField(verbose_name="Narxi", max_length=20, default=0, blank=True)
     duration = models.CharField(verbose_name="Davomiyligi", max_length=20, default="None", blank=True)
     image = models.CharField(max_length=100, blank=True, null=True)
-    image_file = models.ImageField(upload_to='courses/', verbose_name='Курс тақырыпының суреті', blank=True, null=True)
+    image_file = models.ImageField(upload_to='courses/', verbose_name='Курс тақырыпының суреті')
 
     __original_image = None
 
@@ -45,7 +45,7 @@ class Centers(models.Model):
     phone = models.CharField(verbose_name="Telefon raqam", max_length=20, default="None", blank=True)
     slug = models.SlugField(max_length=20, unique=True)
     image = models.CharField(max_length=100, blank=True, null=True)
-    image_file = models.ImageField(upload_to='centers/', verbose_name='Центр тақырыпының суреті', blank=True, null=True)
+    image_file = models.ImageField(upload_to='centers/', verbose_name='Центр тақырыпының суреті')
 
     __original_image = None
 
