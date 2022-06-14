@@ -3,8 +3,8 @@ from .models import Courses, Centers, Pages
 from django.utils.safestring import mark_safe
 
 
-class CoursesAdmin(admin.ModelAdmin): # noqa
-    exclude = ('image',)
+class CoursesAdmin(admin.ModelAdmin):  # noqa
+    exclude = ('image', "slug")
     readonly_fields = ('image_preview',)
 
     def image_preview(self, obj):
@@ -21,8 +21,8 @@ class CoursesAdmin(admin.ModelAdmin): # noqa
 admin.site.register(Courses, CoursesAdmin)
 
 
-class CentersAdmin(admin.ModelAdmin): # noqa
-    exclude = ('image',)
+class CentersAdmin(admin.ModelAdmin):  # noqa
+    exclude = ('image', "slug")
     readonly_fields = ('image_preview',)
 
     def image_preview(self, obj):
@@ -36,13 +36,11 @@ class CentersAdmin(admin.ModelAdmin): # noqa
     image_preview.short_description = 'Preview'
 
 
-
-admin.site.register(Centers, CentersAdmin) # noqa
-
+admin.site.register(Centers, CentersAdmin)  # noqa
 
 
-class PagesAdmin(admin.ModelAdmin): # noqa
-    exclude = ('image',)
+class PagesAdmin(admin.ModelAdmin):  # noqa
+    exclude = ('image', "slug")
     readonly_fields = ('image_preview',)
 
     def image_preview(self, obj):
@@ -56,5 +54,4 @@ class PagesAdmin(admin.ModelAdmin): # noqa
     image_preview.short_description = 'Preview'
 
 
-
-admin.site.register(Pages, PagesAdmin) # noqa
+admin.site.register(Pages, PagesAdmin)  # noqa
