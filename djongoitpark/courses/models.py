@@ -1,3 +1,6 @@
+import uuid
+from datetime import date
+
 from django.db import models
 from django.template.defaultfilters import slugify
 
@@ -98,3 +101,20 @@ class Pages(models.Model):
     class Meta:
         verbose_name = 'Sahifa'
         verbose_name_plural = 'Sahifalar'
+
+
+class ExternalLinks(models.Model):
+    center = models.ForeignKey(Centers, on_delete=models.CASCADE)
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE)
+    title = models.CharField(max_length=30, verbose_name='Havola nomi')
+    url = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='URL', max_length=10)
+    views = models.IntegerField(default=0, verbose_name='Korinishlar soni')
+    pub_day = models.DateField(auto_now_add=True, verbose_name='Yayın tarixi')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Havola'
+        verbose_name_plural = 'Havolalar'
+        db_table = 'links'

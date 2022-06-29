@@ -7,18 +7,6 @@ import texts
 from main import _
 
 
-async def start_keyboard(locale):
-    kb = types.ReplyKeyboardMarkup(
-        keyboard=[
-            [types.KeyboardButton(_("One", locale=locale))],
-            [types.KeyboardButton(_("Two", locale=locale))],
-            [types.KeyboardButton(_('Three', locale=locale))],
-        ],
-        resize_keyboard=True,
-    )
-    return kb
-
-
 async def start_inline_kb(locale):
     confirm_lang = CallbackData('lang', 'action')
     inline_key = types.InlineKeyboardMarkup(
@@ -51,12 +39,15 @@ async def contacts_inline_kb(locale, message: types.Message):
         ],
     )
     x = await configs.collpages.find_one({"slug": "contacts"})
-    description = x['description_uz'] if locale == "uz" else x['description_ru']
-    # await message.delete()
-    # return await message.answer_photo(x['image'], parse_mode="HTML",
-    #                                   reply_markup=inline_key, caption=description)
-    return await message.edit_text(description, parse_mode="HTML",
-                                   reply_markup=inline_key)
+    if x:
+        description = x['description_uz'] if locale == "uz" else x['description_ru']
+        # await message.delete()
+        # return await message.answer_photo(x['image'], parse_mode="HTML",
+        #                                   reply_markup=inline_key, caption=description)
+        return await message.edit_text(description, parse_mode="HTML",
+                                       reply_markup=inline_key)
+    else:
+        return await message.answer(texts.empty_contacts)
 
 
 async def about_inline_kb(locale, message: types.Message):
@@ -74,9 +65,12 @@ async def about_inline_kb(locale, message: types.Message):
         ],
     )
     about_page = await configs.collpages.find_one({'slug': 'about'})
-    description = about_page['description_uz'] if locale == "uz" else about_page['description_ru']
-    return await message.answer_photo(about_page['image'], reply_markup=inline_key,
-                                      caption=description)
+    if about_page:
+        description = about_page['description_uz'] if locale == "uz" else about_page['description_ru']
+        return await message.answer_photo(about_page['image'], reply_markup=inline_key,
+                                          caption=description)
+    else:
+        return await message.answer(texts.empty_about_page)
 
 
 async def reg_inline_kb(locale, message: types.Message):
@@ -100,17 +94,6 @@ async def reg_inline_kb(locale, message: types.Message):
     )
 
 
-async def centers_text_dict_func(key, locale):
-    centers_text_dict = {"tashkend": _("IT Park Tashkent", locale),
-                         "mirzo": _("IT Center Mirzo-Ulug'bek", locale),
-                         "chilonzor": _("IT Center Chilonzor", locale),
-                         "sergeli": _("IT Center Sergeli", locale),
-                         "yakkasaroy": _("IT Center Yakkasaroy", locale),
-                         "bektemir": _("IT Center Bektemir", locale),
-                         }
-    return centers_text_dict[key]
-
-
 async def register_inline_kb(locale, message: types.Message):
     confirm_lang = CallbackData('register', 'action')
     centers = configs.collcenters.find({})  # noqa
@@ -131,25 +114,14 @@ async def register_inline_kb(locale, message: types.Message):
         inline_keyboard=kb_course
     )
     x = await configs.collpages.find_one({"slug": "centers"})
-    return await message.answer_photo(
-        x['image'],
-        reply_markup=inline_key,
-        caption=x['description_uz'] if locale == "uz" else x['description_ru']
-    )
-
-
-async def course_dict_func(key, locale):
-    course_dict = {
-        "frontend": _("Web dasturlash (Frontend)", locale),
-        "backend": _("Backend dasturlash", locale),
-        "android": _("Android ilovalarni yaratish", locale),
-        "robots": _("Mobil robototexnika", locale),
-        "graphics": _("Grafika va web dizayn", locale),
-        "english": _("IT-English", locale),
-        "smm": _("SMM-mutaxassis", locale),
-        "scratch": _("Scratch + IT English", locale),
-    }
-    return course_dict[key]
+    if x:
+        return await message.answer_photo(
+            x['image'],
+            reply_markup=inline_key,
+            caption=x['description_uz'] if locale == "uz" else x['description_ru']
+        )
+    else:
+        return await message.answer(texts.empty_centers)
 
 
 async def courses_inline_kb(locale, message: types.Message):
@@ -173,11 +145,14 @@ async def courses_inline_kb(locale, message: types.Message):
     )
     # course_photo = await configs.collcourses.find_one({'slug': 'courses'})
     x = await configs.collpages.find_one({'slug': 'courses'})
-    return await message.answer_photo(
-        x['image'],
-        reply_markup=inline_key,
-        caption=x['description_uz'] if locale == "uz" else x['description_ru']
-    )
+    if x:
+        return await message.answer_photo(
+            x['image'],
+            reply_markup=inline_key,
+            caption=x['description_uz'] if locale == "uz" else x['description_ru']
+        )
+    else:
+        return await message.answer(texts.empty_courses)
 
 
 async def menu_inline_kb(locale):

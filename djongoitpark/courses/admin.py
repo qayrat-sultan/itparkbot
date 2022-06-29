@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Courses, Centers, Pages
+from .models import Courses, Centers, Pages, ExternalLinks
 from django.utils.safestring import mark_safe
 
 
 class CoursesAdmin(admin.ModelAdmin):  # noqa
-    exclude = ('image', "slug")
+    exclude = ('slug', 'image')
     readonly_fields = ('image_preview',)
 
     def image_preview(self, obj):
@@ -22,7 +22,7 @@ admin.site.register(Courses, CoursesAdmin)
 
 
 class CentersAdmin(admin.ModelAdmin):  # noqa
-    exclude = ('image', "slug")
+    exclude = ('image', 'slug')
     readonly_fields = ('image_preview',)
 
     def image_preview(self, obj):
@@ -40,7 +40,7 @@ admin.site.register(Centers, CentersAdmin)  # noqa
 
 
 class PagesAdmin(admin.ModelAdmin):  # noqa
-    exclude = ('image', "slug")
+    exclude = ('image',)
     readonly_fields = ('image_preview',)
 
     def image_preview(self, obj):
@@ -55,3 +55,10 @@ class PagesAdmin(admin.ModelAdmin):  # noqa
 
 
 admin.site.register(Pages, PagesAdmin)  # noqa
+
+
+class ExternalLinksAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(ExternalLinks, ExternalLinksAdmin)

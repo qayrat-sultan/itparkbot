@@ -39,55 +39,31 @@ class SetState(StatesGroup):
 @dp.message_handler(commands="start", state="*")
 async def cmd_start(message: types.Message, locale, state: FSMContext):
     print("1")
-    async with state.proxy() as data:
-        data.clear()
-    x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
-    await x.delete()
-    if await configs.collusers.count_documents({"id": message.from_user.id}) < 1:
-        await message.answer(texts.start_text,
-                             reply_markup=await kbs.start_inline_kb(locale),
-                             parse_mode="HTML")  # required use bot.send_message!
+    arguments = message.get_args()
+    if arguments == "":
+        async with state.proxy() as data:
+            data.clear()
+        x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
+        await x.delete()
+        if await configs.collusers.count_documents({"id": message.from_user.id}) < 1:
+            await message.answer(texts.start_text,
+                                 reply_markup=await kbs.start_inline_kb(locale),
+                                 parse_mode="HTML")  # required use bot.send_message!
+        else:
+            await message.answer(texts.menu_text,
+                                 reply_markup=await kbs.menu_inline_kb(locale))
     else:
-        await message.answer(texts.menu_text,
-                             reply_markup=await kbs.menu_inline_kb(locale))
-
-
-@dp.message_handler(commands="setlang")
-async def cmd_setlang(message: types.Message):
-    confirm_lang = CallbackData('lang', 'action')
-    inline_key = types.InlineKeyboardMarkup(
-        inline_keyboard=[
-            [
-                types.InlineKeyboardButton("🇷🇺",
-                                           callback_data=confirm_lang.new(action="ru")),
-                types.InlineKeyboardButton("🇺🇿",
-                                           callback_data=confirm_lang.new(action="uz")),
-                types.InlineKeyboardButton("🇺🇸",
-                                           callback_data=confirm_lang.new(action="en"))
-            ]
-        ],
-    )
-    await message.answer(_("Select this lang"), reply_markup=inline_key)
-
-
-@dp.message_handler(commands='lang')
-async def cmd_lang(message: types.Message, locale):
-    # For setting custom lang you have to modify i18n middleware
-    await message.reply(_('Your current language: <i>{language}</i>').format(language=locale))
+        link = await configs.collinks.find_one({"url": arguments})
+        async with state.proxy() as data:
+            data['external'] = True
+            await SetRegister.fio.set()
+            await message.answer("Iltimos FIO yozing")
 
 
 @dp.message_handler(commands=["main"])
 async def menu(message: types.Message, locale, state: FSMContext):
     await message.answer(texts.menu_text,
                          reply_markup=await kbs.menu_inline_kb(locale))
-
-
-"""
-@dp.message_handler(commands=['post'])
-async def post(message: types.Message):
-    data = {'type': 'text', 'text': 'text', 'entities': None}
-    users = 390736292,
-    await admin_commands.send_post_all_users(data, users, bot)"""
 
 
 @dp.message_handler(commands="centers", state="*")
@@ -130,7 +106,6 @@ async def set_fio_process(message: types.Message, locale, state: FSMContext):
 
 @dp.callback_query_handler(lambda call: call.data.endswith('back_tel'), state="*")
 async def back_to_tel_process(callback: types.CallbackQuery, locale):
-    print("8")
     await callback.answer()
     await SetRegister.tel.set()
     await callback.message.delete()
@@ -149,7 +124,6 @@ async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMConte
 
 @dp.message_handler(state=SetRegister.age, content_types="text")
 async def set_fio_process(message: types.Message, locale, state: FSMContext):
-    print("9")
     async with state.proxy() as data:
         if message.text == await texts.back_reply_button(locale):
             await message.answer(texts.sex_answer_text, reply_markup=await kbs.sex_inline(locale))
@@ -189,7 +163,6 @@ async def set_fio_process(message: types.Message, locale, state: FSMContext):
 
 @dp.callback_query_handler(lambda call: call.data.startswith('confirm'), state="*")
 async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMContext):
-    print("10")
     await callback.answer()
     await callback.message.delete()
     async with state.proxy() as data:
@@ -213,7 +186,6 @@ async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMConte
 
 @dp.callback_query_handler(lambda call: call.data.startswith('lang'), state="*")
 async def language_set(callback: types.CallbackQuery, locale):
-    print("11")
     await callback.answer()
     lang = callback.data.split(":")[1]
     if await configs.collusers.count_documents({"id": callback.from_user.id}) < 1:
@@ -222,18 +194,13 @@ async def language_set(callback: types.CallbackQuery, locale):
         configs.collusers.update_one({"id": int(callback.from_user.id)}, {
             "$set": {"lang": lang}})
     configs.LANG_STORAGE[callback.from_user.id] = lang
-
-    # await callback.message.delete()
     await callback.message.edit_text(texts.menu_text, reply_markup=await kbs.menu_inline_kb(lang))
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith('lang'), state="*")
 async def language_set(callback: types.CallbackQuery, locale):
-    print("12")
     await callback.answer()
-    # await callback.message.delete()
     await callback.message.edit_text(texts.start_text, reply_markup=await kbs.start_inline_kb(locale))
-    # await callback.message.answer_photo(MEDIA['about'], reply_markup=await kbs.start_inline_kb(locale))
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("back"), state='*')
@@ -246,12 +213,6 @@ async def back_menu(callback: types.CallbackQuery, locale, state: FSMContext):
         await callback.message.answer(texts.menu_text, reply_markup=await kbs.menu_inline_kb(locale))
     else:
         await callback.message.answer(texts.start_text, reply_markup=await kbs.start_inline_kb(locale))
-
-    # async with state.proxy() as data:
-    #     data.clear()
-    #     await state.finish()
-    # await callback.message.delete()
-    # await callback.message.answer(texts.menu_text, reply_markup=await kbs.menu_inline_kb(locale))
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("menu"), state='*')
@@ -276,12 +237,6 @@ async def register_func(callback: types.CallbackQuery, locale, state: FSMContext
     print("16")
     await callback.answer()
     await callback.message.delete()
-    # course_photo = await configs.collcourses.find_one({'slug': 'courses'})
-    # await callback.message.answer_photo(
-    #     course_photo['image'],
-    #     reply_markup=await kbs.courses_inline_kb(locale),
-    #     caption=texts.courses_text
-    # )
     await kbs.courses_inline_kb(locale, callback.message)
     await SetRegister.confirm.set()
 
@@ -318,18 +273,15 @@ async def reg_course_func(callback: types.CallbackQuery, locale, state: FSMConte
         await kbs.reg_inline_kb(locale, callback.message)
         await SetRegister.fio.set()
         print("@@@@@@@@1")
-    #     await SetRegister.confirm.set()
-    #     await kbs.register_inline_kb(locale, callback.message)
-    # await SetRegister.fio.set()
 
 
 @dp.callback_query_handler(state=SetRegister.fio)
-async def fio_set(callback: types.CallbackQuery, state: FSMContext):
+async def fio_set(callback: types.CallbackQuery, locale, state: FSMContext):
     await callback.answer()
     await callback.message.delete()
     async with state.proxy() as data:
         data['register'] = callback.data.split(":")[1]
-    await callback.message.answer(texts.fio_answer_text)
+    await callback.message.answer(texts.fio_answer_text, reply_markup=await kbs.reply_back(locale))
 
 
 @dp.callback_query_handler(lambda call: call.data.startswith("answer"), state="*")

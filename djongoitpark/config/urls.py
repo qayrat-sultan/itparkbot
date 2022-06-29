@@ -12,3 +12,7 @@ if 'rosetta' in settings.INSTALLED_APPS:
     urlpatterns += [
         path('rosetta/', include('rosetta.urls'))
     ]
+
+admin.site.site_header = "IT Park Tashkent Admin"
+admin.site.index_title = "Adminkaga xush kelibsiz"
+admin.site.site_title = "Adminka tutoriali"

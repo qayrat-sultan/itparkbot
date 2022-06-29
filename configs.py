@@ -43,6 +43,7 @@ collmedia = db.media
 collcourses = db.courses_courses
 collcenters = db.courses_centers
 collpages = db.courses_pages
+collinks = db.links
 
 # Telegam supported types
 all_content_types = ["text", "sticker", "photo",

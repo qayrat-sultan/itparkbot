@@ -205,3 +205,13 @@ filial_bektemir = _("""🏢 <b>IT Center - IT Center Bektemir</b>
 📞 Tel: +998 99 127-11-99
     
 🔗 <a href="https://yandex.uz/maps/-/CCU5nFhs-B">IT-Markaz xaritada</a>""")
+
+
+empty_courses = _("Hozircha kurslar mavjud emas")
+
+empty_centers = _("Hozircha markazlar mavjud emas")
+
+empty_contacts = _("Hozircha kontaktlar mavjud emas")
+
+empty_about_page = _("Hozircha biz haqimizda matni mavjud emas")
+

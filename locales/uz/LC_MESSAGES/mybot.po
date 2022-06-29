@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-08 21:38+0500\n"
+"POT-Creation-Date: 2022-06-29 12:02+0500\n"
 "PO-Revision-Date: 2022-05-26 15:17+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: uz\n"
@@ -18,215 +18,83 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: kbs.py:11
-msgid "One"
-msgstr ""
-
-#: kbs.py:12
-msgid "Two"
-msgstr ""
-
-#: kbs.py:13
-msgid "Three"
-msgstr ""
-
-#: kbs.py:42
+#: kbs.py:32
 msgid "📤 Murojaat qoldirish"
 msgstr ""
 
-#: kbs.py:46 kbs.py:63 kbs.py:80 kbs.py:128 kbs.py:187 kbs.py:233 texts.py:118
+#: kbs.py:36 kbs.py:62 kbs.py:85 kbs.py:110 kbs.py:140 kbs.py:196 texts.py:118
 msgid "⬅️ Ortga"
 msgstr ""
 
-#: kbs.py:59 kbs.py:76
+#: kbs.py:58 kbs.py:81
 msgid "📝 Kursga yozilish"
 msgstr ""
 
-#: kbs.py:89
-msgid "IT Park Tashkent"
-msgstr ""
-
-#: kbs.py:90
-msgid "IT Center Mirzo-Ulug'bek"
-msgstr ""
-
-#: kbs.py:91
-msgid "IT Center Chilonzor"
-msgstr ""
-
-#: kbs.py:92
-msgid "IT Center Sergeli"
-msgstr ""
-
-#: kbs.py:93
-msgid "IT Center Yakkasaroy"
-msgstr ""
-
-#: kbs.py:94
-msgid "IT Center Bektemir"
-msgstr ""
-
-#: kbs.py:104
-msgid "🏢 IT Park Tashkent"
-msgstr ""
-
-#: kbs.py:108
-msgid "🏢 IT Center Mirzo-Ulug'bek"
-msgstr ""
-
-#: kbs.py:112
-msgid "🏢 IT Center Chilonzor"
-msgstr ""
-
-#: kbs.py:116
-msgid "🏢 IT Center Sergeli"
-msgstr ""
-
-#: kbs.py:120
-msgid "🏢 IT Center Yakkasaroy"
-msgstr ""
-
-#: kbs.py:124
-msgid "🏢 IT Center Bektemir"
-msgstr ""
-
-#: kbs.py:138
-msgid "Web dasturlash (Frontend)"
-msgstr ""
-
-#: kbs.py:139
-msgid "Backend dasturlash"
-msgstr ""
-
-#: kbs.py:140
-msgid "Android ilovalarni yaratish"
-msgstr ""
-
-#: kbs.py:141
-msgid "Mobil robototexnika"
-msgstr ""
-
-#: kbs.py:142
-msgid "Grafika va web dizayn"
-msgstr ""
-
-#: kbs.py:143
-msgid "IT-English"
-msgstr ""
-
-#: kbs.py:144
-msgid "SMM-mutaxassis"
-msgstr ""
-
-#: kbs.py:145
-msgid "Scratch + IT English"
-msgstr ""
-
-#: kbs.py:155
-msgid "🖥 Web dasturlash (Frontend)"
-msgstr ""
-
-#: kbs.py:159
-msgid "💻 Backend dasturlash"
-msgstr ""
-
 #: kbs.py:163
-msgid "📲 Android ilovalarni yaratish"
-msgstr ""
-
-#: kbs.py:167
-msgid "🤖 Mobil robototexnika"
-msgstr ""
-
-#: kbs.py:171
-msgid "🏞 Grafika va web dizayn"
-msgstr ""
-
-#: kbs.py:175
-msgid "🇺🇸 IT-English"
-msgstr ""
-
-#: kbs.py:179
-msgid "👩‍💻 SMM-menejer"
-msgstr ""
-
-#: kbs.py:183
-msgid "🧩 Scratch + IT English"
-msgstr ""
-
-#: kbs.py:200
 msgid "ℹ️ Biz haqimizda"
 msgstr ""
 
-#: kbs.py:202
+#: kbs.py:165
 msgid "🖥 Bizning kurslar"
 msgstr ""
 
-#: kbs.py:206
+#: kbs.py:169
 msgid "🏢 O'quv markazlar"
 msgstr ""
 
-#: kbs.py:208
+#: kbs.py:171
 msgid "📞 Kontaktlar"
 msgstr ""
 
-#: kbs.py:212
+#: kbs.py:175
 msgid "🌐 Tilni alishtirish"
 msgstr ""
 
-#: kbs.py:226
+#: kbs.py:189
 msgid "🙎🏻‍♂️ Erkak"
 msgstr ""
 
-#: kbs.py:229
+#: kbs.py:192
 msgid "🙎🏻‍♀️ Ayol"
 msgstr ""
 
-#: kbs.py:246
+#: kbs.py:209
 msgid "Javob yozish"
 msgstr ""
 
-#: main.py:78
-msgid "Select this lang"
-msgstr ""
-
-#: main.py:84
-msgid "Your current language: <i>{language}</i>"
-msgstr ""
-
-#: main.py:188
+#: main.py:152
 msgid "✅️ Tasdiqlash"
 msgstr ""
 
-#: main.py:192
+#: main.py:156
 msgid "❌ Bekor qilish"
 msgstr ""
 
-#: main.py:310
-msgid "Iltimos, to'liq ismingizni kiriting"
+#: main.py:183
+msgid "Ro'yxatdan o'tish bekor qilindi!"
 msgstr ""
 
-#: main.py:319 main.py:330
+#: main.py:291 main.py:303
 msgid "Iltimos, o'z shikoyat/taklif'ingizni jo'nating"
 msgstr ""
 
-#: main.py:344
+#: main.py:317
 msgid "Sizning murojaatingizga javob xati keldi"
 msgstr ""
 
-#: main.py:355
+#: main.py:328
 msgid "Ushbu foydalanuvchi botdan foydalanmaydi yoki telegram o'chirilgan"
 msgstr ""
 
-#: main.py:360
+#: main.py:333
 msgid "Bekor qilindi."
 msgstr ""
 
-#: main.py:370
+#: main.py:343
 msgid "Yuborildi"
 msgstr ""
 
-#: main.py:393
+#: main.py:368
 msgid "Botni qayta yoqish uchun /start ni bosing."
 msgstr ""
 
@@ -553,6 +421,22 @@ msgid ""
 "🔗 <a href=\"https://yandex.uz/maps/-/CCU5nFhs-B\">IT-Markaz xaritada</a>"
 msgstr ""
 
+#: texts.py:210
+msgid "Hozircha kurslar mavjud emas"
+msgstr ""
+
+#: texts.py:212
+msgid "Hozircha markazlar mavjud emas"
+msgstr ""
+
+#: texts.py:214
+msgid "Hozircha kontaktlar mavjud emas"
+msgstr ""
+
+#: texts.py:216
+msgid "Hozircha biz haqimizda matni mavjud emas"
+msgstr ""
+
 #: venv/lib/python3.8/site-packages/django/contrib/admin/actions.py:54
 #, python-format
 msgid "Successfully deleted %(count)d %(items)s."
@@ -769,6 +653,7 @@ msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/contrib/admin/options.py:232
 #: venv/lib/python3.8/site-packages/django/contrib/admin/options.py:272
+#: venv/lib/python3.8/site-packages/modeltranslation/widgets.py:26
 msgid "None"
 msgstr ""
 
@@ -1743,7 +1628,7 @@ msgid "tomorrow"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/contrib/humanize/templatetags/humanize.py:192
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:387
+#: venv/lib/python3.8/site-packages/tornado/locale.py:387
 msgid "yesterday"
 msgstr ""
 
@@ -2510,37 +2395,37 @@ msgid "noon"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:7
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:295
+#: venv/lib/python3.8/site-packages/tornado/locale.py:295
 msgid "Monday"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:8
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:296
+#: venv/lib/python3.8/site-packages/tornado/locale.py:296
 msgid "Tuesday"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:9
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:297
+#: venv/lib/python3.8/site-packages/tornado/locale.py:297
 msgid "Wednesday"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:10
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:298
+#: venv/lib/python3.8/site-packages/tornado/locale.py:298
 msgid "Thursday"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:11
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:299
+#: venv/lib/python3.8/site-packages/tornado/locale.py:299
 msgid "Friday"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:12
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:300
+#: venv/lib/python3.8/site-packages/tornado/locale.py:300
 msgid "Saturday"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:13
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:301
+#: venv/lib/python3.8/site-packages/tornado/locale.py:301
 msgid "Sunday"
 msgstr ""
 
@@ -2573,62 +2458,62 @@ msgid "Sun"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:25
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:281
+#: venv/lib/python3.8/site-packages/tornado/locale.py:281
 msgid "January"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:26
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:282
+#: venv/lib/python3.8/site-packages/tornado/locale.py:282
 msgid "February"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:27
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:283
+#: venv/lib/python3.8/site-packages/tornado/locale.py:283
 msgid "March"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:28
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:284
+#: venv/lib/python3.8/site-packages/tornado/locale.py:284
 msgid "April"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:29
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:285
+#: venv/lib/python3.8/site-packages/tornado/locale.py:285
 msgid "May"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:30
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:286
+#: venv/lib/python3.8/site-packages/tornado/locale.py:286
 msgid "June"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:31
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:287
+#: venv/lib/python3.8/site-packages/tornado/locale.py:287
 msgid "July"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:32
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:288
+#: venv/lib/python3.8/site-packages/tornado/locale.py:288
 msgid "August"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:33
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:289
+#: venv/lib/python3.8/site-packages/tornado/locale.py:289
 msgid "September"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:34
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:290
+#: venv/lib/python3.8/site-packages/tornado/locale.py:290
 msgid "October"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:35
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:291
+#: venv/lib/python3.8/site-packages/tornado/locale.py:291
 msgid "November"
 msgstr ""
 
 #: venv/lib/python3.8/site-packages/django/utils/dates.py:36
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:292
+#: venv/lib/python3.8/site-packages/tornado/locale.py:292
 msgid "December"
 msgstr ""
 
@@ -2822,87 +2707,87 @@ msgid ""
 " happens when the catalog file changes on disk after you last loaded it."
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:371
+#: venv/lib/python3.8/site-packages/tornado/locale.py:371
 msgid "1 second ago"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:377
+#: venv/lib/python3.8/site-packages/tornado/locale.py:377
 msgid "1 minute ago"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:382
+#: venv/lib/python3.8/site-packages/tornado/locale.py:382
 msgid "1 hour ago"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:385
+#: venv/lib/python3.8/site-packages/tornado/locale.py:385
 #, python-format
 msgid "%(time)s"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:387
+#: venv/lib/python3.8/site-packages/tornado/locale.py:387
 #, python-format
 msgid "yesterday at %(time)s"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:389
+#: venv/lib/python3.8/site-packages/tornado/locale.py:389
 #, python-format
 msgid "%(weekday)s"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:389
+#: venv/lib/python3.8/site-packages/tornado/locale.py:389
 #, python-format
 msgid "%(weekday)s at %(time)s"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:392
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:445
+#: venv/lib/python3.8/site-packages/tornado/locale.py:392
+#: venv/lib/python3.8/site-packages/tornado/locale.py:445
 #, python-format
 msgid "%(month_name)s %(day)s"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:394
+#: venv/lib/python3.8/site-packages/tornado/locale.py:394
 #, python-format
 msgid "%(month_name)s %(day)s at %(time)s"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:399
+#: venv/lib/python3.8/site-packages/tornado/locale.py:399
 #, python-format
 msgid "%(month_name)s %(day)s, %(year)s"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:401
+#: venv/lib/python3.8/site-packages/tornado/locale.py:401
 #, python-format
 msgid "%(month_name)s %(day)s, %(year)s at %(time)s"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:439
+#: venv/lib/python3.8/site-packages/tornado/locale.py:439
 #, python-format
 msgid "%(weekday)s, %(month_name)s %(day)s"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/locale.py:462
+#: venv/lib/python3.8/site-packages/tornado/locale.py:462
 #, python-format
 msgid "%(commas)s and %(last)s"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/test/locale_test.py:68
+#: venv/lib/python3.8/site-packages/tornado/test/locale_test.py:68
 msgctxt "law"
 msgid "right"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/test/locale_test.py:69
+#: venv/lib/python3.8/site-packages/tornado/test/locale_test.py:69
 msgctxt "good"
 msgid "right"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/test/locale_test.py:71
-#: venv/lib64/python3.8/site-packages/tornado/test/locale_test.py:74
+#: venv/lib/python3.8/site-packages/tornado/test/locale_test.py:71
+#: venv/lib/python3.8/site-packages/tornado/test/locale_test.py:74
 msgctxt "organization"
 msgid "club"
 msgstr ""
 
-#: venv/lib64/python3.8/site-packages/tornado/test/locale_test.py:76
-#: venv/lib64/python3.8/site-packages/tornado/test/locale_test.py:77
+#: venv/lib/python3.8/site-packages/tornado/test/locale_test.py:76
+#: venv/lib/python3.8/site-packages/tornado/test/locale_test.py:77
 msgctxt "stick"
 msgid "club"
 msgstr ""
@@ -3380,5 +3265,107 @@ msgstr ""
 #~ "📆 Kurs davomiyligi: 6 oy.\n"
 #~ "\n"
 #~ "💰 Kursning narxi: 1 000 000 so‘m/oy."
+#~ msgstr ""
+
+#~ msgid "🏢 IT Park Tashkent"
+#~ msgstr ""
+
+#~ msgid "🏢 IT Center Mirzo-Ulug'bek"
+#~ msgstr ""
+
+#~ msgid "🏢 IT Center Chilonzor"
+#~ msgstr ""
+
+#~ msgid "🏢 IT Center Sergeli"
+#~ msgstr ""
+
+#~ msgid "🏢 IT Center Yakkasaroy"
+#~ msgstr ""
+
+#~ msgid "🏢 IT Center Bektemir"
+#~ msgstr ""
+
+#~ msgid "🖥 Web dasturlash (Frontend)"
+#~ msgstr ""
+
+#~ msgid "💻 Backend dasturlash"
+#~ msgstr ""
+
+#~ msgid "📲 Android ilovalarni yaratish"
+#~ msgstr ""
+
+#~ msgid "🤖 Mobil robototexnika"
+#~ msgstr ""
+
+#~ msgid "🏞 Grafika va web dizayn"
+#~ msgstr ""
+
+#~ msgid "🇺🇸 IT-English"
+#~ msgstr ""
+
+#~ msgid "👩‍💻 SMM-menejer"
+#~ msgstr ""
+
+#~ msgid "🧩 Scratch + IT English"
+#~ msgstr ""
+
+#~ msgid "Iltimos, to'liq ismingizni kiriting"
+#~ msgstr ""
+
+#~ msgid "One"
+#~ msgstr ""
+
+#~ msgid "Two"
+#~ msgstr ""
+
+#~ msgid "Three"
+#~ msgstr ""
+
+#~ msgid "IT Park Tashkent"
+#~ msgstr ""
+
+#~ msgid "IT Center Mirzo-Ulug'bek"
+#~ msgstr ""
+
+#~ msgid "IT Center Chilonzor"
+#~ msgstr ""
+
+#~ msgid "IT Center Sergeli"
+#~ msgstr ""
+
+#~ msgid "IT Center Yakkasaroy"
+#~ msgstr ""
+
+#~ msgid "IT Center Bektemir"
+#~ msgstr ""
+
+#~ msgid "Web dasturlash (Frontend)"
+#~ msgstr ""
+
+#~ msgid "Backend dasturlash"
+#~ msgstr ""
+
+#~ msgid "Android ilovalarni yaratish"
+#~ msgstr ""
+
+#~ msgid "Mobil robototexnika"
+#~ msgstr ""
+
+#~ msgid "Grafika va web dizayn"
+#~ msgstr ""
+
+#~ msgid "IT-English"
+#~ msgstr ""
+
+#~ msgid "SMM-mutaxassis"
+#~ msgstr ""
+
+#~ msgid "Scratch + IT English"
+#~ msgstr ""
+
+#~ msgid "Select this lang"
+#~ msgstr ""
+
+#~ msgid "Your current language: <i>{language}</i>"
 #~ msgstr ""
 
