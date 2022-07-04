@@ -73,7 +73,7 @@ async def about_inline_kb(locale, message: types.Message):
         return await message.answer(texts.empty_about_page)
 
 
-async def reg_inline_kb(locale, message: types.Message):
+async def reg_inline_kb(locale, message: types.Message, data):
     confirm_lang = CallbackData('reg', 'action')
     inline_key = types.InlineKeyboardMarkup(
         inline_keyboard=[
@@ -87,11 +87,14 @@ async def reg_inline_kb(locale, message: types.Message):
             ]
         ],
     )
-    return await message.answer_photo(
-        photo="AgACAgIAAxkDAAINjGKmwj2pWrA04nwUtGLclElONzKHAALLuTEbtgE5SYpQ3jzspBgsAQADAgADeAADJAQ",
-        caption="CAPTION",
-        reply_markup=inline_key,
-    )
+
+    about_course = await configs.collcourses.find_one({'slug': data.get('courses')})
+    if about_course:
+        description = about_course['description_uz'] if locale == "uz" else about_course['description_ru']
+        return await message.answer_photo(about_course['image'], reply_markup=inline_key,
+                                          caption=description)
+    else:
+        return await message.answer(texts.empty_about_page)
 
 
 async def register_inline_kb(locale, message: types.Message):

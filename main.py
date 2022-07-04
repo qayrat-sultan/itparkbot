@@ -272,11 +272,11 @@ async def reg_course_func(callback: types.CallbackQuery, locale, state: FSMConte
         data['courses'] = callback.data.split(":")[1]
 
     if len(data) < 2:
-        await kbs.reg_inline_kb(locale, callback.message)
+        await kbs.reg_inline_kb(locale, callback.message, data)
         await SetRegister.center.set()
         print("@@@@@@@@2")
     else:
-        await kbs.reg_inline_kb(locale, callback.message)
+        await kbs.reg_inline_kb(locale, callback.message, data)
         await SetRegister.fio.set()
         print("@@@@@@@@1")
 
@@ -385,7 +385,7 @@ async def mninini(callback: types.CallbackQuery, locale, state: FSMContext):
     print("BAURJAN")
     await callback.answer()
     await callback.message.delete()
-    await kbs.reg_inline_kb(locale, callback.message)
+    await kbs.reg_inline_kb(locale, callback.message, await state.get_data())
     await SetRegister.fio.set()
 
 
