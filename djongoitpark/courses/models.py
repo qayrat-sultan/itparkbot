@@ -8,15 +8,16 @@ from .utils import send_photo
 
 
 class Courses(models.Model):
-    title_uz = models.CharField(max_length=50, verbose_name='Тақырып атауы')
+    title_uz = models.CharField(max_length=50, verbose_name='Kurs nomi')
     title_ru = models.CharField(max_length=50, verbose_name='Название курса')
     slug = models.SlugField(max_length=50, unique=True, verbose_name='Слаг')
-    description_uz = models.TextField(verbose_name='Тақырып колонкасы', blank=True, default="Tavsif")
+    description_uz = models.TextField(verbose_name='Kurs tavsifi', blank=True, default="Tavsif")
     description_ru = models.TextField(verbose_name='Описание курса', blank=True, default="Описание")
     price = models.CharField(verbose_name="Narxi", max_length=20, default=0, blank=True)
     duration = models.CharField(verbose_name="Davomiyligi", max_length=20, default="None", blank=True)
     image = models.CharField(max_length=100, blank=True, null=True)
     image_file = models.ImageField(upload_to='courses/', verbose_name='Курс тақырыпының суреті')
+    is_main = models.BooleanField(default=False, verbose_name='Главная страница')
 
     __original_image = None
 
@@ -41,14 +42,14 @@ class Courses(models.Model):
 
 
 class Centers(models.Model):
-    title_uz = models.CharField(max_length=30, verbose_name='Центр атауы')
+    title_uz = models.CharField(max_length=30, verbose_name='Markaz nomi')
     title_ru = models.CharField(max_length=30, verbose_name='Название центра')
-    description_uz = models.TextField(verbose_name='Тақырып колонкасы', blank=True, default="Tavsif")
+    description_uz = models.TextField(verbose_name='Markaz tavsifi', blank=True, default="Tavsif")
     description_ru = models.TextField(verbose_name='Описание центра', blank=True, default="Описание")
     phone = models.CharField(verbose_name="Telefon raqam", max_length=20, default="None", blank=True)
     slug = models.SlugField(max_length=20, unique=True)
     image = models.CharField(max_length=100, blank=True, null=True)
-    image_file = models.ImageField(upload_to='centers/', verbose_name='Центр тақырыпының суреті')
+    image_file = models.ImageField(upload_to='centers/', verbose_name='Markaz rasmi')
 
     __original_image = None
 
@@ -73,13 +74,13 @@ class Centers(models.Model):
 
 
 class Pages(models.Model):
-    title_uz = models.CharField(max_length=30, verbose_name='Бет атауы')
+    title_uz = models.CharField(max_length=30, verbose_name='Sahifa nomi')
     title_ru = models.CharField(max_length=30, verbose_name='Название страницы')
-    description_uz = models.TextField(verbose_name='Тақырып колонкасы', blank=True, default="Tavsif")
+    description_uz = models.TextField(verbose_name='Sahifa tavsifi', blank=True, default="Tavsif")
     description_ru = models.TextField(verbose_name='Описание страницы', blank=True, default="Описание")
     slug = models.SlugField(max_length=30, unique=True)
     image = models.CharField(max_length=100, blank=True, null=True)
-    image_file = models.ImageField(upload_to='pages/', verbose_name='Страница тақырыпының суреті')
+    image_file = models.ImageField(upload_to='pages/', verbose_name='Sahifa rasmi')
 
     __original_image = None
 

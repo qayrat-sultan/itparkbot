@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Courses, Centers, Pages, ExternalLinks
 from django.utils.safestring import mark_safe
+from django.conf import settings
 
 
 class CoursesAdmin(admin.ModelAdmin):  # noqa
@@ -58,7 +59,11 @@ admin.site.register(Pages, PagesAdmin)  # noqa
 
 
 class ExternalLinksAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('title', 'telegram_url')
+
+    @admin.display(empty_value='Nothing')
+    def telegram_url(self, obj):
+        return 'https://t.me/' + settings.BOT_USERNAME + '/?start=' + str(obj.url)
 
 
 admin.site.register(ExternalLinks, ExternalLinksAdmin)
