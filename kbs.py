@@ -233,3 +233,27 @@ async def reply_back_phone(locale):
         ],
         resize_keyboard=True)
     return markup
+
+
+async def submit_message(bot, to, locale, data, external=None):
+    if not external:
+        await bot.send_message(to, texts.new_request_text.  # noqa dubl
+                               format(fio=data.get('fio'),
+                                      sex=data.get('sex'),
+                                      age=data.get('age'),
+                                      center=data.get('register'),
+                                      course=data.get('courses'),
+                                      phone=data.get('tel')
+                                      ),
+                               reply_markup=types.ReplyKeyboardRemove())
+    else:
+        center = course = 'title_uz' if locale == "uz" else 'title_ru'
+        await bot.send_message(to, texts.new_request_text_externally.  # noqa dubl
+                               format(fio=data.get('fio'),
+                                      sex=data.get('sex'),
+                                      age=data.get('age'),
+                                      center=data['external'].get('center')[0][center],
+                                      course=data['external'].get('course')[0][course],
+                                      phone=data.get('tel')
+                                      ),
+                               reply_markup=types.ReplyKeyboardRemove())

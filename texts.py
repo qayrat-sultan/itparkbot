@@ -150,6 +150,17 @@ new_request_text = _("""Yangi so'rov
 📞 Tel: {phone}
 """)
 
+new_request_text_externally = _("""Yangi so'rov
+📃 F. I. SH.: {fio} 
+👫 Jins: {sex} 
+📅 Yosh: {age}
+🏢 IT Center: {center}
+🖥 Kurs: {course}
+📞 Tel: {phone}
+
+От внешней ссылки
+""")
+
 success_message_text = _("Muvaffaqiyatli ro'yxatdan o'tdingiz")
 
 filial_tashkent = _("""🏢 <b>IT Park Tashkent</b>

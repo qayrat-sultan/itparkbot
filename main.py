@@ -60,16 +60,20 @@ async def cmd_start(message: types.Message, locale, state: FSMContext):
             # msg = """{} {} {}""".format(link['url'], link['title'], link['description'])
             pipeline = [{
                 "$lookup": {
-                    'from': configs.collcenters,
+                    'from': 'courses_centers',
                     'localField': 'center_id',
                     'foreignField': 'id',
                     'as': 'center'
                 }
-            }]
-            async for doc in (configs.collcenters.aggregate(pipeline)):
-                print("@@@@@@@", doc)
-
-            data['external'] = link
+            },
+                {"$lookup": {
+                    'from': 'courses_courses',
+                    'localField': 'course_id',
+                    'foreignField': 'id',
+                    'as': 'course'
+                }}]
+            async for doc in (configs.collinks.aggregate(pipeline)):
+                data['external'] = doc
             await SetRegister.fio.set()
             await message.answer("Iltimos FIO yozing")
 
@@ -147,15 +151,11 @@ async def set_fio_process(message: types.Message, locale, state: FSMContext):
                 await message.answer(texts.error_age_answer)
                 return await SetRegister.age.set()
             data['age'] = message.text
-            await message.answer(texts.result_answer_text.  # noqa dubl
-                                 format(fio=data.get('fio'),
-                                        sex=data.get('sex'),
-                                        age=data.get('age'),
-                                        center=data.get('register'),
-                                        course=data.get('courses'),
-                                        phone=data.get('tel')
-                                        ),
-                                 reply_markup=types.ReplyKeyboardRemove())
+            external = data.get('external')
+            if external:
+                await message.answer(_("Sizning murojaatingiz qabul qilindi"))
+                return await kbs.submit_message(bot, configs.GROUP_ID, locale, data, True)
+            await kbs.submit_message(bot, message.from_user.id, locale, data)
         else:
             await message.answer(texts.error_answer_text, reply_markup=await kbs.reply_back(locale))
             return await SetRegister.age.set()
@@ -182,15 +182,7 @@ async def set_sex_process(callback: types.CallbackQuery, locale, state: FSMConte
     async with state.proxy() as data:
         if callback.data.split(":")[1] == "yes":
             await callback.message.answer(texts.success_message_text)
-            await bot.send_message(configs.GROUP_ID,
-                                   texts.new_request_text.  # noqa dubl
-                                   format(fio=data.get('fio'),
-                                          sex=data.get('sex'),
-                                          age=data.get('age'),
-                                          center=data.get('register'),
-                                          course=data.get('courses'),
-                                          phone=data.get('tel')
-                                          ))
+            await kbs.submit_message(bot, configs.GROUP_ID, locale, data)
             await state.finish()
         else:
             await state.finish()
@@ -422,6 +414,7 @@ async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale
     print("27", await state.get_state())
     print("POKA TUT")
     await callback.answer()
+
 
 if __name__ == '__main__':
     executor.start_polling(dp,
