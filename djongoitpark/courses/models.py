@@ -108,7 +108,8 @@ class ExternalLinks(models.Model):
     center = models.ForeignKey(Centers, on_delete=models.CASCADE)
     course = models.ForeignKey(Courses, on_delete=models.CASCADE)
     title = models.CharField(max_length=30, verbose_name='Havola nomi')
-    url = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='URL', max_length=10)
+    url = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='URL', max_length=10,
+                           primary_key=True, unique=True, db_index=True)
     views = models.IntegerField(default=0, verbose_name='Korinishlar soni')
     pub_day = models.DateField(auto_now_add=True, verbose_name='Yayın tarixi')
 
