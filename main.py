@@ -55,27 +55,47 @@ async def cmd_start(message: types.Message, locale, state: FSMContext):
         from uuid import UUID
         uuid_obj = UUID(arguments)
         link = await configs.collinks.find_one({"url": uuid_obj})
+        print(link)
         async with state.proxy() as data:
-            print(link)
-            # msg = """{} {} {}""".format(link['url'], link['title'], link['description'])
-            pipeline = [{
-                "$lookup": {
-                    'from': 'courses_centers',
-                    'localField': 'center_id',
-                    'foreignField': 'id',
-                    'as': 'center'
+            pipeline = [
+                {
+                    "$lookup": {
+                        'from': 'courses_centers',
+                        'localField': 'center_id',
+                        'foreignField': 'id',
+                        'as': 'center'
+                    }
+                },
+                {"$unwind": "$center"},
+                {
+                    "$lookup":
+                        {
+                            'from': 'courses_courses',
+                            'localField': 'course_id',
+                            'foreignField': 'id',
+                            'as': 'course'
+                        }
+                },
+                {"$unwind": "$course"},
+                {
+                    '$match': {
+                        'course.id': link['course_id']
+                    },
                 }
-            },
-                {"$lookup": {
-                    'from': 'courses_courses',
-                    'localField': 'course_id',
-                    'foreignField': 'id',
-                    'as': 'course'
-                }}]
+
+            ]
+
             async for doc in (configs.collinks.aggregate(pipeline)):
                 data['external'] = doc
             await SetRegister.fio.set()
-            await message.answer("Iltimos FIO yozing")
+            about_course = await configs.collcourses.find_one({'slug': data['external'].get('course')['slug']})
+            if about_course:
+                description = about_course['description_uz'] if locale == "uz" else about_course['description_ru']
+
+                await message.answer_photo(about_course['image'], caption=description)
+                return await message.answer("Iltimos FIO yozing")
+            else:
+                return await message.answer(texts.empty_about_page)
 
 
 @dp.message_handler(commands=["main"])
@@ -86,7 +106,6 @@ async def menu(message: types.Message, locale, state: FSMContext):
 
 @dp.message_handler(commands="centers", state="*")
 async def centers_menu(message: types.Message, locale, state: FSMContext):
-    print("5")
     x = await message.answer(".", reply_markup=types.ReplyKeyboardRemove())
     await x.delete()
     await kbs.register_inline_kb(locale, message=message)
@@ -211,7 +230,6 @@ async def language_set(callback: types.CallbackQuery, locale):
 
 @dp.callback_query_handler(lambda call: call.data.endswith("back"), state='*')
 async def back_menu(callback: types.CallbackQuery, locale, state: FSMContext):
-    print("13", await state.get_state(), type(await state.get_state()))
     await callback.answer()
     get_state = await state.get_state()
     await callback.message.delete()
@@ -240,7 +258,6 @@ async def register_func(callback: types.CallbackQuery, locale, state: FSMContext
 
 @dp.callback_query_handler(lambda call: call.data.endswith("courses"))  # END WITH
 async def register_func(callback: types.CallbackQuery, locale, state: FSMContext):
-    print("16")
     await callback.answer()
     await callback.message.delete()
     await kbs.courses_inline_kb(locale, callback.message)
@@ -249,14 +266,12 @@ async def register_func(callback: types.CallbackQuery, locale, state: FSMContext
 
 @dp.callback_query_handler(lambda call: call.data.endswith("contacts"), state='*')
 async def register_func(callback: types.CallbackQuery, locale):
-    print("18")
     await callback.answer()
     await kbs.contacts_inline_kb(locale, callback.message)
 
 
 @dp.callback_query_handler(lambda call: call.data.endswith("about"), state='*')
 async def menu_func(callback: types.CallbackQuery, locale):
-    print("19")
     await callback.answer()
     await callback.message.delete()
     # await callback.message.edit_text(await texts.about_text), reply_markup=await kbs.about_inline_kb(locale=locale))
@@ -265,7 +280,6 @@ async def menu_func(callback: types.CallbackQuery, locale):
 
 @dp.callback_query_handler(state=SetRegister.confirm)
 async def reg_course_func(callback: types.CallbackQuery, locale, state: FSMContext):
-    print("20", await state.get_state())
     await callback.answer()
     await callback.message.delete()
     async with state.proxy() as data:
@@ -292,7 +306,6 @@ async def fio_set(callback: types.CallbackQuery, locale, state: FSMContext):
 
 @dp.callback_query_handler(lambda call: call.data.startswith("answer"), state="*")
 async def report_callback(callback: types.CallbackQuery, state: FSMContext, locale):
-    print("21", "ANSWER")
     await callback.answer()
     await callback.message.answer(_("Iltimos, o'z shikoyat/taklif'ingizni jo'nating", locale=locale),
                                   reply_markup=await kbs.reply_back(locale))
@@ -313,7 +326,6 @@ async def report_callback(callback: types.CallbackQuery, locale):
 
 @dp.message_handler(state=SetReport.report, content_types=['text'])
 async def report_handler(message: types.Message, state: FSMContext, locale):
-    print("23")
     async with state.proxy() as data:
         sended_user_id = int(data.get('answer')) if data.get('answer', None) else message.from_user.id
         # if answer to user message

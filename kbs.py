@@ -253,8 +253,8 @@ async def submit_message(bot, to, locale, data, external=None):
                                format(fio=data.get('fio'),
                                       sex=data.get('sex'),
                                       age=data.get('age'),
-                                      center=data['external'].get('center')[0][center],
-                                      course=data['external'].get('course')[0][course],
+                                      center=data['external'].get('center')[center],
+                                      course=data['external'].get('course')[course],
                                       phone=data.get('tel')
                                       ),
                                reply_markup=types.ReplyKeyboardRemove())
