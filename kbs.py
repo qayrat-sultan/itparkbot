@@ -131,6 +131,7 @@ async def courses_inline_kb(locale, message: types.Message):
     title = "title_uz" if locale == "uz" else "title_ru"
     kb_course = []
     async for i in courses:
+        print("@@@@@@@@@", i)
         kb_course.append(
             [
                 types.InlineKeyboardButton(i[title], callback_data=confirm_lang.new(action=i['slug']))
@@ -145,6 +146,7 @@ async def courses_inline_kb(locale, message: types.Message):
     )
     # course_photo = await configs.collcourses.find_one({'slug': 'courses'})
     x = await configs.collpages.find_one({'slug': 'courses'})
+    print("$$$$$$$$", x)
     if x:
         return await message.answer_photo(
             x['image'],

@@ -38,7 +38,6 @@ class SetState(StatesGroup):
 
 @dp.message_handler(commands="start", state="*")
 async def cmd_start(message: types.Message, locale, state: FSMContext):
-    print("1")
     arguments = message.get_args()
     if arguments == "":
         async with state.proxy() as data:
@@ -53,9 +52,24 @@ async def cmd_start(message: types.Message, locale, state: FSMContext):
             await message.answer(texts.menu_text,
                                  reply_markup=await kbs.menu_inline_kb(locale))
     else:
-        link = await configs.collinks.find_one({"url": arguments})
+        from uuid import UUID
+        uuid_obj = UUID(arguments)
+        link = await configs.collinks.find_one({"url": uuid_obj})
         async with state.proxy() as data:
-            data['external'] = True
+            print(link)
+            # msg = """{} {} {}""".format(link['url'], link['title'], link['description'])
+            pipeline = [{
+                "$lookup": {
+                    'from': configs.collcenters,
+                    'localField': 'center_id',
+                    'foreignField': 'id',
+                    'as': 'center'
+                }
+            }]
+            async for doc in (configs.collcenters.aggregate(pipeline)):
+                print("@@@@@@@", doc)
+
+            data['external'] = link
             await SetRegister.fio.set()
             await message.answer("Iltimos FIO yozing")
 
@@ -376,6 +390,7 @@ async def some_text(message: types.Message):
 
 @dp.callback_query_handler(state=SetRegister.course)
 async def mninini(callback: types.CallbackQuery, locale, state: FSMContext):
+    print("BAURJAN")
     await callback.answer()
     await callback.message.delete()
     await kbs.reg_inline_kb(locale, callback.message)
