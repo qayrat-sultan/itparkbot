@@ -55,7 +55,6 @@ async def cmd_start(message: types.Message, locale, state: FSMContext):
         from uuid import UUID
         uuid_obj = UUID(arguments)
         link = await configs.collinks.find_one({"url": uuid_obj})
-        print(link)
         async with state.proxy() as data:
             pipeline = [
                 {
@@ -79,10 +78,17 @@ async def cmd_start(message: types.Message, locale, state: FSMContext):
                 {"$unwind": "$course"},
                 {
                     '$match': {
-                        'course.id': link['course_id']
-                    },
+                        'course.id': link['course_id'],
+                        'center.id': link['center_id'],
+                    }
+                },
+                {
+                    '$project':
+                        {
+                            'course': 1,
+                            'center': 1
+                        }
                 }
-
             ]
 
             async for doc in (configs.collinks.aggregate(pipeline)):
