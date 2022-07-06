@@ -1,4 +1,4 @@
-import asyncio # noqa
+import asyncio  # noqa
 import datetime
 import glob  # noqa
 import logging
@@ -14,6 +14,7 @@ from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.utils.exceptions import BotBlocked, BotKicked, UserDeactivated
 from aiogram.contrib.middlewares.i18n import I18nMiddleware
 from dotenv import load_dotenv
+
 # from pymongo import MongoClient # noqa
 
 load_dotenv()
@@ -63,8 +64,13 @@ class SetRegister(StatesGroup):
     tel = State()
 
 
+DEBUG = os.getenv("DEBUG", default=False)
+
+SITE_URL = os.getenv("SITE_URL", default="https://itlink.uz")
+WEBHOOK_PORT = os.getenv("WEBHOOK_PORT", default=3001)
+
 # Logging
-if not os.getenv("DEBUG", default=False):
+if not DEBUG:
     formatter = '[%(asctime)s] %(levelname)8s --- %(message)s (%(filename)s:%(lineno)s)'
     logging.basicConfig(
         filename=f'logs/bot-from-{datetime.datetime.now().date()}.log',
@@ -133,4 +139,3 @@ async def on_shutdown(dp):
     await dp.storage.close()
     await dp.storage.wait_closed()
     logging.warning("Bye!")
-
