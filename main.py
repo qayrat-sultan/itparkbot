@@ -30,7 +30,7 @@ _ = i18n.lazy_gettext
 
 # webhook settings
 WEBHOOK_HOST = configs.SITE_URL
-WEBHOOK_PATH = 'webhook/'
+WEBHOOK_PATH = '/webhook/'
 WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 
 # webserver settings
