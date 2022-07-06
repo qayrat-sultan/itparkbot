@@ -28,15 +28,6 @@ dp.middleware.setup(i18n)
 # Alias for gettext method
 _ = i18n.lazy_gettext
 
-# webhook settings
-WEBHOOK_HOST = configs.SITE_URL
-WEBHOOK_PATH = '/'
-WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
-
-# webserver settings
-WEBAPP_HOST = 'localhost'  # or ip
-WEBAPP_PORT = configs.WEBHOOK_PORT
-
 
 class SetReport(StatesGroup):
     report = State()
@@ -448,12 +439,12 @@ if __name__ == '__main__':
     # if not configs.DEBUG:
     start_webhook(
         dispatcher=dp,
-        webhook_path=WEBHOOK_PATH,
+        webhook_path=configs.WEBHOOK_PATH,
         on_startup=configs.on_startup,
         on_shutdown=configs.on_shutdown,
         skip_updates=True,
-        host=WEBAPP_HOST,
-        port=WEBAPP_PORT,
+        host=configs.WEBAPP_HOST,
+        port=configs.WEBAPP_PORT,
     )
     # else:
     #     executor.start_polling(dp,

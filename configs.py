@@ -51,6 +51,17 @@ all_content_types = ["text", "sticker", "photo",
                      "voice", "document", "video", "video_note"]
 
 
+# webhook settings
+WEBHOOK_HOST = 'https://itlink.uz'
+WEBHOOK_PATH = '/'
+WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
+
+# webserver settings
+WEBAPP_HOST = 'localhost'  # or ip
+SITE_URL = os.getenv("SITE_URL", default="https://itlink.uz")
+WEBAPP_PORT = os.getenv("WEBHOOK_PORT", default=3001)
+
+
 class SetRegister(StatesGroup):
     fio = State()
     sex = State()
@@ -63,8 +74,7 @@ class SetRegister(StatesGroup):
 
 DEBUG = os.getenv("DEBUG", default=False)
 
-SITE_URL = os.getenv("SITE_URL", default="https://itlink.uz")
-WEBHOOK_PORT = os.getenv("WEBHOOK_PORT", default=3001)
+
 
 # Logging
 if not DEBUG:
@@ -99,6 +109,8 @@ class Localization(I18nMiddleware):
 # On start polling telegram this function running
 async def on_startup(dp):
     # users_lang = collusers.find({}, {"_id": 1, "lang": 1})
+    if not DEBUG:
+        await dp.bot.set_webhook(WEBHOOK_URL)
     print(await dp.bot.get_me())
     logging.warning("BOT STARTED")
     # async for i in users_lang:
