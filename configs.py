@@ -50,14 +50,13 @@ collinks = db.links
 all_content_types = ["text", "sticker", "photo",
                      "voice", "document", "video", "video_note"]
 
-
 # webhook settings
 WEBHOOK_HOST = 'https://itlink.uz'
 WEBHOOK_PATH = '/'
 WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}{BOT_TOKEN}"
 
 # webserver settings
-WEBAPP_HOST = 'localhost'  # or ip
+WEBAPP_HOST = '127.0.0.1'  # or ip
 SITE_URL = os.getenv("SITE_URL", default="https://itlink.uz")
 WEBAPP_PORT = os.getenv("WEBHOOK_PORT", default=3001)
 
@@ -73,8 +72,6 @@ class SetRegister(StatesGroup):
 
 
 DEBUG = os.getenv("DEBUG", default=False)
-
-
 
 # Logging
 if not DEBUG:
