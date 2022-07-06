@@ -50,9 +50,6 @@ collinks = db.links
 all_content_types = ["text", "sticker", "photo",
                      "voice", "document", "video", "video_note"]
 
-# MEDIA
-MEDIA = {}
-
 
 class SetRegister(StatesGroup):
     fio = State()
@@ -101,31 +98,17 @@ class Localization(I18nMiddleware):
 
 # On start polling telegram this function running
 async def on_startup(dp):
-    users_lang = collusers.find({}, {"_id": 1, "lang": 1})
+    # users_lang = collusers.find({}, {"_id": 1, "lang": 1})
     print(await dp.bot.get_me())
     logging.warning("BOT STARTED")
-    async for i in users_lang:
-        LANG_STORAGE[i.get("_id")] = i.get("lang", "ru")
+    # async for i in users_lang:
+    #     LANG_STORAGE[i.get("_id")] = i.get("lang", "ru")
 
-    media = collmedia.find({})
-    async for i in media:
-        MEDIA[i.get("_id")] = i.get('file_id')
-    for i in ADMIN_IDS:
-        try:
-            # for filename in glob.glob('media/*.jpg'):
-            #     with open(os.path.join(os.getcwd(), filename), 'rb') as f:  # open in readonly mode
-            #         print(filename)
-            #         x = await dp.bot.send_photo(5252535217, types.InputFile(filename))
-            #         await collmedia.update_one({"_id": filename.split("/")[1].replace(".jpg", "")},
-            #                                    {"$set": {"file_id": x.photo[-1].file_id}})
-            #         try:
-            #             await collmedia.insert_one({"_id": filename.split("/")[1].replace(".jpg", ""),
-            #                                         "file_id": x.photo[-1].file_id})
-            #         except:
-            #             print("PASS")
-            await dp.bot.send_message(i, "Bot are start!")
-        except (BotKicked, BotBlocked, UserDeactivated):
-            pass
+    # for i in ADMIN_IDS:
+    #     try:
+    #         await dp.bot.send_message(i, "Bot are start!")
+    #     except (BotKicked, BotBlocked, UserDeactivated):
+    #         pass
 
 
 # On stop polling Telegram, this function running and stopping polling's
