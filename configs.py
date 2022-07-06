@@ -54,7 +54,7 @@ all_content_types = ["text", "sticker", "photo",
 # webhook settings
 WEBHOOK_HOST = 'https://itlink.uz'
 WEBHOOK_PATH = '/'
-WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
+WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}{BOT_TOKEN}"
 
 # webserver settings
 WEBAPP_HOST = 'localhost'  # or ip
