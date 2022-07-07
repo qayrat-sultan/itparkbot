@@ -437,16 +437,16 @@ async def some_callback(callback: types.CallbackQuery, state: FSMContext, locale
 
 if __name__ == '__main__':
     # if not configs.DEBUG:
-    start_webhook(
-        dispatcher=dp,
-        webhook_path=configs.WEBHOOK_PATH,
-        on_startup=configs.on_startup,
-        on_shutdown=configs.on_shutdown,
-        skip_updates=True,
-        host=configs.WEBAPP_HOST,
-        port=configs.WEBAPP_PORT,
-    )
+    # start_webhook(
+    #     dispatcher=dp,
+    #     webhook_path=configs.WEBHOOK_PATH,
+    #     on_startup=configs.on_startup,
+    #     on_shutdown=configs.on_shutdown,
+    #     skip_updates=True,
+    #     host=configs.WEBAPP_HOST,
+    #     port=configs.WEBAPP_PORT,
+    # )
     # else:
-    #     executor.start_polling(dp,
-    #                            on_startup=configs.on_startup,
-    #                            on_shutdown=configs.on_shutdown, skip_updates=True)
+    executor.start_polling(dp,
+                           on_startup=configs.on_startup,
+                           on_shutdown=configs.on_shutdown, skip_updates=True)
