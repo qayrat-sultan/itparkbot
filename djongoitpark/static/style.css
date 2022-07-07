@@ -1,0 +1,300 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400&family=Open+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Open+Sans:wght@300&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header{
+    width: 100%;
+    height: 370px;
+    background-image: url('./imgs/o\ nas\ 1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 50px 70px;
+}
+
+.header img{
+    width: 400px;
+}
+
+.header .list{
+    display: flex;
+    align-items: center;
+}
+
+.header .list li{
+    list-style: none;
+    margin-left: 20px;
+    margin-top: 25px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 25px;
+    line-height: 36px;
+    color: #FFFFFF;
+}
+
+li,button,i{
+    cursor: pointer;
+}
+
+/*main style start*/
+
+.main{
+    width: 100%;
+    height: auto;
+    background: #272323;
+    padding-top: 60px;
+    padding-bottom: 90px;
+}
+
+.main h1{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 61px;
+    padding: 30px 80px;
+    color: #FFFFFF;
+}
+
+.main .content{
+    width: 100%;
+    height: auto;
+    display: flex;
+    margin-top: 40px;
+}
+
+.main .img-box img{
+    margin-left: 65px;
+}
+
+.main .info-box{
+    width: 50%;
+    margin-left: 130px;
+}
+
+.main .info-box p{
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 33px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.main .info-box .p{
+    margin-top: 20px;
+}
+
+.main .info-box .p1{
+    margin-top: 20px;
+}
+
+/*bento style start*/
+
+.bento{
+    width: 100%;
+    height: auto;
+    background: #272323;
+    display: flex;
+    padding-bottom: 150px;
+}
+
+.bento .info{
+    width: 50%;
+    height: auto;
+    margin-left: 60px;
+}
+
+.bento .info p{
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 34px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.text
+{
+    margin-bottom: 20px;
+}
+
+.text1
+{
+    margin-bottom: 20px;
+}
+
+.text2
+{
+    margin-top: 20px;
+}
+
+.img-b img{
+    margin-left: 150px;
+    margin-top: 60px;
+}
+
+/*footer style start*/
+.footer{
+    width: 100%;
+    height: 350px;
+    background-image: url('./imgs/photo_2022-05-31_17-16-21\ 1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    padding: 30px;
+    justify-content: space-between;
+    border-radius: 0px !important;
+}
+
+.text-box p{
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 34px;
+    color: #FFFFFF;
+}
+
+.icon p{
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 34px;
+    margin-bottom: 25px;
+    color: #FFFFFF;
+}
+
+.icon img{
+    margin-left: 17px;
+}
+
+.icon .m0{
+    margin-left: 0 !important;
+}
+
+.maps p{
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 34px;
+    margin-bottom: 25px;
+    color: #FFFFFF;
+    margin-left: 130px;
+}
+
+@media(max-width: 576px){
+    .header{
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        padding: 30px;
+    }
+    .header img{
+        width: 300px;
+    }
+    .header .list{
+        width: 100%;
+        height: auto;
+    }
+    .header .list li{
+        font-size: 15px;
+    }
+
+    .main{
+        width: 100%;
+        height: auto;
+    }
+    .main h1{
+        font-size: 35px;
+        padding: 5px 0;
+        text-align: center;
+    }
+    .main .content{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .main .content .img-box{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .main .content .img-box img{
+        width: 330px;
+        margin-left: 0;
+    }
+    .main .content .info-box{
+        width: 100%;
+        height: auto;
+        margin: 50px 0;
+        padding: 0 10px;
+    }
+    .main .content .info-box p{
+        font-size: 15px;
+    }
+    .bento{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .bento .info{
+        width: 100%;
+        height: auto;
+        margin: 60px 0;
+        padding: 0 20px;
+        order: 1;
+    }
+    .bento .info p{
+        font-size: 15px;
+    }
+    .bento .img-b{
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+    }
+    .bento .img-b img{
+        margin: 0;
+        order: 1;
+    }
+    .footer{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        object-fit: cover;
+        text-align: center;
+    }
+    .footer .text-box{
+        width: 100%;
+        height: auto;
+        text-align: center;
+        margin-top: 20px;
+    }
+    .footer .text-box p{
+        font-size: 16px;
+    }
+    .footer .icon{
+        margin: 40px 0;
+    }
+    .footer .maps{
+        width: 100%;
+        height: auto;
+        margin-top: 20px;
+    }
+    .footer .maps p{
+        margin: 20px 0;
+    }
+}
