@@ -189,7 +189,12 @@ li,button,i{
     line-height: 34px;
     margin-bottom: 25px;
     color: #FFFFFF;
-    margin-left: 130px;
+    margin-left: 145px;
+}
+
+.maps .iframe{
+    width: 400px;
+    height: 200px;
 }
 
 @media(max-width: 576px){
