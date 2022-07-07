@@ -106,8 +106,8 @@ class Localization(I18nMiddleware):
 # On start polling telegram this function running
 async def on_startup(dp):
     # users_lang = collusers.find({}, {"_id": 1, "lang": 1})
-    if not DEBUG:
-        await dp.bot.set_webhook(WEBHOOK_URL)
+    # if not DEBUG:
+    #     await dp.bot.set_webhook(WEBHOOK_URL)
     print(await dp.bot.get_me())
     logging.warning("BOT STARTED")
     # async for i in users_lang:
