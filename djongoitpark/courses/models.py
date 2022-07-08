@@ -13,9 +13,8 @@ class Courses(models.Model):
     slug = models.SlugField(max_length=50, unique=True, verbose_name='Слаг')
     description_uz = models.TextField(verbose_name='Kurs tavsifi', blank=True, default="Tavsif")
     description_ru = models.TextField(verbose_name='Описание курса', blank=True, default="Описание")
-    duration = models.CharField(verbose_name="Davomiyligi", max_length=20, default="None", blank=True)
     image = models.CharField(max_length=100, blank=True, null=True)
-    image_file = models.ImageField(upload_to='courses/', verbose_name='Курс тақырыпының суреті')
+    image_file = models.ImageField(verbose_name='Kurs rasmlari')
     is_main = models.BooleanField(default=False, verbose_name='Главная страница')
 
     __original_image = None
@@ -47,7 +46,7 @@ class Centers(models.Model):
     description_ru = models.TextField(verbose_name='Описание центра', blank=True, default="Описание")
     slug = models.SlugField(max_length=20, unique=True)
     image = models.CharField(max_length=100, blank=True, null=True)
-    image_file = models.ImageField(upload_to='centers/', verbose_name='Markaz rasmi')
+    image_file = models.ImageField(verbose_name='Markaz rasmi')
 
     __original_image = None
 
@@ -78,7 +77,7 @@ class Pages(models.Model):
     description_ru = models.TextField(verbose_name='Описание страницы', blank=True, default="Описание")
     slug = models.SlugField(max_length=30, unique=True)
     image = models.CharField(max_length=100, blank=True, null=True)
-    image_file = models.ImageField(upload_to='pages/', verbose_name='Sahifa rasmi')
+    image_file = models.ImageField(verbose_name='Sahifa rasmi')
 
     __original_image = None
 
