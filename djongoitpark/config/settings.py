@@ -19,7 +19,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 DATABASE_NAME = os.getenv("DATABASE_NAME", default="itpark")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", default=False)
+DEBUG = os.getenv("DEBUG", default=True)
 
 BOT_USERNAME = os.getenv("BOT_USERNAME", default="itparkbot")
 
