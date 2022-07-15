@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400&family=Open+Sans:wght@300&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    font-family: 'Poppins';
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(-135deg, #c850c0,#4158d0);
+}
+
+.btn1{
+    padding: 22px 60px;
+    margin-left: 67px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    border-radius: 10px;
+    font-size: 19px;
+    background: orange;
+    transition: 0.3s;
+}
+
+.btn1:hover{
+    color: orange;
+    background: transparent;
+    border: 1px solid orange;
+    outline: none;
+    position: relative;
+}
+
+.wrapper{
+    width: 750px;
+    box-shadow: 0 0 10px rgba(0,0,0.1);
+    padding: 35px;
+    background: #fff;
+}
+
+.wrapper .input-data{
+    width: 40px;
+    width: 100%;
+    position: relative;
+}
+
+.wrapper .input-data input{
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid silver;
+    font-size: 17px;
+}
+
+.input-data input:focus ~ label,
+.input-data input:valid ~ label{
+    transform: translateY(-20px);
+    font-size: 15px;
+    color: #4158d0;
+}
+
+.wrapper .input-data label{
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    color: grey;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.wrap{
+    position: absolute;
+    width: 250px;
+    padding: 20px 0;
+    background: #fff;
+    bottom: 200px;
+    right: 597px;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+@media(max-width:576px){
+    body{
+        display: flex;
+        flex-direction: column;
+    }
+    .wrapper{
+        width: 80%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .btn1{
+        padding: 25px 70px;
+        margin-top: 70px;
+        margin-left: 0;
+    }
+
+    .wrap{
+        position: absolute;
+        left: 0;
+        width: 430px;
+        height: 45px;
+        text-align: center;
+        padding: 30px;
+        bottom: 140px;
+        left: 62px;
+        overflow-x: auto;
+    }
+    .wrap p{
+        margin-top: -10px;
+    }
+}

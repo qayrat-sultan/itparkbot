@@ -9,62 +9,81 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <header class="header">
-        <img src="{% static 'imgs/5e8cf6cf69158 1 (1).png' %}" alt="">
-        <ul class="list">
-            <li>О нас |</li>
-            <li>Наши филиалы  |</li>
-            <li>Курсы  |</li>
-            <li>Наши контакты </li>
-        </ul>
-    </header>
+<div class="btn-group">
+    <a href="{% url 'courses:shortener' %}"><button class="btn" >URL Shortener</button></a>
+</div>
 
-    <div class="main">
-        <h1>Наши курсы</h1>
-        <div class="content">
-            <div class="img-box">
-                <img src="{% static 'imgs/photo_2022-05-31_17-34-49 1.png' %}" alt="">
-            </div>
-            <div class="info-box">
-                <p> Веб программирование <br> Frontend-разработчик – работает над визуальным видом сайта, <br> подбирает шрифты, картинки, следит за тем, чтобы все графические <br> элементы правильно работали, а контент загружался на всех <br> устройствах.</p>
-                <p class="p">Продолжительность курса: 6 месяцев.</p>
-                <p class="p1">Стоимость курса: 800 000 сум/месяц</p>
-            </div>
+<!-- form html start -->
+
+<div class="wrapper"></div>
+
+<!-- form html end -->
+<header class="header">
+    <img src="{% static 'imgs/5e8cf6cf69158 1 (1).png' %}" alt="">
+    <ul class="list">
+        <li>О нас |</li>
+        <li>Наши филиалы |</li>
+        <li>Курсы |</li>
+        <li>Наши контакты</li>
+    </ul>
+</header>
+
+<div class="main">
+    <h1>Наши курсы</h1>
+    <div class="content">
+        <div class="img-box">
+            <img src="{% static 'imgs/photo_2022-05-31_17-34-49 1.png' %}" alt="">
+        </div>
+        <div class="info-box">
+            <p> Веб программирование <br> Frontend-разработчик – работает над визуальным видом сайта, <br> подбирает
+                шрифты, картинки, следит за тем, чтобы все графические <br> элементы правильно работали, а контент
+                загружался на всех <br> устройствах.</p>
+            <p class="p">Продолжительность курса: 6 месяцев.</p>
+            <p class="p1">Стоимость курса: 800 000 сум/месяц</p>
         </div>
     </div>
+</div>
 
-    <div class="bento">
-        <div class="info">
-            <p class="text">Backend программирование</p>
-            <p class="text1">Backend-разработчик - это специалист, который занимается программно-административной частью веб-приложений, внутренним содержанием системы, серверными технологиями, базой данных, архитектурой и логикой программных продуктов.</p>
-            <p>На курсе Вы изучите язык программирования Python, один из самых популярных высокоуровневых языков программирования, а также освоите самые важные Backend-инструменты: Django, базы данных SQL, Git и другое.</p>
-            <p class="text2">Продолжительность курса: 6 месяцев.</p>
-            <p class="text2">Стоимость курса: 1 000 000 сум/месяц. </p>
-        </div>
-        <div class="img-b">
-            <img src="{% static 'imgs/photo_2022-07-03_19-04-25 1.png' %}" alt="">
-        </div>
+<div class="bento">
+    <div class="info">
+        <p class="text">Backend программирование</p>
+        <p class="text1">Backend-разработчик - это специалист, который занимается программно-административной частью
+            веб-приложений, внутренним содержанием системы, серверными технологиями, базой данных, архитектурой и
+            логикой программных продуктов.</p>
+        <p>На курсе Вы изучите язык программирования Python, один из самых популярных высокоуровневых языков
+            программирования, а также освоите самые важные Backend-инструменты: Django, базы данных SQL, Git и
+            другое.</p>
+        <p class="text2">Продолжительность курса: 6 месяцев.</p>
+        <p class="text2">Стоимость курса: 1 000 000 сум/месяц. </p>
     </div>
+    <div class="img-b">
+        <img src="{% static 'imgs/photo_2022-07-03_19-04-25 1.png' %}" alt="">
+    </div>
+</div>
 
-    <footer class="footer">
-        <div class="text-box">
-            <p>Наши контакты:</p>
-            <p>+998 (90) 234-00-00</p>
-            <p>+998 (99) 234-00-00</p>
-            <p>наша электронна почта;</p>
-            <p>vuerhoijw260@gmail.com</p>
-            <p>wruidtfyu555@gmail.com</p>
-        </div>
-        <div class="icon">
-            <p>Мы в соц.сетях:</p>
-            <img class="m0" src="{% static 'imgs/Instagram_logo_2016 1.png' %}" alt="">
-            <img src="{% static 'imgs/png-transparent-telegram-computer-icons-logo-android-angle-triangle-monochrome 1.png' %}" alt=""">
-            <img src="{% static 'imgs/124010 1.png' %}" alt="">
-        </div>
-        <div class="maps">
-            <p>Местонахождение <br> наших филиалов</p>
-            <iframe class="iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2997.274333785335!2d69.3126030153602!3d41.302895279272064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38aef52099f9f365%3A0xfbd5b98a8fa2c648!2sIT%20Park%20Tashkent!5e0!3m2!1sru!2s!4v1657190133111!5m2!1sru!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </footer>
+<footer class="footer">
+    <div class="text-box">
+        <p>Наши контакты:</p>
+        <p>+998 (90) 234-00-00</p>
+        <p>+998 (99) 234-00-00</p>
+        <p>наша электронна почта;</p>
+        <p>vuerhoijw260@gmail.com</p>
+        <p>wruidtfyu555@gmail.com</p>
+    </div>
+    <div class="icon">
+        <p>Мы в соц.сетях:</p>
+        <img class="m0" src="{% static 'imgs/Instagram_logo_2016 1.png' %}" alt="">
+        <img src="{% static 'imgs/png-transparent-telegram-computer-icons-logo-android-angle-triangle-monochrome 1.png' %}"
+             alt=""">
+        <img src="{% static 'imgs/124010 1.png' %}" alt="">
+    </div>
+    <div class="maps">
+        <p>Местонахождение <br> наших филиалов</p>
+        <iframe class="iframe"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2997.274333785335!2d69.3126030153602!3d41.302895279272064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38aef52099f9f365%3A0xfbd5b98a8fa2c648!2sIT%20Park%20Tashkent!5e0!3m2!1sru!2s!4v1657190133111!5m2!1sru!2s"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</footer>
 </body>
 </html>

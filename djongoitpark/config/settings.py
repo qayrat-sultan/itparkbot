@@ -133,7 +133,7 @@ EXTRA_LANG_INFO = {
 
 LANG_INFO = dict(django.conf.locale.LANG_INFO, **EXTRA_LANG_INFO)
 django.conf.locale.LANG_INFO = LANG_INFO
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tashkent'
 
 LOCALE_PATHS = [
     BASE_DIR / 'locale/',
@@ -148,7 +148,7 @@ USE_TZ = True
 
 
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import DetailView
 
 from .models import ExternalLinks
@@ -18,7 +18,5 @@ class ExternalLinksView(DetailView):
     template_name = 'courses/index.html'
     context_object_name = 'external_links'
     slug_field = 'url'
-
-
 
 
